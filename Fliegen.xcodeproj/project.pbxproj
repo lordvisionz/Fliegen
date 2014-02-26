@@ -1,0 +1,479 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC4618BE8B7600BCE88E /* Cocoa.framework */; };
+		71EFAC5118BE8B7600BCE88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC4F18BE8B7600BCE88E /* InfoPlist.strings */; };
+		71EFAC5318BE8B7600BCE88E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EFAC5218BE8B7600BCE88E /* main.m */; };
+		71EFAC5718BE8B7600BCE88E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC5518BE8B7600BCE88E /* Credits.rtf */; };
+		71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EFAC5918BE8B7600BCE88E /* AppDelegate.m */; };
+		71EFAC5D18BE8B7600BCE88E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC5B18BE8B7600BCE88E /* MainMenu.xib */; };
+		71EFAC5F18BE8B7600BCE88E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC5E18BE8B7600BCE88E /* Images.xcassets */; };
+		71EFAC6618BE8B7600BCE88E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC6518BE8B7600BCE88E /* XCTest.framework */; };
+		71EFAC6718BE8B7600BCE88E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC4618BE8B7600BCE88E /* Cocoa.framework */; };
+		71EFAC6F18BE8B7600BCE88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC6D18BE8B7600BCE88E /* InfoPlist.strings */; };
+		71EFAC7118BE8B7600BCE88E /* FliegenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EFAC7018BE8B7600BCE88E /* FliegenTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		71EFAC6818BE8B7600BCE88E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71EFAC3B18BE8B7600BCE88E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 71EFAC4218BE8B7600BCE88E;
+			remoteInfo = Fliegen;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		71EFAC4318BE8B7600BCE88E /* Fliegen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fliegen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		71EFAC4618BE8B7600BCE88E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		71EFAC4918BE8B7600BCE88E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		71EFAC4A18BE8B7600BCE88E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		71EFAC4B18BE8B7600BCE88E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		71EFAC4E18BE8B7600BCE88E /* Fliegen-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Fliegen-Info.plist"; sourceTree = "<group>"; };
+		71EFAC5018BE8B7600BCE88E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		71EFAC5218BE8B7600BCE88E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		71EFAC5418BE8B7600BCE88E /* Fliegen-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fliegen-Prefix.pch"; sourceTree = "<group>"; };
+		71EFAC5618BE8B7600BCE88E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		71EFAC5818BE8B7600BCE88E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		71EFAC5918BE8B7600BCE88E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		71EFAC5C18BE8B7600BCE88E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		71EFAC5E18BE8B7600BCE88E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		71EFAC6418BE8B7600BCE88E /* FliegenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FliegenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71EFAC6518BE8B7600BCE88E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		71EFAC6C18BE8B7600BCE88E /* FliegenTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FliegenTests-Info.plist"; sourceTree = "<group>"; };
+		71EFAC6E18BE8B7600BCE88E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		71EFAC7018BE8B7600BCE88E /* FliegenTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FliegenTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		71EFAC4018BE8B7600BCE88E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71EFAC6118BE8B7600BCE88E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71EFAC6718BE8B7600BCE88E /* Cocoa.framework in Frameworks */,
+				71EFAC6618BE8B7600BCE88E /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		71EFAC3A18BE8B7600BCE88E = {
+			isa = PBXGroup;
+			children = (
+				71EFAC4C18BE8B7600BCE88E /* Fliegen */,
+				71EFAC6A18BE8B7600BCE88E /* FliegenTests */,
+				71EFAC4518BE8B7600BCE88E /* Frameworks */,
+				71EFAC4418BE8B7600BCE88E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		71EFAC4418BE8B7600BCE88E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				71EFAC4318BE8B7600BCE88E /* Fliegen.app */,
+				71EFAC6418BE8B7600BCE88E /* FliegenTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		71EFAC4518BE8B7600BCE88E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				71EFAC4618BE8B7600BCE88E /* Cocoa.framework */,
+				71EFAC6518BE8B7600BCE88E /* XCTest.framework */,
+				71EFAC4818BE8B7600BCE88E /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		71EFAC4818BE8B7600BCE88E /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				71EFAC4918BE8B7600BCE88E /* AppKit.framework */,
+				71EFAC4A18BE8B7600BCE88E /* CoreData.framework */,
+				71EFAC4B18BE8B7600BCE88E /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		71EFAC4C18BE8B7600BCE88E /* Fliegen */ = {
+			isa = PBXGroup;
+			children = (
+				71EFAC5818BE8B7600BCE88E /* AppDelegate.h */,
+				71EFAC5918BE8B7600BCE88E /* AppDelegate.m */,
+				71EFAC5B18BE8B7600BCE88E /* MainMenu.xib */,
+				71EFAC5E18BE8B7600BCE88E /* Images.xcassets */,
+				71EFAC4D18BE8B7600BCE88E /* Supporting Files */,
+			);
+			path = Fliegen;
+			sourceTree = "<group>";
+		};
+		71EFAC4D18BE8B7600BCE88E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				71EFAC4E18BE8B7600BCE88E /* Fliegen-Info.plist */,
+				71EFAC4F18BE8B7600BCE88E /* InfoPlist.strings */,
+				71EFAC5218BE8B7600BCE88E /* main.m */,
+				71EFAC5418BE8B7600BCE88E /* Fliegen-Prefix.pch */,
+				71EFAC5518BE8B7600BCE88E /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		71EFAC6A18BE8B7600BCE88E /* FliegenTests */ = {
+			isa = PBXGroup;
+			children = (
+				71EFAC7018BE8B7600BCE88E /* FliegenTests.m */,
+				71EFAC6B18BE8B7600BCE88E /* Supporting Files */,
+			);
+			path = FliegenTests;
+			sourceTree = "<group>";
+		};
+		71EFAC6B18BE8B7600BCE88E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				71EFAC6C18BE8B7600BCE88E /* FliegenTests-Info.plist */,
+				71EFAC6D18BE8B7600BCE88E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		71EFAC4218BE8B7600BCE88E /* Fliegen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71EFAC7418BE8B7600BCE88E /* Build configuration list for PBXNativeTarget "Fliegen" */;
+			buildPhases = (
+				71EFAC3F18BE8B7600BCE88E /* Sources */,
+				71EFAC4018BE8B7600BCE88E /* Frameworks */,
+				71EFAC4118BE8B7600BCE88E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fliegen;
+			productName = Fliegen;
+			productReference = 71EFAC4318BE8B7600BCE88E /* Fliegen.app */;
+			productType = "com.apple.product-type.application";
+		};
+		71EFAC6318BE8B7600BCE88E /* FliegenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71EFAC7718BE8B7600BCE88E /* Build configuration list for PBXNativeTarget "FliegenTests" */;
+			buildPhases = (
+				71EFAC6018BE8B7600BCE88E /* Sources */,
+				71EFAC6118BE8B7600BCE88E /* Frameworks */,
+				71EFAC6218BE8B7600BCE88E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71EFAC6918BE8B7600BCE88E /* PBXTargetDependency */,
+			);
+			name = FliegenTests;
+			productName = FliegenTests;
+			productReference = 71EFAC6418BE8B7600BCE88E /* FliegenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		71EFAC3B18BE8B7600BCE88E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Abhishek Moothedath";
+				TargetAttributes = {
+					71EFAC6318BE8B7600BCE88E = {
+						TestTargetID = 71EFAC4218BE8B7600BCE88E;
+					};
+				};
+			};
+			buildConfigurationList = 71EFAC3E18BE8B7600BCE88E /* Build configuration list for PBXProject "Fliegen" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 71EFAC3A18BE8B7600BCE88E;
+			productRefGroup = 71EFAC4418BE8B7600BCE88E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				71EFAC4218BE8B7600BCE88E /* Fliegen */,
+				71EFAC6318BE8B7600BCE88E /* FliegenTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		71EFAC4118BE8B7600BCE88E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71EFAC5118BE8B7600BCE88E /* InfoPlist.strings in Resources */,
+				71EFAC5F18BE8B7600BCE88E /* Images.xcassets in Resources */,
+				71EFAC5718BE8B7600BCE88E /* Credits.rtf in Resources */,
+				71EFAC5D18BE8B7600BCE88E /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71EFAC6218BE8B7600BCE88E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71EFAC6F18BE8B7600BCE88E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		71EFAC3F18BE8B7600BCE88E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */,
+				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71EFAC6018BE8B7600BCE88E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71EFAC7118BE8B7600BCE88E /* FliegenTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		71EFAC6918BE8B7600BCE88E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 71EFAC4218BE8B7600BCE88E /* Fliegen */;
+			targetProxy = 71EFAC6818BE8B7600BCE88E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		71EFAC4F18BE8B7600BCE88E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				71EFAC5018BE8B7600BCE88E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		71EFAC5518BE8B7600BCE88E /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				71EFAC5618BE8B7600BCE88E /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		71EFAC5B18BE8B7600BCE88E /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				71EFAC5C18BE8B7600BCE88E /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		71EFAC6D18BE8B7600BCE88E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				71EFAC6E18BE8B7600BCE88E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		71EFAC7218BE8B7600BCE88E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		71EFAC7318BE8B7600BCE88E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		71EFAC7518BE8B7600BCE88E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Fliegen/Fliegen-Prefix.pch";
+				INFOPLIST_FILE = "Fliegen/Fliegen-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		71EFAC7618BE8B7600BCE88E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Fliegen/Fliegen-Prefix.pch";
+				INFOPLIST_FILE = "Fliegen/Fliegen-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		71EFAC7818BE8B7600BCE88E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Fliegen.app/Contents/MacOS/Fliegen";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Fliegen/Fliegen-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "FliegenTests/FliegenTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		71EFAC7918BE8B7600BCE88E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Fliegen.app/Contents/MacOS/Fliegen";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Fliegen/Fliegen-Prefix.pch";
+				INFOPLIST_FILE = "FliegenTests/FliegenTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		71EFAC3E18BE8B7600BCE88E /* Build configuration list for PBXProject "Fliegen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71EFAC7218BE8B7600BCE88E /* Debug */,
+				71EFAC7318BE8B7600BCE88E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71EFAC7418BE8B7600BCE88E /* Build configuration list for PBXNativeTarget "Fliegen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71EFAC7518BE8B7600BCE88E /* Debug */,
+				71EFAC7618BE8B7600BCE88E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		71EFAC7718BE8B7600BCE88E /* Build configuration list for PBXNativeTarget "FliegenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71EFAC7818BE8B7600BCE88E /* Debug */,
+				71EFAC7918BE8B7600BCE88E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 71EFAC3B18BE8B7600BCE88E /* Project object */;
+}
