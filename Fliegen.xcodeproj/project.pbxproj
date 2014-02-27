@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE52C18C00707001E05EF /* FLAnchorPoint.m */; };
+		7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2718BE9154002A34E6 /* QuartzCore.framework */; };
+		7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2918BE915C002A34E6 /* SceneKit.framework */; };
+		7192EF2D18BEC496002A34E6 /* run.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2C18BEC496002A34E6 /* run.dae */; };
+		7192EF2F18C00105002A34E6 /* Pokeball.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2E18C00105002A34E6 /* Pokeball.dae */; };
 		71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC4618BE8B7600BCE88E /* Cocoa.framework */; };
 		71EFAC5118BE8B7600BCE88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC4F18BE8B7600BCE88E /* InfoPlist.strings */; };
 		71EFAC5318BE8B7600BCE88E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EFAC5218BE8B7600BCE88E /* main.m */; };
@@ -31,6 +36,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		713FE52B18C00707001E05EF /* FLAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPoint.h; sourceTree = "<group>"; };
+		713FE52C18C00707001E05EF /* FLAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPoint.m; sourceTree = "<group>"; };
+		7192EF2718BE9154002A34E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		7192EF2C18BEC496002A34E6 /* run.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = run.dae; sourceTree = "<group>"; };
+		7192EF2E18C00105002A34E6 /* Pokeball.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Pokeball.dae; sourceTree = "<group>"; };
 		71EFAC4318BE8B7600BCE88E /* Fliegen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fliegen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EFAC4618BE8B7600BCE88E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		71EFAC4918BE8B7600BCE88E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -57,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */,
+				7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */,
 				71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7192EF2B18BEC496002A34E6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7192EF2E18C00105002A34E6 /* Pokeball.dae */,
+				7192EF2C18BEC496002A34E6 /* run.dae */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		71EFAC3A18BE8B7600BCE88E = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +117,8 @@
 		71EFAC4518BE8B7600BCE88E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7192EF2918BE915C002A34E6 /* SceneKit.framework */,
+				7192EF2718BE9154002A34E6 /* QuartzCore.framework */,
 				71EFAC4618BE8B7600BCE88E /* Cocoa.framework */,
 				71EFAC6518BE8B7600BCE88E /* XCTest.framework */,
 				71EFAC4818BE8B7600BCE88E /* Other Frameworks */,
@@ -120,6 +144,9 @@
 				71EFAC5B18BE8B7600BCE88E /* MainMenu.xib */,
 				71EFAC5E18BE8B7600BCE88E /* Images.xcassets */,
 				71EFAC4D18BE8B7600BCE88E /* Supporting Files */,
+				7192EF2B18BEC496002A34E6 /* Resources */,
+				713FE52B18C00707001E05EF /* FLAnchorPoint.h */,
+				713FE52C18C00707001E05EF /* FLAnchorPoint.m */,
 			);
 			path = Fliegen;
 			sourceTree = "<group>";
@@ -232,7 +259,9 @@
 			files = (
 				71EFAC5118BE8B7600BCE88E /* InfoPlist.strings in Resources */,
 				71EFAC5F18BE8B7600BCE88E /* Images.xcassets in Resources */,
+				7192EF2D18BEC496002A34E6 /* run.dae in Resources */,
 				71EFAC5718BE8B7600BCE88E /* Credits.rtf in Resources */,
+				7192EF2F18C00105002A34E6 /* Pokeball.dae in Resources */,
 				71EFAC5D18BE8B7600BCE88E /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */,
+				713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +494,7 @@
 				71EFAC7618BE8B7600BCE88E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		71EFAC7718BE8B7600BCE88E /* Build configuration list for PBXNativeTarget "FliegenTests" */ = {
 			isa = XCConfigurationList;
@@ -472,6 +503,7 @@
 				71EFAC7918BE8B7600BCE88E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
