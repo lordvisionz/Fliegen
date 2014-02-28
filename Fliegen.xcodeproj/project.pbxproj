@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE52C18C00707001E05EF /* FLAnchorPoint.m */; };
+		713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53A18C019D0001E05EF /* FLAppFrameController.m */; };
+		713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */; };
 		7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2718BE9154002A34E6 /* QuartzCore.framework */; };
 		7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2918BE915C002A34E6 /* SceneKit.framework */; };
 		7192EF2D18BEC496002A34E6 /* run.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2C18BEC496002A34E6 /* run.dae */; };
@@ -38,6 +40,10 @@
 /* Begin PBXFileReference section */
 		713FE52B18C00707001E05EF /* FLAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPoint.h; sourceTree = "<group>"; };
 		713FE52C18C00707001E05EF /* FLAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPoint.m; sourceTree = "<group>"; };
+		713FE53918C019D0001E05EF /* FLAppFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAppFrameController.h; sourceTree = "<group>"; };
+		713FE53A18C019D0001E05EF /* FLAppFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAppFrameController.m; sourceTree = "<group>"; };
+		713FE53E18C057DF001E05EF /* FLUtilityPaneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUtilityPaneController.h; sourceTree = "<group>"; };
+		713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneController.m; sourceTree = "<group>"; };
 		7192EF2718BE9154002A34E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		7192EF2C18BEC496002A34E6 /* run.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = run.dae; sourceTree = "<group>"; };
@@ -86,6 +92,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		713FE53318C01871001E05EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				713FE52B18C00707001E05EF /* FLAnchorPoint.h */,
+				713FE52C18C00707001E05EF /* FLAnchorPoint.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		713FE53418C01878001E05EF /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		713FE53518C0187E001E05EF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				713FE53918C019D0001E05EF /* FLAppFrameController.h */,
+				713FE53A18C019D0001E05EF /* FLAppFrameController.m */,
+				713FE53E18C057DF001E05EF /* FLUtilityPaneController.h */,
+				713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		7192EF2B18BEC496002A34E6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,14 +172,15 @@
 		71EFAC4C18BE8B7600BCE88E /* Fliegen */ = {
 			isa = PBXGroup;
 			children = (
+				713FE53518C0187E001E05EF /* Controller */,
+				713FE53418C01878001E05EF /* View */,
+				713FE53318C01871001E05EF /* Model */,
 				71EFAC5818BE8B7600BCE88E /* AppDelegate.h */,
 				71EFAC5918BE8B7600BCE88E /* AppDelegate.m */,
 				71EFAC5B18BE8B7600BCE88E /* MainMenu.xib */,
 				71EFAC5E18BE8B7600BCE88E /* Images.xcassets */,
 				71EFAC4D18BE8B7600BCE88E /* Supporting Files */,
 				7192EF2B18BEC496002A34E6 /* Resources */,
-				713FE52B18C00707001E05EF /* FLAnchorPoint.h */,
-				713FE52C18C00707001E05EF /* FLAnchorPoint.m */,
 			);
 			path = Fliegen;
 			sourceTree = "<group>";
@@ -281,9 +315,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */,
 				71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */,
 				713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
+				713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

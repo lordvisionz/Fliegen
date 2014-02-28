@@ -9,10 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import <SceneKit/SceneKit.h>
 
+#import "FLUtilityPaneController.h"
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 
 @property (weak) IBOutlet SCNView *freeFloatingScene;
+
+@property (unsafe_unretained) IBOutlet FLUtilityPaneController *utilityPaneController;
 
 @end

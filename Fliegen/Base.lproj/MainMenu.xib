@@ -650,26 +650,227 @@
         <window title="Fliegen" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="826" height="648"/>
+            <rect key="contentRect" x="335" y="390" width="1000" height="800"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <value key="minSize" type="size" width="826" height="648"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="826" height="648"/>
+                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <sceneView placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="360" sceneName="Pokeball.dae" loops="YES" playing="YES" jitteringEnabled="YES" allowsCameraControl="YES" id="OrN-Ou-AMv">
-                        <rect key="frame" x="0.0" y="0.0" width="826" height="565"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </sceneView>
+                    <splitView dividerStyle="thin" vertical="YES" id="xok-CF-2qg">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <sceneView placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="360" sceneName="Pokeball.dae" loops="YES" playing="YES" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv">
+                                <rect key="frame" x="0.0" y="0.0" width="751" height="800"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </sceneView>
+                            <customView id="fx3-cY-JRM">
+                                <rect key="frame" x="752" y="0.0" width="248" height="800"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <customView id="qUb-ui-Ofg">
+                                        <rect key="frame" x="0.0" y="0.0" width="248" height="780"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </customView>
+                                    <box autoresizesSubviews="NO" verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="x5e-8h-osZ">
+                                        <rect key="frame" x="0.0" y="777" width="248" height="121"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <font key="titleFont" metaFont="system"/>
+                                    </box>
+                                    <segmentedControl verticalHuggingPriority="750" id="xpf-8J-lIa">
+                                        <rect key="frame" x="0.0" y="778" width="269" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                        <segmentedCell key="cell" alignment="left" style="smallSquare" trackingMode="selectOne" id="VD4-1r-Ucs">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment image="NSActionTemplate" imageScaling="none" selected="YES">
+                                                    <nil key="label"/>
+                                                </segment>
+                                                <segment image="NSColumnViewTemplate" imageScaling="none" tag="1">
+                                                    <nil key="label"/>
+                                                </segment>
+                                                <segment imageScaling="none" width="184" enabled="NO">
+                                                    <nil key="label"/>
+                                                </segment>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="toggleUtilityView:" target="Ld4-kg-GYh" id="pTl-b7-CRp"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                            </customView>
+                        </subviews>
+                        <holdingPriorities>
+                            <real value="250"/>
+                            <real value="250"/>
+                        </holdingPriorities>
+                    </splitView>
                 </subviews>
             </view>
+            <toolbar key="toolbar" implicitIdentifier="7993E336-A301-4966-AB87-CF7E1EBEF6F8" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="zFJ-pS-zw9">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="o01-II-AHt"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="ove-Xk-jCy"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="y3C-CJ-c7S"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="sG5-DV-YIi"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="NXc-rd-8yc"/>
+                    <toolbarItem implicitItemIdentifier="1CF56580-1E81-4C16-BCB6-4EED319A5D96" label="Properties" paletteLabel="Toolbar Item" tag="-1" image="NSBookmarksTemplate" selectable="YES" id="RlL-qg-iXG">
+                        <connections>
+                            <action selector="toggleUtilitiesPanel:" target="i3n-kY-zXf" id="5ea-gK-WpY"/>
+                        </connections>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="o01-II-AHt"/>
+                    <toolbarItem reference="ove-Xk-jCy"/>
+                    <toolbarItem reference="NXc-rd-8yc"/>
+                    <toolbarItem reference="RlL-qg-iXG"/>
+                </defaultToolbarItems>
+            </toolbar>
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
                 <outlet property="freeFloatingScene" destination="OrN-Ou-AMv" id="vAH-3U-O8y"/>
+                <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="WRr-Sn-0ZV"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
+        <customObject id="i3n-kY-zXf" customClass="FLAppFrameController">
+            <connections>
+                <outlet property="editorView" destination="OrN-Ou-AMv" id="H7p-kk-5vA"/>
+                <outlet property="splitView" destination="xok-CF-2qg" id="FN3-Ob-9Nu"/>
+                <outlet property="utilityPanel" destination="fx3-cY-JRM" id="mu2-zK-QqC"/>
+            </connections>
+        </customObject>
+        <customView id="WBT-Nu-aXc" userLabel="Anchor Points view">
+            <rect key="frame" x="0.0" y="0.0" width="228" height="780"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="n8z-Je-6LS">
+                    <rect key="frame" x="18" y="743" width="38" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="id:" id="61q-nW-9sS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="j8J-pv-JWU">
+                    <rect key="frame" x="142" y="743" width="38" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="1" id="LOk-ya-cLv">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="EOh-71-nXh">
+                    <rect key="frame" x="18" y="706" width="59" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Position:" id="IB2-Dt-mNc">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="crW-bj-Vmq">
+                    <rect key="frame" x="106" y="706" width="16" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x:" id="vh9-Iu-eiJ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="3mI-8d-Keb">
+                    <rect key="frame" x="142" y="706" width="16" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="y:" id="3D9-xS-LnS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="1x2-dg-XbD">
+                    <rect key="frame" x="177" y="705" width="16" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="z:" id="Oq3-hj-4gz">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="gsR-XV-fka">
+                    <rect key="frame" x="120" y="703" width="22" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="8cf-5o-xXm">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="3" id="oaJ-F9-DsR">
+                            <real key="roundingIncrement" value="0.0"/>
+                            <metadata>
+                                <bool key="localizesFormat" value="YES"/>
+                            </metadata>
+                        </numberFormatter>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="an2-AO-arU">
+                    <rect key="frame" x="156" y="703" width="22" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="c9U-Gf-XX4">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="3" id="ph9-nb-8NE">
+                            <real key="roundingIncrement" value="0.0"/>
+                            <metadata>
+                                <bool key="localizesFormat" value="YES"/>
+                            </metadata>
+                        </numberFormatter>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="LSh-un-Nz5">
+                    <rect key="frame" x="191" y="703" width="22" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="ayi-k4-9HW">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" minimumFractionDigits="0" maximumFractionDigits="3" id="xBX-6h-jcC">
+                            <real key="roundingIncrement" value="0.0"/>
+                            <metadata>
+                                <bool key="localizesFormat" value="YES"/>
+                            </metadata>
+                        </numberFormatter>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+        </customView>
+        <viewController id="Ld4-kg-GYh" customClass="FLUtilityPaneController">
+            <connections>
+                <outlet property="anchorPointsPane" destination="WBT-Nu-aXc" id="p21-Gn-rDk"/>
+                <outlet property="miscPane" destination="JQj-fu-jLb" id="v55-qn-FHb"/>
+                <outlet property="utilityPane" destination="fx3-cY-JRM" id="kvf-vq-xPj"/>
+                <outlet property="utilityPaneSegmentedControl" destination="xpf-8J-lIa" id="bWv-zq-DBI"/>
+                <outlet property="utilityViewPane" destination="qUb-ui-Ofg" id="cdn-pP-nxE"/>
+                <outlet property="view" destination="fx3-cY-JRM" id="Kla-Mr-0RB"/>
+            </connections>
+        </viewController>
+        <customView id="JQj-fu-jLb" userLabel="Misc View">
+            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        </customView>
     </objects>
+    <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="NSBookmarksTemplate" width="17" height="12"/>
+        <image name="NSColumnViewTemplate" width="13" height="10"/>
+    </resources>
 </document>

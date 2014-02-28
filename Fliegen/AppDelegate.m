@@ -12,6 +12,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    [_utilityPaneController didFinishLaunching];
     // Insert code here to initialize your application
     // making changes from xcode to commit
 }
