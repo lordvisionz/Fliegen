@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
         <plugIn identifier="com.apple.SceneKitIBPlugin" version="3338"/>
@@ -661,7 +661,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <sceneView placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="360" sceneName="Pokeball.dae" loops="YES" playing="YES" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv">
+                            <sceneView placeholderIntrinsicWidth="480" placeholderIntrinsicHeight="360" sceneName="Pokeball.dae" loops="YES" playing="YES" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv" customClass="FLSceneView">
                                 <rect key="frame" x="0.0" y="0.0" width="751" height="800"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -699,7 +699,7 @@
                                             </segments>
                                         </segmentedCell>
                                         <connections>
-                                            <action selector="toggleUtilityView:" target="Ld4-kg-GYh" id="pTl-b7-CRp"/>
+                                            <action selector="switchUtilityPaneTab:" target="Ld4-kg-GYh" id="FrS-i4-76a"/>
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
@@ -735,6 +735,7 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="anchorPointsViewController" destination="16d-AC-vuq" id="9tV-kE-3ND"/>
                 <outlet property="freeFloatingScene" destination="OrN-Ou-AMv" id="vAH-3U-O8y"/>
                 <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="WRr-Sn-0ZV"/>
                 <outlet property="window" destination="371" id="532"/>
@@ -867,6 +868,11 @@
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
         </customView>
+        <viewController id="16d-AC-vuq" customClass="FLAnchorPointsViewController">
+            <connections>
+                <outlet property="view" destination="OrN-Ou-AMv" id="Xzh-bo-T26"/>
+            </connections>
+        </viewController>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>

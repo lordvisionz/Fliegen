@@ -4,8 +4,8 @@
   <contributor>
    <authoring_tool>SceneKit Collada Exporter v1.0</authoring_tool>
   </contributor>
-  <created>2014-02-27T23:31:56Z</created>
-  <modified>2014-02-27T23:31:56Z</modified>
+  <created>2014-03-27T20:38:36Z</created>
+  <modified>2014-03-27T20:38:36Z</modified>
   <up_axis>Y_UP</up_axis>
  </asset>
  <library_lights>
@@ -493,7 +493,7 @@
  </library_geometries>
  <library_visual_scenes>
   <visual_scene id="scene24">
-   <node id="ID23" name="Array">
+   <node id="ID23" name="LightArray">
     <matrix>1 0 0 0 0 1 0 500 0 0 1 0 0 0 0 1 </matrix>
     <node id="ID24" name="Light_8">
      <matrix>1 0 0 0 0 1 0 0 0 0 1 -1000 0 0 0 1 </matrix>
@@ -528,10 +528,10 @@
      <instance_light url="#ID39"/>
     </node>
    </node>
-   <node id="ID42" name="Null">
-    <matrix>1 0 0 0 0 1 0 0 0 0 1 11.4704 0 0 0 1 </matrix>
+   <node id="ID42" name="pokeball">
+    <matrix>0.25 0 0 0 0 0.25 0 0 0 0 0.25 -30 0 0 0 1 </matrix>
     <node id="ID43" name="Cylinder">
-     <matrix>1 0 0 0 0 1.596501e-16 -1 0 0 0.719 2.220446e-16 15.5888 0 0 0 1 </matrix>
+     <matrix>1 0 0 0 0 1.596501e-16 -1 0 0 0.719 2.220446e-16 15.589 0 0 0 1 </matrix>
      <instance_geometry url="#ID44">
       <bind_material>
        <technique_common>

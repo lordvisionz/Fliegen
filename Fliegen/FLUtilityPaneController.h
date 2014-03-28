@@ -15,7 +15,7 @@
 @property (weak) IBOutlet NSView *miscPane;
 @property (weak) IBOutlet NSView *utilityViewPane;
 
-- (IBAction)toggleUtilityView:(id)sender;
+- (IBAction)switchUtilityPaneTab:(id)sender;
 
 -(void)didFinishLaunching;
 

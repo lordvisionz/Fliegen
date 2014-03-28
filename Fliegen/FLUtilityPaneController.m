@@ -35,9 +35,7 @@
     [_utilityViewPane addSubview:_anchorPointsPane];
 }
 
-
-
-- (IBAction)toggleUtilityView:(id)sender
+- (IBAction)switchUtilityPaneTab:(id)sender
 {
     NSUInteger selectedSegment = _utilityPaneSegmentedControl.selectedSegment;
     if(selectedSegment == 0)
@@ -53,4 +51,5 @@
     
     [self.view setNeedsDisplay:YES];
 }
+
 @end

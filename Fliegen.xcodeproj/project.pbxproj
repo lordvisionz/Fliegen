@@ -14,6 +14,8 @@
 		7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2918BE915C002A34E6 /* SceneKit.framework */; };
 		7192EF2D18BEC496002A34E6 /* run.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2C18BEC496002A34E6 /* run.dae */; };
 		7192EF2F18C00105002A34E6 /* Pokeball.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2E18C00105002A34E6 /* Pokeball.dae */; };
+		71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58318C3E3CC00788605 /* FLSceneView.m */; };
+		71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58618C3EACB00788605 /* FLSceneViewController.m */; };
 		71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC4618BE8B7600BCE88E /* Cocoa.framework */; };
 		71EFAC5118BE8B7600BCE88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC4F18BE8B7600BCE88E /* InfoPlist.strings */; };
 		71EFAC5318BE8B7600BCE88E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EFAC5218BE8B7600BCE88E /* main.m */; };
@@ -25,6 +27,7 @@
 		71EFAC6718BE8B7600BCE88E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC4618BE8B7600BCE88E /* Cocoa.framework */; };
 		71EFAC6F18BE8B7600BCE88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC6D18BE8B7600BCE88E /* InfoPlist.strings */; };
 		71EFAC7118BE8B7600BCE88E /* FliegenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EFAC7018BE8B7600BCE88E /* FliegenTests.m */; };
+		71F8058818E4A52600EF22C7 /* SCNNode+FLAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 71F8058718E4A52600EF22C7 /* SCNNode+FLAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,10 @@
 		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		7192EF2C18BEC496002A34E6 /* run.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = run.dae; sourceTree = "<group>"; };
 		7192EF2E18C00105002A34E6 /* Pokeball.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Pokeball.dae; sourceTree = "<group>"; };
+		71A9B58218C3E3CC00788605 /* FLSceneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneView.h; sourceTree = "<group>"; };
+		71A9B58318C3E3CC00788605 /* FLSceneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSceneView.m; sourceTree = "<group>"; };
+		71A9B58518C3EACB00788605 /* FLSceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneViewController.h; sourceTree = "<group>"; };
+		71A9B58618C3EACB00788605 /* FLSceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSceneViewController.m; sourceTree = "<group>"; };
 		71EFAC4318BE8B7600BCE88E /* Fliegen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fliegen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EFAC4618BE8B7600BCE88E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		71EFAC4918BE8B7600BCE88E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -67,6 +74,8 @@
 		71EFAC6C18BE8B7600BCE88E /* FliegenTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FliegenTests-Info.plist"; sourceTree = "<group>"; };
 		71EFAC6E18BE8B7600BCE88E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		71EFAC7018BE8B7600BCE88E /* FliegenTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FliegenTests.m; sourceTree = "<group>"; };
+		71F8058618E4A52600EF22C7 /* SCNNode+FLAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SCNNode+FLAdditions.h"; sourceTree = "<group>"; };
+		71F8058718E4A52600EF22C7 /* SCNNode+FLAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SCNNode+FLAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +113,8 @@
 		713FE53418C01878001E05EF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				71A9B58218C3E3CC00788605 /* FLSceneView.h */,
+				71A9B58318C3E3CC00788605 /* FLSceneView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -115,6 +126,8 @@
 				713FE53A18C019D0001E05EF /* FLAppFrameController.m */,
 				713FE53E18C057DF001E05EF /* FLUtilityPaneController.h */,
 				713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */,
+				71A9B58518C3EACB00788605 /* FLSceneViewController.h */,
+				71A9B58618C3EACB00788605 /* FLSceneViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -175,6 +188,8 @@
 				713FE53518C0187E001E05EF /* Controller */,
 				713FE53418C01878001E05EF /* View */,
 				713FE53318C01871001E05EF /* Model */,
+				71F8058618E4A52600EF22C7 /* SCNNode+FLAdditions.h */,
+				71F8058718E4A52600EF22C7 /* SCNNode+FLAdditions.m */,
 				71EFAC5818BE8B7600BCE88E /* AppDelegate.h */,
 				71EFAC5918BE8B7600BCE88E /* AppDelegate.m */,
 				71EFAC5B18BE8B7600BCE88E /* MainMenu.xib */,
@@ -318,8 +333,11 @@
 				713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */,
 				71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */,
 				713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */,
+				71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
 				713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */,
+				71F8058818E4A52600EF22C7 /* SCNNode+FLAdditions.m in Sources */,
+				71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
