@@ -868,7 +868,7 @@
             <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
         </customView>
-        <viewController id="16d-AC-vuq" customClass="FLAnchorPointsViewController">
+        <viewController id="16d-AC-vuq" customClass="FLSceneViewController">
             <connections>
                 <outlet property="view" destination="OrN-Ou-AMv" id="Xzh-bo-T26"/>
             </connections>
