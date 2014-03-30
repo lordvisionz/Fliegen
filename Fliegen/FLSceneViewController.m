@@ -9,6 +9,9 @@
 #import "FLSceneViewController.h"
 
 #import "FLAnchorPoint.h"
+#import "FLAnchorPointsCollection.h"
+#import "FLAnchorPointView.h"
+
 #import "FLSceneView.h"
 
 #import <SceneKit/SceneKit.h>
@@ -51,7 +54,7 @@
 
 -(void) initialize
 {
-    anchorPoints = [[NSMutableArray alloc]init];
+
 
 }
 
@@ -113,37 +116,41 @@
 -(void)pushAnchorPoint
 {
     FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]init];
-    [anchorPoint setAnchorPointID:(anchorPoints.count + 1)];
     SCNVector3 lookAt = SCNVector3Make(0, 0, 0);
     [anchorPoint setLookAt:lookAt];
     
     SCNScene *scene = self.sceneView.scene;
-    SCNNode *rootNode = scene.rootNode;
+//    SCNNode *rootNode = scene.rootNode;
     
-    SCNSphere *sphere = [SCNSphere sphereWithRadius:1];
-    SCNMaterial *material = [SCNMaterial material];
-    material.diffuse.contents = [NSColor blackColor];
-    [sphere setFirstMaterial:material];
+//    SCNSphere *sphere = [SCNSphere sphereWithRadius:1];
+//    SCNMaterial *material = [SCNMaterial material];
+//    material.diffuse.contents = [NSColor blackColor];
+//    [sphere setFirstMaterial:material];
 
     
     NSArray *result = [self.sceneView hitTest:lastClickedPoint options:nil];
     SCNHitTestResult *hitResult = [result objectAtIndex:0];
     SCNVector3 localPoint = hitResult.localCoordinates;
-    SCNVector3 worldPoint = hitResult.worldCoordinates;
-    SCNVector3 localNormal = hitResult.localNormal;
-    SCNVector3 worldNormal = hitResult.worldNormal;
+//    SCNVector3 worldPoint = hitResult.worldCoordinates;
+//    SCNVector3 localNormal = hitResult.localNormal;
+//    SCNVector3 worldNormal = hitResult.worldNormal;
     
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
     
-    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
+//    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
 //    [sphereNode setRotation:rotation];
 
     CATransform3D transform = CATransform3DMakeRotation( rotation.w, rotation.x, rotation.y, rotation.z);
         CATransform3D translate = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
-    [sphereNode setTransform:translate];
-    [self.sceneView.scene.rootNode addChildNode:sphereNode];
+//    [sphereNode setTransform:translate];
+//    [self.sceneView.scene.rootNode addChildNode:sphereNode];
     
-
+    SCNVector3 position = SCNVector3Make(translate.m41, translate.m42, translate.m43);
+    [anchorPoint setPosition:position];
+    
+    FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc] initWithAnchorPoint:anchorPoint withTransform:translate];
+    [self.sceneView.scene.rootNode addChildNode:anchorPointView];
+    
 }
 
 // 1) Find approximate position of click point
@@ -203,6 +210,28 @@
 ////    NSPoint point = NSMakePoint(transformedPoint.x, <#CGFloat y#>)
 //    NSLog(@"Sdfsd");
 //}
+
+-(void)mouseDown:(NSEvent *)theEvent
+{
+    NSPoint pointInSelf = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
+    
+    NSArray *hitItems = [self.sceneView hitTest:pointInSelf options:nil];
+    
+    if(hitItems.count == 0) return;
+    
+    SCNHitTestResult *firstHitItem = [hitItems objectAtIndex:0];
+    
+    if([firstHitItem.node isKindOfClass:[FLAnchorPointView class]] == NO) return;
+    
+    FLAnchorPointView *anchorPoint = (FLAnchorPointView*)firstHitItem.node;
+    
+    SCNNode * handlesNode =[anchorPoint setSelectionHandlesForRootNode:self.sceneView.scene.rootNode];
+    [anchorPointsCollection setSelectedAnchorPointID:anchorPoint.anchorPointModel.anchorPointID];
+
+    [self.sceneView.scene.rootNode addChildNode:handlesNode];
+    
+    [self.view.superview mouseDown:theEvent];
+}
 
 -(void)rightMouseDown:(NSEvent *)theEvent
 {

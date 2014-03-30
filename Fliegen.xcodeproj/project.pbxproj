@@ -11,6 +11,8 @@
 		713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53A18C019D0001E05EF /* FLAppFrameController.m */; };
 		713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */; };
 		717CBE8118E666B100D9CBEB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717CBE8018E666B100D9CBEB /* GLKit.framework */; };
+		717CBE8718E7AE2E00D9CBEB /* FLAnchorPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */; };
+		717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */; };
 		7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2718BE9154002A34E6 /* QuartzCore.framework */; };
 		7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2918BE915C002A34E6 /* SceneKit.framework */; };
 		7192EF2D18BEC496002A34E6 /* run.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2C18BEC496002A34E6 /* run.dae */; };
@@ -49,6 +51,10 @@
 		713FE53E18C057DF001E05EF /* FLUtilityPaneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUtilityPaneController.h; sourceTree = "<group>"; };
 		713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneController.m; sourceTree = "<group>"; };
 		717CBE8018E666B100D9CBEB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		717CBE8518E7AE2E00D9CBEB /* FLAnchorPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointView.h; sourceTree = "<group>"; };
+		717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPointView.m; sourceTree = "<group>"; };
+		717CBE8818E7BEE900D9CBEB /* FLAnchorPointsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointsCollection.h; sourceTree = "<group>"; };
+		717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPointsCollection.m; sourceTree = "<group>"; };
 		7192EF2718BE9154002A34E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		7192EF2C18BEC496002A34E6 /* run.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = run.dae; sourceTree = "<group>"; };
@@ -109,6 +115,8 @@
 			children = (
 				713FE52B18C00707001E05EF /* FLAnchorPoint.h */,
 				713FE52C18C00707001E05EF /* FLAnchorPoint.m */,
+				717CBE8818E7BEE900D9CBEB /* FLAnchorPointsCollection.h */,
+				717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -118,6 +126,8 @@
 			children = (
 				71A9B58218C3E3CC00788605 /* FLSceneView.h */,
 				71A9B58318C3E3CC00788605 /* FLSceneView.m */,
+				717CBE8518E7AE2E00D9CBEB /* FLAnchorPointView.h */,
+				717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -339,8 +349,10 @@
 				713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */,
 				71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
+				717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */,
 				713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */,
 				71F8058818E4A52600EF22C7 /* SCNNode+FLAdditions.m in Sources */,
+				717CBE8718E7AE2E00D9CBEB /* FLAnchorPointView.m in Sources */,
 				71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

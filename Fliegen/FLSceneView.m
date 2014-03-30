@@ -26,9 +26,12 @@
 	[super drawRect:dirtyRect];
 }
 
--(void)rightMouseDown:(NSEvent *)theEvent
+-(void)mouseDown:(NSEvent *)theEvent
 {
-    [super rightMouseDown:theEvent];
+    [self.nextResponder mouseDown:theEvent];
+    [super mouseDown:theEvent];
 }
+
+
 
 @end
