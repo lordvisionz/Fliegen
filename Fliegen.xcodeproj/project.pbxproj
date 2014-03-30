@@ -10,6 +10,7 @@
 		713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE52C18C00707001E05EF /* FLAnchorPoint.m */; };
 		713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53A18C019D0001E05EF /* FLAppFrameController.m */; };
 		713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */; };
+		717CBE8118E666B100D9CBEB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717CBE8018E666B100D9CBEB /* GLKit.framework */; };
 		7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2718BE9154002A34E6 /* QuartzCore.framework */; };
 		7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2918BE915C002A34E6 /* SceneKit.framework */; };
 		7192EF2D18BEC496002A34E6 /* run.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2C18BEC496002A34E6 /* run.dae */; };
@@ -47,6 +48,7 @@
 		713FE53A18C019D0001E05EF /* FLAppFrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAppFrameController.m; sourceTree = "<group>"; };
 		713FE53E18C057DF001E05EF /* FLUtilityPaneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUtilityPaneController.h; sourceTree = "<group>"; };
 		713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneController.m; sourceTree = "<group>"; };
+		717CBE8018E666B100D9CBEB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		7192EF2718BE9154002A34E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		7192EF2C18BEC496002A34E6 /* run.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = run.dae; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				717CBE8118E666B100D9CBEB /* GLKit.framework in Frameworks */,
 				7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */,
 				7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */,
 				71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */,
@@ -163,6 +166,7 @@
 		71EFAC4518BE8B7600BCE88E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				717CBE8018E666B100D9CBEB /* GLKit.framework */,
 				7192EF2918BE915C002A34E6 /* SceneKit.framework */,
 				7192EF2718BE9154002A34E6 /* QuartzCore.framework */,
 				71EFAC4618BE8B7600BCE88E /* Cocoa.framework */,

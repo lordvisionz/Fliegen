@@ -28,8 +28,6 @@
 
 -(void)rightMouseDown:(NSEvent *)theEvent
 {
-    NSLog(@"in scene view right click. super is %@", [super class]);
-//    [self setMenu:anchorPointsMenu];
     [super rightMouseDown:theEvent];
 }
 

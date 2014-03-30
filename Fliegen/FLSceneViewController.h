@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FLSceneViewController : NSViewController
+@interface FLSceneViewController : NSViewController<NSMenuDelegate>
 {
     NSMutableArray *anchorPoints;
 }
