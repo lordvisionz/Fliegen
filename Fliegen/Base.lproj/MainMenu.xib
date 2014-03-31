@@ -665,6 +665,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="751" height="800"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="controller" destination="16d-AC-vuq" id="6Qu-hi-Kpd"/>
+                                </connections>
                             </sceneView>
                             <customView id="fx3-cY-JRM">
                                 <rect key="frame" x="752" y="0.0" width="248" height="800"/>

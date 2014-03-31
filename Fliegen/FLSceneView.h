@@ -10,4 +10,8 @@
 
 @interface FLSceneView : SCNView
 
+
+
+@property (weak) IBOutlet NSViewController *controller;
+
 @end

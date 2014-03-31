@@ -13,13 +13,15 @@
 
 @interface FLAnchorPointView : SCNNode
 {
-//    FLAnchorPoint *_model;
+    SCNNode *_rootNode;
 }
 
 @property (readonly) FLAnchorPoint* anchorPointModel;
 
-- (id) initWithAnchorPoint:(FLAnchorPoint*)model withTransform:(CATransform3D)modelTransform;
+-(id)initWithAnchorPoint:(FLAnchorPoint *)model withRootNode:(SCNNode*)rootNode withTransform:(CATransform3D)modelTransform;
 
-- (SCNNode*)setSelectionHandlesForRootNode:(SCNNode*)rootNode;
+//- (SCNNode*)setSelectionHandlesForRootNode:(SCNNode*)rootNode;
+
+- (void)moveSelectionHandlesTo:(SCNVector3)worldPosition;
 
 @end

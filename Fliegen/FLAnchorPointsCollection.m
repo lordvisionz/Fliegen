@@ -15,6 +15,7 @@
 {
     self = [super init];
     _anchorPoints = [[NSMutableArray alloc]init];
+    _selectedAnchorPointID = NSNotFound;
     return self;
 }
 

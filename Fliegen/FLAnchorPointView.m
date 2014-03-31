@@ -10,10 +10,11 @@
 
 @implementation FLAnchorPointView
 
--(id)initWithAnchorPoint:(FLAnchorPoint *)model withTransform:(CATransform3D)modelTransform
+-(id)initWithAnchorPoint:(FLAnchorPoint *)model withRootNode:(SCNNode*)rootNode withTransform:(CATransform3D)modelTransform
 {
     self = [super init];
     _anchorPointModel = model;
+    _rootNode = rootNode;
     
     SCNCone *cone = [SCNCone coneWithTopRadius:.1 bottomRadius:1 height:2.5];
     SCNMaterial *material = [SCNMaterial material];
@@ -25,12 +26,18 @@
     return self;
 }
 
--(SCNNode*)setSelectionHandlesForRootNode:(SCNNode *)rootNode
+-(void)moveSelectionHandlesTo:(SCNVector3)worldPosition
+{
+    
+}
+
+-(void) setSelectionHandles
 {
     SCNNode *selectionNode = [SCNNode node];
     [selectionNode setName:@"selectionHandles"];
     SCNCylinder *xAxisRod = [SCNCylinder cylinderWithRadius:.1 height:4];
     SCNNode *xAxisRodNode = [SCNNode nodeWithGeometry:xAxisRod];
+    xAxisRodNode.name = @"xAxisTranslate";
     SCNMaterial *xAxisMaterial = [SCNMaterial material];
     xAxisMaterial.diffuse.contents = [NSColor greenColor];
     [xAxisRod setFirstMaterial:xAxisMaterial];
@@ -47,6 +54,7 @@
     
     SCNCone *xAxisCone = [SCNCone coneWithTopRadius:0 bottomRadius:.5 height:2];
     SCNNode *xAxisConeNode = [SCNNode nodeWithGeometry:xAxisCone];
+    xAxisConeNode.name = @"xAxisTranslate";
     [xAxisCone setFirstMaterial:xAxisMaterial];
     [xAxisConeNode setPosition:SCNVector3Make(0, 2, 0)];
     [xAxisRodNode addChildNode:xAxisConeNode];
@@ -55,6 +63,7 @@
     
     SCNCylinder *yAxisRod = [SCNCylinder cylinderWithRadius:.1 height:4];
     SCNNode *yAxisRodNode = [SCNNode nodeWithGeometry:yAxisRod];
+    yAxisRodNode.name = @"yAxisTranslate";
     SCNMaterial *yAxisMaterial = [SCNMaterial material];
     yAxisMaterial.diffuse.contents = [NSColor blueColor];
     [yAxisRod setFirstMaterial:yAxisMaterial];
@@ -66,6 +75,7 @@
     
     SCNCone *yAxisCone = [SCNCone coneWithTopRadius:0 bottomRadius:.5 height:2];
     SCNNode *yAxisConeNode = [SCNNode nodeWithGeometry:yAxisCone];
+    yAxisConeNode.name = @"yAxisTranslate";
     [yAxisCone setFirstMaterial:yAxisMaterial];
     [yAxisConeNode setPosition:SCNVector3Make(0, 2, 0)];
     [yAxisRodNode addChildNode:yAxisConeNode];
@@ -73,6 +83,7 @@
     
     SCNCylinder *zAxisRod = [SCNCylinder cylinderWithRadius:.1 height:4];
     SCNNode *zAxisRodNode = [SCNNode nodeWithGeometry:zAxisRod];
+    zAxisRodNode.name = @"zAxisTranslate";
     SCNMaterial *zAxisMaterial = [SCNMaterial material];
     zAxisMaterial.diffuse.contents = [NSColor redColor];
     [zAxisRod setFirstMaterial:zAxisMaterial];
@@ -84,12 +95,32 @@
     
     SCNCone *zAxisCone = [SCNCone coneWithTopRadius:0 bottomRadius:.5 height:2];
     SCNNode *zAxisConeNode = [SCNNode nodeWithGeometry:zAxisCone];
+    zAxisConeNode.name = @"zAxisTranslate";
     [zAxisCone setFirstMaterial:zAxisMaterial];
     [zAxisConeNode setPosition:SCNVector3Make(0, 2, 0)];
     [zAxisRodNode addChildNode:zAxisConeNode];
     
     [selectionNode addChildNode:zAxisRodNode];
-    return selectionNode;
+    [_rootNode addChildNode:selectionNode];
+}
+
+- (BOOL)removeSelectionHandles
+{
+    SCNNode *selectionNode = [_rootNode childNodeWithName:@"selectionHandles" recursively:YES];
+    
+    if(selectionNode == nil) return NO;
+    [selectionNode removeFromParentNode];
+    return YES;
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    NSUInteger oldSelectedAnchorPoint = [[change objectForKey:NSKeyValueChangeOldKey] unsignedIntegerValue];
+    NSUInteger newSelectedAnchorPoint = [[change objectForKey:NSKeyValueChangeNewKey] unsignedIntegerValue];
+    if(newSelectedAnchorPoint == _anchorPointModel.anchorPointID)
+        [self setSelectionHandles];
+    if(oldSelectedAnchorPoint == _anchorPointModel.anchorPointID)
+        [self removeSelectionHandles];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "FLSceneView.h"
-
+#import "FLSceneViewController.h"
 
 @implementation FLSceneView
 
@@ -26,12 +26,24 @@
 	[super drawRect:dirtyRect];
 }
 
+
 -(void)mouseDown:(NSEvent *)theEvent
 {
-    [self.nextResponder mouseDown:theEvent];
+    [_controller mouseDown:theEvent];
     [super mouseDown:theEvent];
 }
 
+-(void)mouseDragged:(NSEvent *)theEvent
+{
+    FLSceneViewController *controller = (FLSceneViewController*)_controller;
+    if([controller mouseDragged:theEvent] == NO)
+        [super mouseDragged:theEvent];
+}
 
+-(void)mouseUp:(NSEvent *)theEvent
+{
+    [_controller mouseUp:theEvent];
+    [super mouseUp:theEvent];
+}
 
 @end

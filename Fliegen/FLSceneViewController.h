@@ -16,4 +16,6 @@
     
 }
 
+-(BOOL)mouseDragged:(NSEvent *)theEvent;
+
 @end
