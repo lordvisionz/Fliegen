@@ -19,4 +19,6 @@
 
 -(void)appendAnchorPoint:(FLAnchorPoint*)anchorPoint;
 
+-(BOOL)deleteSelectedAnchorPoint;
+
 @end

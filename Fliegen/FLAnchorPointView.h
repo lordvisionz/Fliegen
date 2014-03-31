@@ -22,6 +22,8 @@
 
 //- (SCNNode*)setSelectionHandlesForRootNode:(SCNNode*)rootNode;
 
+//- (BOOL)removeSelectionHandles;
+
 - (void)moveSelectionHandlesTo:(SCNVector3)worldPosition;
 
 @end

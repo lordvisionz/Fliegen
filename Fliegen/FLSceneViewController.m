@@ -111,13 +111,44 @@
 -(void)initMenuItems
 {
     anchorPointsMenu = [[NSMenu alloc]init];
-    NSMenuItem *appendAnchorPoint = [[NSMenuItem alloc]initWithTitle:@"Append Anchor Point" action:@selector(pushAnchorPoint) keyEquivalent:@""];
+    NSMenuItem *appendAnchorPoint = [[NSMenuItem alloc]initWithTitle:@"Append Anchor Point" action:@selector(pushAnchorPoint:) keyEquivalent:@""];
     [appendAnchorPoint setTarget:self];
+    
+    NSMenuItem *deleteAnchorPoint = [[NSMenuItem alloc] initWithTitle:@"Delete Anchor Point" action:@selector(deleteAnchorPoint:) keyEquivalent:@""];
+    [deleteAnchorPoint setTarget:self];
 
     [anchorPointsMenu addItem:appendAnchorPoint];
+    [anchorPointsMenu addItem:deleteAnchorPoint];
 }
 
--(void)pushAnchorPoint
+-(BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    if([menuItem action] == @selector(deleteAnchorPoint:))
+    {
+        return (anchorPointsCollection.selectedAnchorPointID != NSNotFound);
+    }
+    return YES;
+}
+
+-(void)deleteAnchorPoint:(id)sender
+{
+    NSArray *anchorPoints = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
+        if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
+        
+        FLAnchorPointView *anchorPointView = (FLAnchorPointView*)child;
+        return (anchorPointView.anchorPointModel.anchorPointID == anchorPointsCollection.selectedAnchorPointID);
+    }];
+    
+    [anchorPointsCollection deleteSelectedAnchorPoint];
+
+    SCNNode *deletedNode = [anchorPoints objectAtIndex:0];
+    [deletedNode removeFromParentNode];
+    
+    [anchorPointsCollection removeObserver:deletedNode forKeyPath:@"selectedAnchorPointID"];
+    deletedNode = nil;
+}
+
+-(void)pushAnchorPoint:(id)sender
 {
     FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]init];
     SCNVector3 lookAt = SCNVector3Make(0, 0, 0);

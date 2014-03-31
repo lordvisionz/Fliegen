@@ -25,4 +25,30 @@
     [_anchorPoints addObject:anchorPoint];
 }
 
+-(BOOL)deleteSelectedAnchorPoint
+{
+    if(_selectedAnchorPointID == NSNotFound) return NO;
+    
+    [_anchorPoints removeObjectAtIndex:[_anchorPoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        FLAnchorPoint *anchorPoint = obj;
+        if(anchorPoint.anchorPointID == _selectedAnchorPointID)
+        {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }]];
+    [_anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    {
+        FLAnchorPoint *anchorPoint = obj;
+        if(anchorPoint.anchorPointID > _selectedAnchorPointID)
+        {
+            anchorPoint.anchorPointID -= 1;
+        }
+            
+    }];
+    self.selectedAnchorPointID = NSNotFound;
+    return YES;
+}
+
 @end

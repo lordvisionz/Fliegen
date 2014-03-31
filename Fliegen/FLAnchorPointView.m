@@ -31,6 +31,11 @@
     
 }
 
+-(void)dealloc
+{
+
+}
+
 -(void) setSelectionHandles
 {
     SCNNode *selectionNode = [SCNNode node];
