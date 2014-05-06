@@ -66,6 +66,7 @@
 {
     SCNNode *cameraNode = [self cameraNode];
     [cameraNode.camera setUsesOrthographicProjection:NO];
+
 //    [cameraNode.camera setProjectionTransform:GLKMatrix4ToCATransform3D( GLKMatrix4Make(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, -1.22, -2.22, 0, 0, -1, 0))];
     cameraNode.position = SCNVector3Make(0, 0, 100);
     cameraNode.rotation = SCNVector4Make(0, 0, 0, 0);
@@ -155,33 +156,37 @@
     [anchorPoint setLookAt:lookAt];
     
     SCNScene *scene = self.sceneView.scene;
-//    SCNNode *rootNode = scene.rootNode;
-    
-//    SCNSphere *sphere = [SCNSphere sphereWithRadius:1];
-//    SCNMaterial *material = [SCNMaterial material];
-//    material.diffuse.contents = [NSColor blackColor];
-//    [sphere setFirstMaterial:material];
 
-    
     NSArray *result = [self.sceneView hitTest:lastClickedPoint options:nil];
     SCNHitTestResult *hitResult = [result objectAtIndex:0];
     SCNVector3 localPoint = hitResult.localCoordinates;
-//    SCNVector3 worldPoint = hitResult.worldCoordinates;
-//    SCNVector3 localNormal = hitResult.localNormal;
-//    SCNVector3 worldNormal = hitResult.worldNormal;
+
+    CATransform3D modelViewMatrix = self.sceneView.pointOfView.transform;
+    CATransform3D projectionMatrix = [self cameraNode].camera.projectionTransform;
+    
+    NSLog(@"temp");
     
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
-    
-//    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
-//    [sphereNode setRotation:rotation];
 
     CATransform3D transform = CATransform3DMakeRotation( rotation.w, rotation.x, rotation.y, rotation.z);
         CATransform3D translate = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
-//    [sphereNode setTransform:translate];
-//    [self.sceneView.scene.rootNode addChildNode:sphereNode];
     
     SCNVector3 position = SCNVector3Make(translate.m41, translate.m42, translate.m43);
     [anchorPoint setPosition:position];
+    
+    GLKVector4 objectPoint = GLKVector4Make(position.x, position.y, position.z, 1);
+//    GLKVector4 objectPoint = GLKVector4Make(0, 0, 0, 1);
+    GLKVector4 eyeCoord = GLKMatrix4MultiplyVector4(GLKMatrix4FromCATransform3D(modelViewMatrix), objectPoint);
+    GLKVector4 ndcCoord = GLKMatrix4MultiplyVector4(GLKMatrix4FromCATransform3D(projectionMatrix), eyeCoord);
+    ndcCoord = GLKVector4Normalize(ndcCoord);
+    NSPoint finalPoint = NSMakePoint(ndcCoord.x / ndcCoord.w, ndcCoord.y/ndcCoord.w);
+    
+//    NSLog(@"NDC coordinates are %f, %f, %f, %f", ndcCoord.x, ndcCoord.y, ndcCoord.z, ndcCoord.w);
+    
+    double xPos = (-finalPoint.x +1) / 2 * self.view.frame.size.width;
+    double yPos = (-finalPoint.y + 1) / 2 * self.view.frame.size.height;
+    NSLog(@"clicked point is %f, %f",lastClickedPoint.x, lastClickedPoint.y);
+    NSLog(@"approximate position is %f, %f", xPos, yPos);
     
     FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc] initWithAnchorPoint:anchorPoint withRootNode:self.sceneView.scene.rootNode
                                                                           withTransform:translate];
@@ -190,66 +195,8 @@
                                 options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
     anchorPointsCollection.selectedAnchorPointID = anchorPoint.anchorPointID;
     [self.sceneView.scene.rootNode addChildNode:anchorPointView];
-    
 }
 
-// 1) Find approximate position of click point
-//-(void)pushAnchorPoint
-//{
-//    FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]init];
-//    [anchorPoint setAnchorPointID:(anchorPoints.count + 1)];
-//    SCNVector3 lookAt = SCNVector3Make(0, 0, 0);
-//    [anchorPoint setLookAt:lookAt];
-//    
-//    SCNScene *scene = self.sceneView.scene;
-//    SCNNode *rootNode = scene.rootNode;
-//    
-//    SCNSphere *sphere = [SCNSphere sphereWithRadius:2];
-//    SCNMaterial *material = [SCNMaterial material];
-//    material.diffuse.contents = [NSColor blackColor];
-//    [sphere setFirstMaterial:material];
-//    
-//    for(SCNNode *node in self.sceneView.scene.rootNode.childNodes)
-//    {
-//        CATransform3D transform = node.transform;
-//        CATransform3D world = node.worldTransform;
-//    }
-//
-////    [sphereNode set]
-//    SCNNode *pointOfView = self.sceneView.pointOfView;
-//    CATransform3D viewMatrix = self.sceneView.pointOfView.transform;
-////    CATransform3D viewMatrix = [self cameraNode].transform;
-//    CATransform3D projectionMatrix = [self cameraNode].camera.projectionTransform;
-//    
-//
-//    
-//    CATransform3D viewProjectionMatrix = CATransform3DConcat(viewMatrix, projectionMatrix);
-//    
-//    int viewPort[] = {0, 0, 1, 1};
-//    GLKVector3 transformedPoint = GLKMathProject(GLKVector3Make(0, 0, 0), GLKMatrix4FromCATransform3D(viewMatrix),
-//                                                 GLKMatrix4FromCATransform3D(projectionMatrix), viewPort);
-//    transformedPoint.x = lastClickedPoint.x / self.view.frame.size.width;
-//    transformedPoint.y = lastClickedPoint.y / self.view.frame.size.height;
-//    transformedPoint.z = 0;
-//    bool success;
-//    GLKVector3 objectPoint = GLKMathUnproject(transformedPoint, GLKMatrix4FromCATransform3D(viewMatrix), GLKMatrix4FromCATransform3D(projectionMatrix),
-//                                              viewPort, &success);
-//    
-//    NSLog(@"clicked coordinates is (%f, %f)", objectPoint.x, objectPoint.y);
-//    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphere];
-//    [sphereNode setPosition:SCNVector3Make(objectPoint.x, objectPoint.y, 0)];
-//    [[self.sceneView.scene.rootNode childNodeWithName:@"box" recursively:YES] addChildNode:sphereNode];
-////    CATransform3D worldTransform = CATransform3DInvert([self cameraNode].worldTransform);
-////    CATransform3D inverseProjection = CATransform3DInvert([self cameraNode].camera.projectionTransform);
-////    
-////    SCNVector3 clicked3DPoint = SCNVector3Make(lastClickedPoint.x/self.view.frame.size.width, lastClickedPoint.y/self.view.frame.size.height, 1);
-////    CATransform3D clicked3DMatrix = CATransform3DMakeTranslation(clicked3DPoint.x, clicked3DPoint.y, clicked3DPoint.z);
-////    
-////    clicked3DMatrix = CATransform3DConcat(clicked3DMatrix, worldTransform);
-////    CATransform3D concatMatrix = CATransform3DConcat(clicked3DMatrix, inverseProjection);
-////    NSPoint point = NSMakePoint(transformedPoint.x, <#CGFloat y#>)
-//    NSLog(@"Sdfsd");
-//}
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
@@ -290,13 +237,7 @@
         return;
     }
     FLAnchorPointView *anchorPoint = (FLAnchorPointView*)firstHitItem.node;
-    
-//    SCNNode * handlesNode =[anchorPoint setSelectionHandlesForRootNode:self.sceneView.scene.rootNode];
     [anchorPointsCollection setSelectedAnchorPointID:anchorPoint.anchorPointModel.anchorPointID];
-
-//    [self.sceneView.scene.rootNode addChildNode:handlesNode];
-    
-//    [self.view.superview mouseDown:theEvent];
 }
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent
@@ -347,19 +288,7 @@
          }]];
         SCNVector3 newHitPointInPlane = hitPlane.localCoordinates;
         NSLog(@"dX is %f, dY is %f",newHitPointInPlane.x - oldHitPointInPlane.x, newHitPointInPlane.y - oldHitPointInPlane.y);
-        
-//        SCNHitTestResult *hitSelectionHandle = [oldHitNoes objectAtIndex:[oldHitNoes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
-//        {
-//            SCNNode *node = [obj node];
-//            if([node.name isEqualToString:@"xAxisTranslate"] || [node.name isEqualToString:@"yAxisTranslate"] ||
-//               [node.name isEqualToString:@"zAxisTranslate"] )
-//            {
-//                *stop = YES;
-//                return YES;
-//            }
-//            return NO;
-//        }]];
-        
+
         if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
         {
             CATransform3D localTransform = anchorPointView.transform;
@@ -390,18 +319,6 @@
         
         lastClickedPoint = newMousePoint;
 
-//        SCNVector4 rotation = self.sceneView.pointOfView.rotation;
-        
-//        CATransform3D transform = CATransform3DMakeTranslation(<#CGFloat tx#>, <#CGFloat ty#>, <#CGFloat tz#>)
-        
-//        CATransform3D transform = CATransform3DMakeRotation( rotation.w, rotation.x, rotation.y, rotation.z);
-//        CATransform3D translate = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
-        //    [sphereNode setTransform:translate];
-        //    [self.sceneView.scene.rootNode addChildNode:sphereNode];
-        
-//        SCNVector3 position = SCNVector3Make(translate.m41, translate.m42, translate.m43);
-//        [anchorPoint setPosition:position];
-
         return YES;
     }
     return NO;
@@ -420,7 +337,7 @@
     CATransform3D viewMatrix = self.sceneView.pointOfView.transform;
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
     
-    SCNPlane *plane = [SCNPlane planeWithWidth:10000 height:10000];
+    SCNPlane *plane = [SCNPlane planeWithWidth:100000 height:100000];
     SCNNode *planeNode = [SCNNode nodeWithGeometry:plane];
     [planeNode setName:@"hitplane"];
     
