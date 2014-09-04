@@ -67,21 +67,9 @@
     SCNNode *cameraNode = [self cameraNode];
     [cameraNode.camera setUsesOrthographicProjection:NO];
 
-//    [cameraNode.camera setProjectionTransform:GLKMatrix4ToCATransform3D( GLKMatrix4Make(2, 0, 0, 0, 0, 2, 0, 0, 0, 0, -1.22, -2.22, 0, 0, -1, 0))];
     cameraNode.position = SCNVector3Make(0, 0, 100);
     cameraNode.rotation = SCNVector4Make(0, 0, 0, 0);
-    
-//    cameraNode.transform = CATransform3DRotate(cameraNode.transform, -M_PI / 7.0, 1, 0, 0);
-    
-//    CATransform3D pivot  = cameraNode.transform;
-//    SCNVector3 cameraPosition = cameraNode.position;
-//    cameraPosition = SCNVector3Make(0, 0, 10);
-//    SCNVector4 cameraRotation = cameraNode.rotation;
-//    NSLog(@"initial camera position is (%f, %f, %f)", cameraPosition.x, cameraPosition.y, cameraPosition.z);
-//    NSLog(@"camera rotation is (%f, %f, %f, %f)", cameraRotation.x, cameraRotation.y, cameraRotation.z, cameraRotation.w);
-//    cameraPosition.z += 30;
-//    [cameraNode setPosition:cameraPosition];
-    
+
     [[self.sceneView.scene.rootNode childNodeWithName:@"pokeball" recursively:NO] removeFromParentNode];
     
     SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0];
@@ -93,16 +81,10 @@
     material.diffuse.contents = [NSColor redColor];
     box.firstMaterial = material;
     [self.sceneView.scene.rootNode addChildNode:boxNode];
-    
-
-    
-//    [self.sceneView.scene.rootNode setTransform:CATransform3DMakeTranslation(0, 0, 0)];
-//    [self.sceneView.scene.rootNode setRotation:SCNVector4Make(0, 0, 0, 0)];
 }
 
 -(void)awakeFromNib
 {
-//    [self setNextResponder:self.view];
     [self.view setNextResponder:self];
     [self.view.window makeFirstResponder:self];
 
@@ -154,8 +136,6 @@
     FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]init];
     SCNVector3 lookAt = SCNVector3Make(0, 0, 0);
     [anchorPoint setLookAt:lookAt];
-    
-    SCNScene *scene = self.sceneView.scene;
 
     NSArray *result = [self.sceneView hitTest:lastClickedPoint options:nil];
     SCNHitTestResult *hitResult = [result objectAtIndex:0];
@@ -163,8 +143,6 @@
 
     CATransform3D modelViewMatrix = self.sceneView.pointOfView.transform;
     CATransform3D projectionMatrix = [self cameraNode].camera.projectionTransform;
-    
-    NSLog(@"temp");
     
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
 
@@ -175,18 +153,9 @@
     [anchorPoint setPosition:position];
     
     GLKVector4 objectPoint = GLKVector4Make(position.x, position.y, position.z, 1);
-//    GLKVector4 objectPoint = GLKVector4Make(0, 0, 0, 1);
     GLKVector4 eyeCoord = GLKMatrix4MultiplyVector4(GLKMatrix4FromCATransform3D(modelViewMatrix), objectPoint);
     GLKVector4 ndcCoord = GLKMatrix4MultiplyVector4(GLKMatrix4FromCATransform3D(projectionMatrix), eyeCoord);
     ndcCoord = GLKVector4Normalize(ndcCoord);
-    NSPoint finalPoint = NSMakePoint(ndcCoord.x / ndcCoord.w, ndcCoord.y/ndcCoord.w);
-    
-//    NSLog(@"NDC coordinates are %f, %f, %f, %f", ndcCoord.x, ndcCoord.y, ndcCoord.z, ndcCoord.w);
-    
-    double xPos = (-finalPoint.x +1) / 2 * self.view.frame.size.width;
-    double yPos = (-finalPoint.y + 1) / 2 * self.view.frame.size.height;
-    NSLog(@"clicked point is %f, %f",lastClickedPoint.x, lastClickedPoint.y);
-    NSLog(@"approximate position is %f, %f", xPos, yPos);
     
     FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc] initWithAnchorPoint:anchorPoint withRootNode:self.sceneView.scene.rootNode
                                                                           withTransform:translate];
@@ -287,7 +256,7 @@
              return NO;
          }]];
         SCNVector3 newHitPointInPlane = hitPlane.localCoordinates;
-        NSLog(@"dX is %f, dY is %f",newHitPointInPlane.x - oldHitPointInPlane.x, newHitPointInPlane.y - oldHitPointInPlane.y);
+//        NSLog(@"dX is %f, dY is %f",newHitPointInPlane.x - oldHitPointInPlane.x, newHitPointInPlane.y - oldHitPointInPlane.y);
 
         if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
         {
@@ -334,7 +303,6 @@
 {
     lastClickedPoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
 
-    CATransform3D viewMatrix = self.sceneView.pointOfView.transform;
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
     
     SCNPlane *plane = [SCNPlane planeWithWidth:100000 height:100000];

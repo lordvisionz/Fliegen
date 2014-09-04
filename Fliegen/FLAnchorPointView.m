@@ -49,13 +49,10 @@
     
     
     SCNVector3 xAxisOffset = SCNVector3Make(self.worldTransform.m41, self.worldTransform.m42, self.worldTransform.m43);
-//    CATransform3D xAxisTransform = CATransform3DMakeRotation(M_PI_2, 1, 0, 0);
-//    xAxisTransform = CATransform3DTranslate(xAxisTransform, xAxisOffset.x, xAxisOffset.y, xAxisOffset.z);
     CATransform3D xAxisTransform = CATransform3DMakeTranslation(xAxisOffset.x, xAxisOffset.y, xAxisOffset.z);
     xAxisTransform = CATransform3DRotate(xAxisTransform, M_PI_2, 1, 0, 0);
     xAxisTransform = CATransform3DTranslate(xAxisTransform, 0, 2, 0);
     [xAxisRodNode setTransform:xAxisTransform];
-//    [self addChildNode:xAxisRodNode];
     
     SCNCone *xAxisCone = [SCNCone coneWithTopRadius:0 bottomRadius:.5 height:2];
     SCNNode *xAxisConeNode = [SCNNode nodeWithGeometry:xAxisCone];
