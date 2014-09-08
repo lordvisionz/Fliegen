@@ -9,12 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <SceneKit/SceneKit.h>
 
+@class FLUtilityPaneController, FLSceneViewController, FLModel;
+
 @interface FLAppFrameController : NSObject
+
+@property (readonly, retain) FLModel *model;
 
 @property (weak) IBOutlet NSSplitView *splitView;
 
+@property (weak) IBOutlet FLSceneViewController *sceneViewController;
+@property (weak) IBOutlet FLUtilityPaneController *utilityPanelController;
+
 - (IBAction)toggleUtilitiesPanel:(id)sender;
-@property (weak) IBOutlet SCNView *editorView;
-@property (weak) IBOutlet NSView *utilityPanel;
 
 @end

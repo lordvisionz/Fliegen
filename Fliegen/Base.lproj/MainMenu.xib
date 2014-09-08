@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
         <plugIn identifier="com.apple.SceneKitIBPlugin" version="5056"/>
@@ -747,17 +747,17 @@
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="i3n-kY-zXf" customClass="FLAppFrameController">
             <connections>
-                <outlet property="editorView" destination="OrN-Ou-AMv" id="H7p-kk-5vA"/>
+                <outlet property="sceneViewController" destination="16d-AC-vuq" id="Id8-J4-R2Z"/>
                 <outlet property="splitView" destination="xok-CF-2qg" id="FN3-Ob-9Nu"/>
-                <outlet property="utilityPanel" destination="fx3-cY-JRM" id="mu2-zK-QqC"/>
+                <outlet property="utilityPanelController" destination="Ld4-kg-GYh" id="YU9-v3-FEU"/>
             </connections>
         </customObject>
         <customView id="WBT-Nu-aXc" userLabel="Anchor Points view">
-            <rect key="frame" x="0.0" y="0.0" width="228" height="780"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="780"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="n8z-Je-6LS">
-                    <rect key="frame" x="18" y="743" width="38" height="17"/>
+                    <rect key="frame" x="18" y="731" width="38" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="id:" id="61q-nW-9sS">
                         <font key="font" metaFont="system"/>
@@ -766,7 +766,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="j8J-pv-JWU">
-                    <rect key="frame" x="142" y="743" width="38" height="17"/>
+                    <rect key="frame" x="148" y="733" width="38" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="1" id="LOk-ya-cLv">
                         <font key="font" metaFont="system"/>
@@ -793,7 +793,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="3mI-8d-Keb">
-                    <rect key="frame" x="142" y="706" width="16" height="17"/>
+                    <rect key="frame" x="165" y="706" width="16" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="y:" id="3D9-xS-LnS">
                         <font key="font" metaFont="system"/>
@@ -802,7 +802,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="1x2-dg-XbD">
-                    <rect key="frame" x="177" y="705" width="16" height="17"/>
+                    <rect key="frame" x="223" y="706" width="16" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="z:" id="Oq3-hj-4gz">
                         <font key="font" metaFont="system"/>
@@ -811,7 +811,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="gsR-XV-fka">
-                    <rect key="frame" x="120" y="703" width="22" height="22"/>
+                    <rect key="frame" x="128" y="703" width="35" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="8cf-5o-xXm">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="oaJ-F9-DsR"/>
@@ -821,7 +821,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="an2-AO-arU">
-                    <rect key="frame" x="156" y="703" width="22" height="22"/>
+                    <rect key="frame" x="187" y="703" width="35" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="c9U-Gf-XX4">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="ph9-nb-8NE"/>
@@ -831,10 +831,76 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="LSh-un-Nz5">
-                    <rect key="frame" x="191" y="703" width="22" height="22"/>
+                    <rect key="frame" x="245" y="703" width="35" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="ayi-k4-9HW">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="xBX-6h-jcC"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Yfw-s5-Mkc">
+                    <rect key="frame" x="18" y="681" width="60" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Look at:" id="nBg-ku-fJy">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="0rm-c4-DsH">
+                    <rect key="frame" x="106" y="681" width="16" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="x:" id="Brw-ld-xS2">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="5lO-4h-dGJ">
+                    <rect key="frame" x="165" y="681" width="16" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="y:" id="FfI-m0-Sz5">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jvy-4q-4f8">
+                    <rect key="frame" x="223" y="679" width="16" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="z:" id="hNh-eB-Cg3">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="JjJ-kU-WoI">
+                    <rect key="frame" x="128" y="678" width="35" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="U0X-uf-rgV">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="0p2-SE-Sb5"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="ew1-xd-vVn">
+                    <rect key="frame" x="187" y="678" width="35" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="hgZ-DG-DZ8">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="IXN-1l-49x"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" id="fWV-82-JHs">
+                    <rect key="frame" x="245" y="676" width="35" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="25" placeholderString="25" drawsBackground="YES" id="SGU-e6-lMh">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" positiveFormat="#,##0.###" negativeFormat="#,##0.###" numberStyle="decimal" paddingCharacter="*" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" decimalSeparator="." groupingSeparator="," currencyDecimalSeparator="." plusSign="+" minusSign="-" notANumberSymbol="NaN" perMillSymbol="‰" percentSymbol="%" exponentSymbol="E" positivePrefix="" positiveSuffix="" negativePrefix="-" negativeSuffix="" id="bm7-xl-kBO"/>
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -844,9 +910,9 @@
         </customView>
         <viewController id="Ld4-kg-GYh" customClass="FLUtilityPaneController">
             <connections>
-                <outlet property="anchorPointsPane" destination="WBT-Nu-aXc" id="p21-Gn-rDk"/>
+                <outlet property="anchorPointsPane" destination="4oR-t1-Ym5" id="Z7P-Uc-amq"/>
+                <outlet property="appFrameController" destination="i3n-kY-zXf" id="jA9-3B-sFA"/>
                 <outlet property="miscPane" destination="JQj-fu-jLb" id="v55-qn-FHb"/>
-                <outlet property="utilityPane" destination="fx3-cY-JRM" id="kvf-vq-xPj"/>
                 <outlet property="utilityPaneSegmentedControl" destination="xpf-8J-lIa" id="bWv-zq-DBI"/>
                 <outlet property="utilityViewPane" destination="qUb-ui-Ofg" id="cdn-pP-nxE"/>
                 <outlet property="view" destination="fx3-cY-JRM" id="Kla-Mr-0RB"/>
@@ -858,7 +924,21 @@
         </customView>
         <viewController id="16d-AC-vuq" customClass="FLSceneViewController">
             <connections>
+                <outlet property="appFrameController" destination="i3n-kY-zXf" id="CVf-2M-kQO"/>
                 <outlet property="view" destination="OrN-Ou-AMv" id="Xzh-bo-T26"/>
+            </connections>
+        </viewController>
+        <viewController id="4oR-t1-Ym5" customClass="FLUtilityPaneAnchorPointsViewController">
+            <connections>
+                <outlet property="anchorId" destination="j8J-pv-JWU" id="DSX-2B-XLJ"/>
+                <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="KBN-Jx-0HM"/>
+                <outlet property="view" destination="WBT-Nu-aXc" id="1H1-Y7-MfP"/>
+                <outlet property="xLookAt" destination="JjJ-kU-WoI" id="FHH-25-iK1"/>
+                <outlet property="xPosition" destination="gsR-XV-fka" id="tHe-ut-cmF"/>
+                <outlet property="yLookAt" destination="ew1-xd-vVn" id="ZH4-BF-1RX"/>
+                <outlet property="yPosition" destination="an2-AO-arU" id="yP3-gH-j2l"/>
+                <outlet property="zLookAt" destination="fWV-82-JHs" id="YKb-VV-tsM"/>
+                <outlet property="zPosition" destination="LSh-un-Nz5" id="py2-ka-a5r"/>
             </connections>
         </viewController>
     </objects>

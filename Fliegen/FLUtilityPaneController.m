@@ -7,6 +7,7 @@
 //
 
 #import "FLUtilityPaneController.h"
+#import "FLUtilityPaneAnchorPointsViewController.h"
 
 @interface FLUtilityPaneController ()
 
@@ -32,7 +33,7 @@
     width += [cell widthForSegment:1];
     [cell setWidth:(self.view.frame.size.width - width)  forSegment:2];
     
-    [_utilityViewPane addSubview:_anchorPointsPane];
+    [_utilityViewPane addSubview:_anchorPointsPane.view];
 }
 
 - (IBAction)switchUtilityPaneTab:(id)sender
@@ -41,11 +42,11 @@
     if(selectedSegment == 0)
     {
         [_miscPane removeFromSuperview];
-        [_utilityViewPane addSubview:_anchorPointsPane];
+        [_utilityViewPane addSubview:_anchorPointsPane.view];
     }
     else if(selectedSegment == 1)
     {
-        [_anchorPointsPane removeFromSuperview];
+        [_anchorPointsPane.view removeFromSuperview];
         [_utilityViewPane addSubview:_miscPane];
     }
     

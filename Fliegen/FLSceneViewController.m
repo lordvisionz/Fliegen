@@ -7,7 +7,9 @@
 //
 
 #import "FLSceneViewController.h"
+#import "FLAppFrameController.h"
 
+#import "FLModel.h"
 #import "FLAnchorPoint.h"
 #import "FLAnchorPointsCollection.h"
 #import "FLAnchorPointView.h"
@@ -58,7 +60,6 @@
 
 -(void) initialize
 {
-    anchorPointsCollection = [[FLAnchorPointsCollection alloc] init];
     _isDraggingSelectionHandles = NO;
 }
 
@@ -106,20 +107,22 @@
 
 -(BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {
+    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
     if([menuItem action] == @selector(deleteAnchorPoint:))
     {
-        return (anchorPointsCollection.selectedAnchorPointID != NSNotFound);
+        return (anchorPointsCollection.selectedAnchorPoint != nil);
     }
     return YES;
 }
 
 -(void)deleteAnchorPoint:(id)sender
 {
+    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
     NSArray *anchorPoints = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
         if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
         
         FLAnchorPointView *anchorPointView = (FLAnchorPointView*)child;
-        return (anchorPointView.anchorPointModel.anchorPointID == anchorPointsCollection.selectedAnchorPointID);
+        return (anchorPointView.anchorPointModel.anchorPointID == anchorPointsCollection.selectedAnchorPoint.anchorPointID);
     }];
     
     [anchorPointsCollection deleteSelectedAnchorPoint];
@@ -127,12 +130,14 @@
     SCNNode *deletedNode = [anchorPoints objectAtIndex:0];
     [deletedNode removeFromParentNode];
     
-    [anchorPointsCollection removeObserver:deletedNode forKeyPath:@"selectedAnchorPointID"];
+    [anchorPointsCollection removeObserver:deletedNode forKeyPath:@"selectedAnchorPoint"];
     deletedNode = nil;
 }
 
 -(void)pushAnchorPoint:(id)sender
 {
+    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
+    
     FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]init];
     SCNVector3 lookAt = SCNVector3Make(0, 0, 0);
     [anchorPoint setLookAt:lookAt];
@@ -160,24 +165,26 @@
     FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc] initWithAnchorPoint:anchorPoint withRootNode:self.sceneView.scene.rootNode
                                                                           withTransform:translate];
     [anchorPointsCollection appendAnchorPoint:anchorPoint];
-    [anchorPointsCollection addObserver:anchorPointView forKeyPath:@"selectedAnchorPointID"
+    [anchorPointsCollection addObserver:anchorPointView forKeyPath:@"selectedAnchorPoint"
                                 options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
-    anchorPointsCollection.selectedAnchorPointID = anchorPoint.anchorPointID;
+    anchorPointsCollection.selectedAnchorPoint = anchorPoint;
     [self.sceneView.scene.rootNode addChildNode:anchorPointView];
 }
 
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-    lastClickedPoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
+    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
     
+    lastClickedPoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     NSArray *hitItems = [self.sceneView hitTest:lastClickedPoint options:nil];
     
     if(hitItems.count == 0)
     {
-        anchorPointsCollection.selectedAnchorPointID = NSNotFound;
+        anchorPointsCollection.selectedAnchorPoint = nil;
         return;
     }
+    
     SCNHitTestResult *firstHitItem = [hitItems objectAtIndex:0];
     SCNNode *selectionNode = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
     if(selectionNode != nil)
@@ -202,26 +209,27 @@
     }
     if([firstHitItem.node isKindOfClass:[FLAnchorPointView class]] == NO)
     {
-        anchorPointsCollection.selectedAnchorPointID = NSNotFound;
+        anchorPointsCollection.selectedAnchorPoint = nil;
         return;
     }
     FLAnchorPointView *anchorPoint = (FLAnchorPointView*)firstHitItem.node;
-    [anchorPointsCollection setSelectedAnchorPointID:anchorPoint.anchorPointModel.anchorPointID];
+    [anchorPointsCollection setSelectedAnchorPoint:anchorPoint.anchorPointModel];
 }
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent
 {
-    NSPoint newMousePoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
+    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
     
+    NSPoint newMousePoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     if(_isDraggingSelectionHandles)
     {
-        NSUInteger selectedAnchorPoint = anchorPointsCollection.selectedAnchorPointID;
+        FLAnchorPoint *selectedAnchorPoint = anchorPointsCollection.selectedAnchorPoint;
         NSArray *childNodes = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop)
         {
             if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
             FLAnchorPointView *anchorPointView = (FLAnchorPointView*) child;
             
-            if(anchorPointView.anchorPointModel.anchorPointID == selectedAnchorPoint)
+            if(anchorPointView.anchorPointModel == selectedAnchorPoint)
             {
                 *stop = YES;
                 return YES;
@@ -264,6 +272,7 @@
             localTransform = CATransform3DTranslate(localTransform, newHitPointInPlane.x - oldHitPointInPlane.x, 0, 0);
             [anchorPointView setTransform:localTransform];
             
+            anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, newHitPointInPlane.x - oldHitPointInPlane.x, 0, 0)];
         }
@@ -273,6 +282,7 @@
             localTransform = CATransform3DTranslate(localTransform, 0, newHitPointInPlane.y - oldHitPointInPlane.y, 0);
             [anchorPointView setTransform:localTransform];
             
+            anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, newHitPointInPlane.y - oldHitPointInPlane.y, 0)];
         }
@@ -282,6 +292,7 @@
             localTransform = CATransform3DTranslate(localTransform, 0, 0, oldHitPointInPlane.x - newHitPointInPlane.x);
             [anchorPointView setTransform:localTransform];
             
+            anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, 0, oldHitPointInPlane.x - newHitPointInPlane.x)];
         }

@@ -15,10 +15,13 @@
     NSMutableArray *_anchorPoints;
 }
 
-@property (readwrite) NSUInteger selectedAnchorPointID;
+@property (readwrite) FLAnchorPoint *selectedAnchorPoint;
+
+-(FLAnchorPoint*)anchorPointForId:(NSUInteger)anchorPointId;
 
 -(void)appendAnchorPoint:(FLAnchorPoint*)anchorPoint;
 
 -(BOOL)deleteSelectedAnchorPoint;
+
 
 @end

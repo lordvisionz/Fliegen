@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		711C998E19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 711C998D19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m */; };
+		711C999119BD4FEF00D02B3A /* FLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 711C999019BD4FEF00D02B3A /* FLModel.m */; };
 		713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE52C18C00707001E05EF /* FLAnchorPoint.m */; };
 		713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53A18C019D0001E05EF /* FLAppFrameController.m */; };
 		713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */; };
@@ -44,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		711C998C19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUtilityPaneAnchorPointsViewController.h; sourceTree = "<group>"; };
+		711C998D19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneAnchorPointsViewController.m; sourceTree = "<group>"; };
+		711C998F19BD4FEF00D02B3A /* FLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLModel.h; sourceTree = "<group>"; };
+		711C999019BD4FEF00D02B3A /* FLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLModel.m; sourceTree = "<group>"; };
 		713FE52B18C00707001E05EF /* FLAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPoint.h; sourceTree = "<group>"; };
 		713FE52C18C00707001E05EF /* FLAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPoint.m; sourceTree = "<group>"; };
 		713FE53918C019D0001E05EF /* FLAppFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAppFrameController.h; sourceTree = "<group>"; };
@@ -113,6 +119,8 @@
 		713FE53318C01871001E05EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				711C998F19BD4FEF00D02B3A /* FLModel.h */,
+				711C999019BD4FEF00D02B3A /* FLModel.m */,
 				713FE52B18C00707001E05EF /* FLAnchorPoint.h */,
 				713FE52C18C00707001E05EF /* FLAnchorPoint.m */,
 				717CBE8818E7BEE900D9CBEB /* FLAnchorPointsCollection.h */,
@@ -139,6 +147,8 @@
 				713FE53A18C019D0001E05EF /* FLAppFrameController.m */,
 				713FE53E18C057DF001E05EF /* FLUtilityPaneController.h */,
 				713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */,
+				711C998C19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.h */,
+				711C998D19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m */,
 				71A9B58518C3EACB00788605 /* FLSceneViewController.h */,
 				71A9B58618C3EACB00788605 /* FLSceneViewController.m */,
 			);
@@ -350,10 +360,12 @@
 				71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
 				717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */,
+				711C998E19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m in Sources */,
 				713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */,
 				71F8058818E4A52600EF22C7 /* SCNNode+FLAdditions.m in Sources */,
 				717CBE8718E7AE2E00D9CBEB /* FLAnchorPointView.m in Sources */,
 				71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */,
+				711C999119BD4FEF00D02B3A /* FLModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,23 +15,30 @@
 {
     self = [super init];
     _anchorPoints = [[NSMutableArray alloc]init];
-    _selectedAnchorPointID = NSNotFound;
+    _selectedAnchorPoint = nil;
     return self;
+}
+
+-(FLAnchorPoint *)anchorPointForId:(NSUInteger)anchorPointId
+{
+    if(anchorPointId > _anchorPoints.count) return nil;
+    
+    return [_anchorPoints objectAtIndex:(anchorPointId - 1)];
 }
 
 -(void)appendAnchorPoint:(FLAnchorPoint *)anchorPoint
 {
-    anchorPoint.anchorPointID = _anchorPoints.count;
     [_anchorPoints addObject:anchorPoint];
+    anchorPoint.anchorPointID = _anchorPoints.count;
 }
 
 -(BOOL)deleteSelectedAnchorPoint
 {
-    if(_selectedAnchorPointID == NSNotFound) return NO;
+    if(_selectedAnchorPoint == nil) return NO;
     
     [_anchorPoints removeObjectAtIndex:[_anchorPoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         FLAnchorPoint *anchorPoint = obj;
-        if(anchorPoint.anchorPointID == _selectedAnchorPointID)
+        if(anchorPoint.anchorPointID == _selectedAnchorPoint.anchorPointID)
         {
             *stop = YES;
             return YES;
@@ -41,13 +48,13 @@
     [_anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
     {
         FLAnchorPoint *anchorPoint = obj;
-        if(anchorPoint.anchorPointID > _selectedAnchorPointID)
+        if(anchorPoint.anchorPointID > _selectedAnchorPoint.anchorPointID)
         {
             anchorPoint.anchorPointID -= 1;
         }
             
     }];
-    self.selectedAnchorPointID = NSNotFound;
+    self.selectedAnchorPoint = nil;
     return YES;
 }
 

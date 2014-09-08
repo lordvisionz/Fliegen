@@ -8,13 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FLAnchorPointsCollection;
+@class FLAppFrameController;
 
 @interface FLSceneViewController : NSViewController<NSMenuDelegate>
-{
-    FLAnchorPointsCollection *anchorPointsCollection;
-    
-}
+
+@property (weak) IBOutlet FLAppFrameController *appFrameController;
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent;
 

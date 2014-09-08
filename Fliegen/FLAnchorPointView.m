@@ -117,11 +117,12 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    NSUInteger oldSelectedAnchorPoint = [[change objectForKey:NSKeyValueChangeOldKey] unsignedIntegerValue];
-    NSUInteger newSelectedAnchorPoint = [[change objectForKey:NSKeyValueChangeNewKey] unsignedIntegerValue];
-    if(newSelectedAnchorPoint == _anchorPointModel.anchorPointID)
+    FLAnchorPoint *oldSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeOldKey];
+    FLAnchorPoint *newSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeNewKey];
+
+    if(([newSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && newSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
         [self setSelectionHandles];
-    if(oldSelectedAnchorPoint == _anchorPointModel.anchorPointID)
+    if(([oldSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && oldSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
         [self removeSelectionHandles];
 }
 

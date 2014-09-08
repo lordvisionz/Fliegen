@@ -7,8 +7,17 @@
 //
 
 #import "FLAppFrameController.h"
+#import "FLModel.h"
 
 @implementation FLAppFrameController
+
+-(id)init
+{
+    self = [super init];
+    _model = [[FLModel alloc] init];
+    
+    return self;
+}
 
 - (IBAction)toggleUtilitiesPanel:(id)sender
 {

@@ -8,10 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class FLUtilityPaneAnchorPointsViewController, FLAppFrameController;
+
 @interface FLUtilityPaneController : NSViewController
 
+@property (weak) IBOutlet FLAppFrameController *appFrameController;
+
 @property (weak) IBOutlet NSSegmentedControl *utilityPaneSegmentedControl;
-@property (weak) IBOutlet NSView *anchorPointsPane;
+@property (weak) IBOutlet FLUtilityPaneAnchorPointsViewController *anchorPointsPane;
 @property (weak) IBOutlet NSView *miscPane;
 @property (weak) IBOutlet NSView *utilityViewPane;
 
