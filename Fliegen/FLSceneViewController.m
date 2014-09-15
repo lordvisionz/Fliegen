@@ -152,7 +152,7 @@
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
 
     CATransform3D transform = CATransform3DMakeRotation( rotation.w, rotation.x, rotation.y, rotation.z);
-        CATransform3D translate = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
+    CATransform3D translate = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
     
     SCNVector3 position = SCNVector3Make(translate.m41, translate.m42, translate.m43);
     [anchorPoint setPosition:position];

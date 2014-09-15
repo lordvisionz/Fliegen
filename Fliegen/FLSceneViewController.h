@@ -8,12 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FLAppFrameController;
+@class FLAppFrameController, FLSceneView;
 
 @interface FLSceneViewController : NSViewController<NSMenuDelegate>
 
 @property (weak) IBOutlet FLAppFrameController *appFrameController;
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent;
+
+-(FLSceneView*)sceneView;
 
 @end

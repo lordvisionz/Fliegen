@@ -819,6 +819,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="4oR-t1-Ym5" id="Mgp-0u-UpC"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" id="an2-AO-arU">
                     <rect key="frame" x="187" y="703" width="35" height="22"/>
@@ -829,6 +832,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="4oR-t1-Ym5" id="L9O-jw-frV"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" id="LSh-un-Nz5">
                     <rect key="frame" x="245" y="703" width="35" height="22"/>
@@ -839,6 +845,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="4oR-t1-Ym5" id="iOO-oi-lz9"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Yfw-s5-Mkc">
                     <rect key="frame" x="18" y="681" width="60" height="17"/>
@@ -885,6 +894,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="4oR-t1-Ym5" id="X5e-Xm-LH3"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" id="ew1-xd-vVn">
                     <rect key="frame" x="187" y="678" width="35" height="22"/>
@@ -895,6 +907,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="4oR-t1-Ym5" id="aD9-PY-Pa6"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" id="fWV-82-JHs">
                     <rect key="frame" x="245" y="676" width="35" height="22"/>
@@ -905,6 +920,9 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="4oR-t1-Ym5" id="i7Z-dT-VUl"/>
+                    </connections>
                 </textField>
             </subviews>
         </customView>
