@@ -252,7 +252,8 @@
             }
             return NO;
         }]];
-        SCNVector3 oldHitPointInPlane = hitPlane.localCoordinates;
+        SCNVector3 oldWorldCoord = hitPlane.worldCoordinates;
+        
         hitPlane = [newHitNodes objectAtIndex:[newHitNodes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
          {
              SCNNode *node = [obj node];
@@ -263,38 +264,37 @@
              }
              return NO;
          }]];
-        SCNVector3 newHitPointInPlane = hitPlane.localCoordinates;
-//        NSLog(@"dX is %f, dY is %f",newHitPointInPlane.x - oldHitPointInPlane.x, newHitPointInPlane.y - oldHitPointInPlane.y);
+        SCNVector3 newWorldCoord = hitPlane.worldCoordinates;
 
+        SCNVector3 oldPosition = anchorPointView.position;
+        
         if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
         {
-            CATransform3D localTransform = anchorPointView.transform;
-            localTransform = CATransform3DTranslate(localTransform, newHitPointInPlane.x - oldHitPointInPlane.x, 0, 0);
-            [anchorPointView setTransform:localTransform];
+            double distanceDragged = newWorldCoord.x - oldWorldCoord.x;
+            oldPosition.x += distanceDragged;
+            anchorPointView.position = oldPosition;
             
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
-            [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, newHitPointInPlane.x - oldHitPointInPlane.x, 0, 0)];
+            [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, distanceDragged, 0, 0)];
         }
         else if([_selectionHandleInDrag.name isEqualToString:@"yAxisTranslate"])
         {
-            CATransform3D localTransform = anchorPointView.transform;
-            localTransform = CATransform3DTranslate(localTransform, 0, newHitPointInPlane.y - oldHitPointInPlane.y, 0);
-            [anchorPointView setTransform:localTransform];
-            
+            double distanceDragged = newWorldCoord.y - oldWorldCoord.y;
+            oldPosition.y += distanceDragged;
+            anchorPointView.position = oldPosition;
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
-            [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, newHitPointInPlane.y - oldHitPointInPlane.y, 0)];
+            [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, distanceDragged, 0)];
         }
         else if([_selectionHandleInDrag.name isEqualToString:@"xAxisTranslate"])
         {
-            CATransform3D localTransform = anchorPointView.transform;
-            localTransform = CATransform3DTranslate(localTransform, 0, 0, oldHitPointInPlane.x - newHitPointInPlane.x);
-            [anchorPointView setTransform:localTransform];
-            
+            double distanceDragged = newWorldCoord.z - oldWorldCoord.z;
+            oldPosition.z += distanceDragged;
+            anchorPointView.position = oldPosition;
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
-            [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, 0, oldHitPointInPlane.x - newHitPointInPlane.x)];
+            [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, 0, distanceDragged)];
         }
         
         lastClickedPoint = newMousePoint;
@@ -302,6 +302,23 @@
         return YES;
     }
     return NO;
+}
+
+- (double)distanceBetweenPoint:(SCNVector3)point1 point2:(SCNVector3)point2
+{
+    return sqrt(pow((point2.x - point1.x) , 2) + pow((point2.y - point1.y), 2) + pow((point2.z - point1.z), 2));
+}
+
+-(SCNVector3)normalisedDirectionBetween:(SCNVector3)point1 point2:(SCNVector3)point2
+{
+    SCNVector3 direction = SCNVector3Make(point2.x - point1.x, point2.y - point1.y, point2.z - point1.z);
+    double magnitude = sqrt(pow(direction.x, 2) + pow(direction.y, 2) + pow(direction.z, 2));
+    
+    direction.x /= magnitude;
+    direction.y /= magnitude;
+    direction.z /= magnitude;
+    
+    return direction;
 }
 
 -(void)mouseUp:(NSEvent *)theEvent
