@@ -146,24 +146,25 @@
     SCNHitTestResult *hitResult = [result objectAtIndex:0];
     SCNVector3 localPoint = hitResult.localCoordinates;
 
-    CATransform3D modelViewMatrix = self.sceneView.pointOfView.transform;
-    CATransform3D projectionMatrix = [self cameraNode].camera.projectionTransform;
+    GLKVector3 directionOfObject = GLKVector3Make(0, 1, 0);
+    GLKVector3 directionToLookAt = GLKVector3Make(localPoint.x - lookAt.x, localPoint.y - lookAt.y, localPoint.z - lookAt.z);
+    directionToLookAt = GLKVector3Negate(directionToLookAt);
+    directionToLookAt = GLKVector3Normalize(directionToLookAt);
+    float rotationAngle = acosf(directionOfObject.x * directionToLookAt.x + directionOfObject.y * directionToLookAt.y + directionOfObject.z * directionToLookAt.z);
+    
+    GLKVector3 crossProduct = GLKVector3CrossProduct(directionOfObject, directionToLookAt);
+    crossProduct = GLKVector3Normalize(crossProduct);
     
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
-
-    CATransform3D transform = CATransform3DMakeRotation( rotation.w, rotation.x, rotation.y, rotation.z);
-    CATransform3D translate = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
+    CATransform3D transform = CATransform3DMakeRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+    transform = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
+    transform = CATransform3DRotate(transform, rotationAngle, crossProduct.x, crossProduct.y, crossProduct.z);
     
-    SCNVector3 position = SCNVector3Make(translate.m41, translate.m42, translate.m43);
+    SCNVector3 position = SCNVector3Make(transform.m41, transform.m42, transform.m43);
     [anchorPoint setPosition:position];
     
-    GLKVector4 objectPoint = GLKVector4Make(position.x, position.y, position.z, 1);
-    GLKVector4 eyeCoord = GLKMatrix4MultiplyVector4(GLKMatrix4FromCATransform3D(modelViewMatrix), objectPoint);
-    GLKVector4 ndcCoord = GLKMatrix4MultiplyVector4(GLKMatrix4FromCATransform3D(projectionMatrix), eyeCoord);
-    ndcCoord = GLKVector4Normalize(ndcCoord);
-    
     FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc] initWithAnchorPoint:anchorPoint withRootNode:self.sceneView.scene.rootNode
-                                                                          withTransform:translate];
+                                                                          withTransform:transform];
     [anchorPointsCollection appendAnchorPoint:anchorPoint];
     [anchorPointsCollection addObserver:anchorPointView forKeyPath:@"selectedAnchorPoint"
                                 options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
