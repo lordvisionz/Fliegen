@@ -61,6 +61,7 @@
 		717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPointView.m; sourceTree = "<group>"; };
 		717CBE8818E7BEE900D9CBEB /* FLAnchorPointsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointsCollection.h; sourceTree = "<group>"; };
 		717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPointsCollection.m; sourceTree = "<group>"; };
+		717D2A4C19D5FCB40039C0D4 /* FLSceneKitUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneKitUtilities.h; sourceTree = "<group>"; };
 		7192EF2718BE9154002A34E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		7192EF2C18BEC496002A34E6 /* run.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = run.dae; sourceTree = "<group>"; };
@@ -214,6 +215,7 @@
 				713FE53318C01871001E05EF /* Model */,
 				71F8058618E4A52600EF22C7 /* SCNNode+FLAdditions.h */,
 				71F8058718E4A52600EF22C7 /* SCNNode+FLAdditions.m */,
+				717D2A4C19D5FCB40039C0D4 /* FLSceneKitUtilities.h */,
 				71EFAC5818BE8B7600BCE88E /* AppDelegate.h */,
 				71EFAC5918BE8B7600BCE88E /* AppDelegate.m */,
 				71EFAC5B18BE8B7600BCE88E /* MainMenu.xib */,

@@ -15,6 +15,7 @@
 #import <GLKit/GLKMath.h>
 #import "FLModel.h"
 #import "FLAnchorPoint.h"
+#import "FLSceneKitUtilities.h"
 
 #import "FLSceneView.h"
 #import "FLAnchorPointView.h"
@@ -120,22 +121,10 @@
         if(control == _xPosition)
         {
             anchorPoint.position = SCNVector3Make(_xPosition.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
-            SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
-            GLKVector3 upVector = GLKVector3Make(0, 1, 0);
-            GLKVector3 directionOfLookAt = GLKVector3Make(lookAtPosition.x - anchorPoint.position.x, lookAtPosition.y - anchorPoint.position.y ,
-                                                          lookAtPosition.z - anchorPoint.position.z);
-            directionOfLookAt = GLKVector3Normalize(directionOfLookAt);
-            
-            float angle = acosf(GLKVector3DotProduct(upVector, directionOfLookAt));
-            
-            GLKVector3 rotationVector = GLKVector3CrossProduct(upVector, directionOfLookAt);
-            if(rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 0)
-                rotationVector = upVector;
-            
-            rotationVector = GLKVector3Normalize(rotationVector);
-            
             anchorPointView.position = anchorPoint.position;
-            anchorPointView.rotation = SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
+            
+            SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
+            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -144,20 +133,9 @@
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPosition.doubleValue, anchorPoint.position.z);
             SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
-            GLKVector3 upVector = GLKVector3Make(0, 1, 0);
-            GLKVector3 directionOfLookAt = GLKVector3Make(lookAtPosition.x - anchorPoint.position.x, lookAtPosition.y - anchorPoint.position.y ,
-                                                          lookAtPosition.z - anchorPoint.position.z);
-            directionOfLookAt = GLKVector3Normalize(directionOfLookAt);
-            
-            float angle = acosf(GLKVector3DotProduct(upVector, directionOfLookAt));
-            GLKVector3 rotationVector = GLKVector3CrossProduct(upVector, directionOfLookAt);
-            if(rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 0)
-                rotationVector = upVector;
-            
-            rotationVector = GLKVector3Normalize(rotationVector);
             
             anchorPointView.position = anchorPoint.position;
-            anchorPointView.rotation = SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
+            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -166,19 +144,9 @@
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPosition.doubleValue);
             SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
-            GLKVector3 upVector = GLKVector3Make(0, 1, 0);
-            GLKVector3 directionOfLookAt = GLKVector3Make(lookAtPosition.x - anchorPoint.position.x, lookAtPosition.y - anchorPoint.position.y ,
-                                                          lookAtPosition.z - anchorPoint.position.z);
-            directionOfLookAt = GLKVector3Normalize(directionOfLookAt);
-            
-            float angle = acosf(GLKVector3DotProduct(upVector, directionOfLookAt));
-            GLKVector3 rotationVector = GLKVector3CrossProduct(upVector, directionOfLookAt);
-            if(rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 0)
-                rotationVector = upVector;
-            rotationVector = GLKVector3Normalize(rotationVector);
             
             anchorPointView.position = anchorPoint.position;
-            anchorPointView.rotation = SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
+            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
             [selectionHandles setTransform:selectionHandlesTransform];

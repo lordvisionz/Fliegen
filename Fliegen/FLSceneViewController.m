@@ -18,8 +18,7 @@
 
 #import <SceneKit/SceneKit.h>
 #import <SceneKit/SceneKitTypes.h>
-
-#import "GLKit/GLKMath.h"
+#import "FLSceneKitUtilities.h"
 
 @interface FLSceneViewController ()
 {
@@ -146,19 +145,12 @@
     SCNHitTestResult *hitResult = [result objectAtIndex:0];
     SCNVector3 localPoint = hitResult.localCoordinates;
 
-    GLKVector3 directionOfObject = GLKVector3Make(0, 1, 0);
-    GLKVector3 directionToLookAt = GLKVector3Make(localPoint.x - lookAt.x, localPoint.y - lookAt.y, localPoint.z - lookAt.z);
-    directionToLookAt = GLKVector3Negate(directionToLookAt);
-    directionToLookAt = GLKVector3Normalize(directionToLookAt);
-    float rotationAngle = acosf(directionOfObject.x * directionToLookAt.x + directionOfObject.y * directionToLookAt.y + directionOfObject.z * directionToLookAt.z);
+    SCNVector4 rotateToLookAt = FLRotatePointAToFacePointB(localPoint, lookAt);
     
-    GLKVector3 crossProduct = GLKVector3CrossProduct(directionOfObject, directionToLookAt);
-    crossProduct = GLKVector3Normalize(crossProduct);
-    
-    SCNVector4 rotation = self.sceneView.pointOfView.rotation;
-    CATransform3D transform = CATransform3DMakeRotation(rotation.w, rotation.x, rotation.y, rotation.z);
+    SCNVector4 cameraRotation = self.sceneView.pointOfView.rotation;
+    CATransform3D transform = CATransform3DMakeRotation(cameraRotation.w, cameraRotation.x, cameraRotation.y, cameraRotation.z);
     transform = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
-    transform = CATransform3DRotate(transform, rotationAngle, crossProduct.x, crossProduct.y, crossProduct.z);
+    transform = CATransform3DRotate(transform, rotateToLookAt.w, rotateToLookAt.x, rotateToLookAt.y, rotateToLookAt.z);
     
     SCNVector3 position = SCNVector3Make(transform.m41, transform.m42, transform.m43);
     [anchorPoint setPosition:position];
@@ -275,17 +267,9 @@
             double distanceDragged = newWorldCoord.x - oldWorldCoord.x;
             oldPosition.x += distanceDragged;
             anchorPointView.position = oldPosition;
-            
-            GLKVector3 upVector = GLKVector3Make(0, 1, 0);
-            GLKVector3 directionOfLookAt = GLKVector3Make(lookAtPosition.x - oldPosition.x, lookAtPosition.y - oldPosition.y ,
-                                                          lookAtPosition.z - oldPosition.z);
-            directionOfLookAt = GLKVector3Normalize(directionOfLookAt);
-            
-            float angle = acosf(GLKVector3DotProduct(upVector, directionOfLookAt));
-            GLKVector3 rotationVector = GLKVector3CrossProduct(upVector, directionOfLookAt);
-            rotationVector = GLKVector3Normalize(rotationVector);
-            
-            anchorPointView.rotation = SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
+
+            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
+            anchorPointView.rotation = rotation;
             
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
@@ -296,16 +280,9 @@
             double distanceDragged = newWorldCoord.y - oldWorldCoord.y;
             oldPosition.y += distanceDragged;
             anchorPointView.position = oldPosition;
-            GLKVector3 upVector = GLKVector3Make(0, 1, 0);
-            GLKVector3 directionOfLookAt = GLKVector3Make(lookAtPosition.x - oldPosition.x, lookAtPosition.y - oldPosition.y ,
-                                                          lookAtPosition.z - oldPosition.z);
-            directionOfLookAt = GLKVector3Normalize(directionOfLookAt);
             
-            float angle = acosf(GLKVector3DotProduct(upVector, directionOfLookAt));
-            GLKVector3 rotationVector = GLKVector3CrossProduct(upVector, directionOfLookAt);
-            rotationVector = GLKVector3Normalize(rotationVector);
-            
-            anchorPointView.rotation = SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
+            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
+            anchorPointView.rotation = rotation;
             
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
@@ -316,16 +293,10 @@
             double distanceDragged = newWorldCoord.z - oldWorldCoord.z;
             oldPosition.z += distanceDragged;
             anchorPointView.position = oldPosition;
-            GLKVector3 upVector = GLKVector3Make(0, 1, 0);
-            GLKVector3 directionOfLookAt = GLKVector3Make(lookAtPosition.x - oldPosition.x, lookAtPosition.y - oldPosition.y ,
-                                                          lookAtPosition.z - oldPosition.z);
-            directionOfLookAt = GLKVector3Normalize(directionOfLookAt);
             
-            float angle = acosf(GLKVector3DotProduct(upVector, directionOfLookAt));
-            GLKVector3 rotationVector = GLKVector3CrossProduct(upVector, directionOfLookAt);
-            rotationVector = GLKVector3Normalize(rotationVector);
+            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
+            anchorPointView.rotation = rotation;
             
-            anchorPointView.rotation = SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, 0, distanceDragged)];
