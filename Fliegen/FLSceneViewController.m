@@ -260,7 +260,7 @@
         SCNVector3 newWorldCoord = hitPlane.worldCoordinates;
 
         SCNVector3 oldPosition = anchorPointView.position;
-        SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
+        SCNVector3 lookAtPosition = anchorPointView.anchorPointModel.lookAt;
         
         if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
         {

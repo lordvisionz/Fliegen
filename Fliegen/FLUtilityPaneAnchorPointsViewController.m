@@ -123,7 +123,7 @@
             anchorPoint.position = SCNVector3Make(_xPosition.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
             anchorPointView.position = anchorPoint.position;
             
-            SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
+            SCNVector3 lookAtPosition = anchorPoint.lookAt;
             anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
@@ -132,7 +132,7 @@
         else if(control == _yPosition)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPosition.doubleValue, anchorPoint.position.z);
-            SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
+            SCNVector3 lookAtPosition = anchorPoint.lookAt;
             
             anchorPointView.position = anchorPoint.position;
             anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
@@ -143,7 +143,7 @@
         else if(control == _zPosition)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPosition.doubleValue);
-            SCNVector3 lookAtPosition = SCNVector3Make(0, 0, 0);
+            SCNVector3 lookAtPosition = anchorPoint.lookAt;
             
             anchorPointView.position = anchorPoint.position;
             anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
@@ -153,15 +153,18 @@
         }
         else if(control == _xLookAt)
         {
-            
+            anchorPoint.lookAt = SCNVector3Make(_xLookAt.doubleValue, anchorPoint.lookAt.y, anchorPoint.lookAt.z);
+            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
         }
         else if(control == _yLookAt)
         {
-            
+            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, _yLookAt.doubleValue, anchorPoint.lookAt.z);
+            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
         }
         else if(control == _zLookAt)
         {
-            
+            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, anchorPoint.lookAt.y, _zLookAt.doubleValue);
+            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
         }
         return YES;
     }
