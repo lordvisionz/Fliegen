@@ -19,12 +19,9 @@ NS_INLINE SCNVector4 FLRotatePointAToFacePointB(SCNVector3 A, SCNVector3 B)
     float angle = acosf(GLKVector3DotProduct(upVector, directionOfLookAt));
     GLKVector3 rotationVector = GLKVector3CrossProduct(upVector, directionOfLookAt);
     
-    float nan = NAN;
-    if((rotationVector.x == 0 || rotationVector.x == nan) && (rotationVector.y == 0 || rotationVector.y == nan) &&
-       (rotationVector.z == 0 || rotationVector.z == nan))
-    {
+    if(rotationVector.x == 0 && rotationVector.y == 0 && rotationVector.z == 0)
         rotationVector = GLKVector3Make(0, 0, 1);
-    }
+
     rotationVector = GLKVector3Normalize(rotationVector);
     
     return SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
