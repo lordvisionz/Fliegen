@@ -11,7 +11,7 @@
 
 @class FLUtilityPaneController, FLSceneViewController, FLModel;
 
-@interface FLAppFrameController : NSObject
+@interface FLAppFrameController : NSObject<NSSplitViewDelegate>
 
 @property (readonly, retain) FLModel *model;
 

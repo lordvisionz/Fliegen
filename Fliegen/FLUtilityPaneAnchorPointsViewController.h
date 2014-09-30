@@ -15,16 +15,23 @@
 
 @property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
 
-@property (weak) IBOutlet NSTextField *anchorId;
+@property (weak) IBOutlet NSComboBox *anchorIdComboBox;
 
-@property (weak) IBOutlet NSTextField *xPosition;
-@property (weak) IBOutlet NSTextField *yPosition;
-@property (weak) IBOutlet NSTextField *zPosition;
+@property (weak) IBOutlet NSTextField *xPositionTextField;
+@property (weak) IBOutlet NSTextField *yPositionTextField;
+@property (weak) IBOutlet NSTextField *zPositionTextField;
 
-@property (weak) IBOutlet NSTextField *xLookAt;
-@property (weak) IBOutlet NSTextField *yLookAt;
-@property (weak) IBOutlet NSTextField *zLookAt;
+@property (weak) IBOutlet NSStepper *xPositionStepper;
+@property (weak) IBOutlet NSStepper *yPositionStepper;
+@property (weak) IBOutlet NSStepper *zPositionStepper;
 
+@property (weak) IBOutlet NSTextField *xLookAtTextField;
+@property (weak) IBOutlet NSTextField *yLookAtTextField;
+@property (weak) IBOutlet NSTextField *zLookAtTextField;
+
+@property (weak) IBOutlet NSStepper *xLookAtStepper;
+@property (weak) IBOutlet NSStepper *yLookAtStepper;
+@property (weak) IBOutlet NSStepper *zLookAtStepper;
 
 //@property (readwrite, assign) NSUInteger anchorId;
 //

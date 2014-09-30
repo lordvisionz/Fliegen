@@ -29,9 +29,9 @@
 -(void)awakeFromNib
 {
     [self toggleEnableInputElements:NO];
-    _xPosition.doubleValue = _yPosition.doubleValue = _zPosition.doubleValue = 0;
-    _xLookAt.doubleValue = _yLookAt.doubleValue = _zLookAt.doubleValue = 0;
-    _anchorId.integerValue = 0;
+    _xPositionTextField.doubleValue = _yPositionTextField.doubleValue = _zPositionTextField.doubleValue = 0;
+    _xLookAtTextField.doubleValue = _yLookAtTextField.doubleValue = _zLookAtTextField.doubleValue = 0;
+    _anchorIdComboBox.integerValue = 0;
     
     FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.anchorPointsCollection;
     
@@ -51,7 +51,7 @@
         else
         {
             [self toggleEnableInputElements:YES];
-            self.anchorId.integerValue = newSelectedAnchorPoint.anchorPointID;
+            self.anchorIdComboBox.integerValue = newSelectedAnchorPoint.anchorPointID;
 
             if([previousSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO)
             {
@@ -62,28 +62,28 @@
             [newSelectedAnchorPoint addObserver:self forKeyPath:@"position" options:NSKeyValueObservingOptionNew context:NULL];
             [newSelectedAnchorPoint addObserver:self forKeyPath:@"lookAt" options:NSKeyValueObservingOptionNew context:NULL];
             
-            _xPosition.doubleValue = newSelectedAnchorPoint.position.x;
-            _yPosition.doubleValue = newSelectedAnchorPoint.position.y;
-            _zPosition.doubleValue = newSelectedAnchorPoint.position.z;
+            _xPositionTextField.doubleValue = newSelectedAnchorPoint.position.x;
+            _yPositionTextField.doubleValue = newSelectedAnchorPoint.position.y;
+            _zPositionTextField.doubleValue = newSelectedAnchorPoint.position.z;
             
-            _xLookAt.doubleValue = newSelectedAnchorPoint.lookAt.x;
-            _yLookAt.doubleValue = newSelectedAnchorPoint.lookAt.y;
-            _zLookAt.doubleValue = newSelectedAnchorPoint.lookAt.z;
+            _xLookAtTextField.doubleValue = newSelectedAnchorPoint.lookAt.x;
+            _yLookAtTextField.doubleValue = newSelectedAnchorPoint.lookAt.y;
+            _zLookAtTextField.doubleValue = newSelectedAnchorPoint.lookAt.z;
         }
     }
     else if([keyPath isEqualToString:@"position"] == YES)
     {
         FLAnchorPoint *anchorPoint = object;
-        _xPosition.doubleValue = anchorPoint.position.x;
-        _yPosition.doubleValue = anchorPoint.position.y;
-        _zPosition.doubleValue = anchorPoint.position.z;
+        _xPositionTextField.doubleValue = anchorPoint.position.x;
+        _yPositionTextField.doubleValue = anchorPoint.position.y;
+        _zPositionTextField.doubleValue = anchorPoint.position.z;
     }
     else if([keyPath isEqualToString:@"lookAt"] == YES)
     {
         FLAnchorPoint *anchorPoint = object;
-        _xLookAt.doubleValue = anchorPoint.lookAt.x;
-        _yLookAt.doubleValue = anchorPoint.lookAt.y;
-        _zLookAt.doubleValue = anchorPoint.lookAt.z;
+        _xLookAtTextField.doubleValue = anchorPoint.lookAt.x;
+        _yLookAtTextField.doubleValue = anchorPoint.lookAt.y;
+        _zLookAtTextField.doubleValue = anchorPoint.lookAt.z;
     }
 }
 
@@ -105,22 +105,10 @@
         SCNNode *selectionHandles = [sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
         CATransform3D selectionHandlesTransform = selectionHandles.transform;
         
-        __block FLAnchorPointView *anchorPointView;
-        [sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop)
-       {
-           if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
-           anchorPointView = (FLAnchorPointView*) child;
-           
-           if(anchorPointView.anchorPointModel == anchorPoint)
-           {
-               *stop = YES;
-               return YES;
-           }
-           return NO;
-       }];
-        if(control == _xPosition)
+        FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
+        if(control == _xPositionTextField)
         {
-            anchorPoint.position = SCNVector3Make(_xPosition.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
+            anchorPoint.position = SCNVector3Make(_xPositionTextField.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
             anchorPointView.position = anchorPoint.position;
             
             SCNVector3 lookAtPosition = anchorPoint.lookAt;
@@ -129,9 +117,9 @@
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
         }
-        else if(control == _yPosition)
+        else if(control == _yPositionTextField)
         {
-            anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPosition.doubleValue, anchorPoint.position.z);
+            anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionTextField.doubleValue, anchorPoint.position.z);
             SCNVector3 lookAtPosition = anchorPoint.lookAt;
             
             anchorPointView.position = anchorPoint.position;
@@ -140,9 +128,9 @@
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
         }
-        else if(control == _zPosition)
+        else if(control == _zPositionTextField)
         {
-            anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPosition.doubleValue);
+            anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionTextField.doubleValue);
             SCNVector3 lookAtPosition = anchorPoint.lookAt;
             
             anchorPointView.position = anchorPoint.position;
@@ -151,19 +139,19 @@
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
             [selectionHandles setTransform:selectionHandlesTransform];
         }
-        else if(control == _xLookAt)
+        else if(control == _xLookAtTextField)
         {
-            anchorPoint.lookAt = SCNVector3Make(_xLookAt.doubleValue, anchorPoint.lookAt.y, anchorPoint.lookAt.z);
+            anchorPoint.lookAt = SCNVector3Make(_xLookAtTextField.doubleValue, anchorPoint.lookAt.y, anchorPoint.lookAt.z);
             anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
         }
-        else if(control == _yLookAt)
+        else if(control == _yLookAtTextField)
         {
-            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, _yLookAt.doubleValue, anchorPoint.lookAt.z);
+            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, _yLookAtTextField.doubleValue, anchorPoint.lookAt.z);
             anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
         }
-        else if(control == _zLookAt)
+        else if(control == _zLookAtTextField)
         {
-            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, anchorPoint.lookAt.y, _zLookAt.doubleValue);
+            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, anchorPoint.lookAt.y, _zLookAtTextField.doubleValue);
             anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
         }
         return YES;
@@ -171,33 +159,84 @@
     return NO;
 }
 
--(void)textDidEndEditing:(NSNotification *)notification
+- (IBAction)stepValue:(id)sender
 {
+    FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
     FLAnchorPoint *anchorPoint = self.utilityPaneController.appFrameController.model.anchorPointsCollection.selectedAnchorPoint;
-    if(notification.object == _xPosition)
+    FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
+    
+    SCNVector3 oldPosition = anchorPoint.position;
+    SCNNode *selectionHandles = [sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
+    CATransform3D selectionHandlesTransform = selectionHandles.transform;
+    
+    NSStepper *stepper = (NSStepper *)sender;
+    if(sender == _xPositionStepper)
     {
-        anchorPoint.position = SCNVector3Make(_xPosition.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
-    }
-    else if(notification.object == _yPosition)
-    {
-        anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPosition.doubleValue, anchorPoint.position.z);
-    }
-    else if(notification.object == _zPosition)
-    {
-        anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPosition.doubleValue);
-    }
-    else if(notification.object == _xLookAt)
-    {
+        anchorPoint.position = SCNVector3Make([stepper doubleValue], anchorPoint.position.y, anchorPoint.position.z);
+        anchorPointView.position = anchorPoint.position;
         
-    }
-    else if(notification.object == _yLookAt)
-    {
+        SCNVector3 lookAtPosition = anchorPoint.lookAt;
+        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
         
+        selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
+        [selectionHandles setTransform:selectionHandlesTransform];
     }
-    else if(notification.object == _zLookAt)
+    else if(sender == _yPositionStepper)
     {
+        anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionStepper.doubleValue, anchorPoint.position.z);
+        SCNVector3 lookAtPosition = anchorPoint.lookAt;
         
+        anchorPointView.position = anchorPoint.position;
+        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
+        
+        selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
+        [selectionHandles setTransform:selectionHandlesTransform];
     }
+    else if(sender == _zPositionStepper)
+    {
+        anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionStepper.doubleValue);
+        SCNVector3 lookAtPosition = anchorPoint.lookAt;
+        
+        anchorPointView.position = anchorPoint.position;
+        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
+        
+        selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
+        [selectionHandles setTransform:selectionHandlesTransform];
+    }
+    else if(sender == _xLookAtStepper)
+    {
+        anchorPoint.lookAt = SCNVector3Make(_xLookAtStepper.doubleValue, anchorPoint.lookAt.y, anchorPoint.lookAt.z);
+        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
+    }
+    else if(sender == _yLookAtStepper)
+    {
+        anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, _yLookAtStepper.doubleValue, anchorPoint.lookAt.z);
+        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
+    }
+    else if (sender == _zLookAtStepper)
+    {
+        anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, anchorPoint.lookAt.y, _zLookAtStepper.doubleValue);
+        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
+    }
+}
+
+-(FLAnchorPointView*)anchorPointViewForModel:(FLAnchorPoint *)anchorPoint
+{
+    FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
+    __block FLAnchorPointView *anchorPointView;
+    [sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop)
+     {
+         if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
+         anchorPointView = (FLAnchorPointView*) child;
+         
+         if(anchorPointView.anchorPointModel == anchorPoint)
+         {
+             *stop = YES;
+             return YES;
+         }
+         return NO;
+     }];
+    return anchorPointView;
 }
 
 @end

@@ -27,11 +27,11 @@
 
 -(void)didFinishLaunching
 {
-    NSSegmentedCell *cell = _utilityPaneSegmentedControl.cell;
-    double width = 0;
-    width = [cell widthForSegment:0];
-    width += [cell widthForSegment:1];
-    [cell setWidth:(self.view.frame.size.width - width)  forSegment:2];
+//    NSSegmentedCell *cell = _utilityPaneSegmentedControl.cell;
+//    double width = 0;
+//    width = [cell widthForSegment:0];
+//    width += [cell widthForSegment:1];
+//    [cell setWidth:(self.view.frame.size.width - width)  forSegment:2];
     
     [_utilityViewPane addSubview:_anchorPointsPane.view];
 }
