@@ -650,19 +650,19 @@
         <window title="Fliegen" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="1000" height="800"/>
+            <rect key="contentRect" x="335" y="390" width="1001" height="800"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="826" height="648"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                <rect key="frame" x="0.0" y="0.0" width="1001" height="800"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <splitView misplaced="YES" placeholderIntrinsicWidth="1000" placeholderIntrinsicHeight="800" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xok-CF-2qg">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="800"/>
+                    <splitView placeholderIntrinsicWidth="1000" placeholderIntrinsicHeight="800" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xok-CF-2qg">
+                        <rect key="frame" x="0.0" y="0.0" width="1001" height="800"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <sceneView misplaced="YES" placeholderIntrinsicWidth="700" placeholderIntrinsicHeight="360" sceneName="Pokeball.dae" loops="YES" playing="YES" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv" customClass="FLSceneView">
-                                <rect key="frame" x="0.0" y="0.0" width="699" height="800"/>
+                            <sceneView placeholderIntrinsicWidth="700" placeholderIntrinsicHeight="360" sceneName="Pokeball.dae" loops="YES" playing="YES" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv" customClass="FLSceneView">
+                                <rect key="frame" x="0.0" y="0.0" width="700" height="800"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="800" id="wt8-I0-z1q"/>
@@ -672,8 +672,8 @@
                                     <outlet property="controller" destination="16d-AC-vuq" id="6Qu-hi-Kpd"/>
                                 </connections>
                             </sceneView>
-                            <customView horizontalHuggingPriority="1000" verticalHuggingPriority="1000" misplaced="YES" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="800" id="fx3-cY-JRM">
-                                <rect key="frame" x="700" y="0.0" width="300" height="800"/>
+                            <customView horizontalHuggingPriority="1000" verticalHuggingPriority="1000" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="800" id="fx3-cY-JRM">
+                                <rect key="frame" x="701" y="0.0" width="300" height="800"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <box autoresizesSubviews="NO" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="NBl-T3-fdi">
@@ -798,6 +798,7 @@
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="4oR-t1-Ym5" id="Bnc-BK-4ez"/>
+                                    <outlet property="formatter" destination="T85-2t-1Lf" id="7n4-3f-PqC"/>
                                 </connections>
                             </textField>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mNB-U2-TY7">
@@ -819,6 +820,7 @@
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="4oR-t1-Ym5" id="qzT-cu-oPT"/>
+                                    <outlet property="formatter" destination="T85-2t-1Lf" id="OJn-x7-Ksm"/>
                                 </connections>
                             </textField>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e4k-oR-Rjx">
@@ -840,6 +842,7 @@
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="4oR-t1-Ym5" id="TZI-v3-93A"/>
+                                    <outlet property="formatter" destination="T85-2t-1Lf" id="FNJ-Zi-ytX"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S7X-UD-YlY">
@@ -905,6 +908,7 @@
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="4oR-t1-Ym5" id="l2O-VI-dD6"/>
+                                    <outlet property="formatter" destination="T85-2t-1Lf" id="83m-Qq-9Yl"/>
                                 </connections>
                             </textField>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jWN-13-KQc">
@@ -926,6 +930,7 @@
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="4oR-t1-Ym5" id="cao-62-lUa"/>
+                                    <outlet property="formatter" destination="T85-2t-1Lf" id="RXX-CA-f9s"/>
                                 </connections>
                             </textField>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DQh-wX-hv0">
@@ -947,6 +952,7 @@
                                 </textFieldCell>
                                 <connections>
                                     <outlet property="delegate" destination="4oR-t1-Ym5" id="StZ-Em-DGj"/>
+                                    <outlet property="formatter" destination="T85-2t-1Lf" id="wj6-0q-IVD"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Jf-cH-YMb">
@@ -1050,6 +1056,11 @@
             </connections>
         </viewController>
         <userDefaultsController representsSharedInstance="YES" id="3PE-Ee-X5Q"/>
+        <numberFormatter formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="3" maximumFractionDigits="1" id="T85-2t-1Lf">
+            <metadata>
+                <real key="inspectorSampleValue" value="1"/>
+            </metadata>
+        </numberFormatter>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
