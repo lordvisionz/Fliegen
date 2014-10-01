@@ -98,9 +98,22 @@
 -(BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
 {
     FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
+    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.anchorPointsCollection;
     if(commandSelector == @selector(insertNewline:))
     {
-        FLAnchorPoint *anchorPoint = self.utilityPaneController.appFrameController.model.anchorPointsCollection.selectedAnchorPoint;
+        if(control == _anchorIdComboBox)
+        {
+            NSUInteger anchorPointID = _anchorIdComboBox.integerValue;
+            FLAnchorPoint *point = [anchorPointsCollection anchorPointForId:anchorPointID];
+            if(point == nil)
+                point = [anchorPointsCollection anchorPointForId:anchorPointsCollection.anchorPointsCount];
+            
+            anchorPointsCollection.selectedAnchorPoint = point;
+            
+            return YES;
+        }
+        
+        FLAnchorPoint *anchorPoint = anchorPointsCollection.selectedAnchorPoint;
         SCNVector3 oldPosition = anchorPoint.position;
         SCNNode *selectionHandles = [sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
         CATransform3D selectionHandlesTransform = selectionHandles.transform;
@@ -238,5 +251,34 @@
      }];
     return anchorPointView;
 }
+
+#pragma mark - Combobox datasource/delegate
+
+-(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
+{
+    return [self.utilityPaneController.appFrameController.model.anchorPointsCollection anchorPointsCount];
+}
+
+-(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
+{
+    FLAnchorPoint *anchorPoint = [self.utilityPaneController.appFrameController.model.anchorPointsCollection anchorPointForIndex:index];
+    return [NSNumber numberWithUnsignedInteger:anchorPoint.anchorPointID];
+}
+
+-(void)comboBoxSelectionDidChange:(NSNotification *)notification
+{
+    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.anchorPointsCollection;
+
+    NSUInteger index = [_anchorIdComboBox indexOfSelectedItem];
+    FLAnchorPoint *anchorPoint = [anchorPointsCollection anchorPointForIndex:index];
+    
+    if(anchorPoint == nil)
+    {
+        anchorPoint = [anchorPointsCollection anchorPointForId:anchorPointsCollection.anchorPointsCount];
+    }
+    anchorPointsCollection.selectedAnchorPoint = anchorPoint;
+}
+
+
 
 @end

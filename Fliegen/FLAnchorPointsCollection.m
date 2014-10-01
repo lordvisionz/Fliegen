@@ -26,6 +26,13 @@
     return [_anchorPoints objectAtIndex:(anchorPointId - 1)];
 }
 
+-(FLAnchorPoint *)anchorPointForIndex:(NSUInteger)index
+{
+    if(index >= _anchorPoints.count) return nil;
+    
+    return [_anchorPoints objectAtIndex:index];
+}
+
 -(void)appendAnchorPoint:(FLAnchorPoint *)anchorPoint
 {
     [_anchorPoints addObject:anchorPoint];
@@ -56,6 +63,11 @@
     }];
     self.selectedAnchorPoint = nil;
     return YES;
+}
+
+-(NSUInteger)anchorPointsCount
+{
+    return _anchorPoints.count;
 }
 
 @end

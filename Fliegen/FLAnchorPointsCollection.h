@@ -19,9 +19,12 @@
 
 -(FLAnchorPoint*)anchorPointForId:(NSUInteger)anchorPointId;
 
+-(FLAnchorPoint*)anchorPointForIndex:(NSUInteger)index;
+
 -(void)appendAnchorPoint:(FLAnchorPoint*)anchorPoint;
 
 -(BOOL)deleteSelectedAnchorPoint;
 
+-(NSUInteger)anchorPointsCount;
 
 @end

@@ -998,11 +998,15 @@
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Slf-lP-eSx">
                     <rect key="frame" x="182" y="724" width="99" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="SQf-5E-Ilw">
+                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="SQf-5E-Ilw">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </comboBoxCell>
+                    <connections>
+                        <outlet property="dataSource" destination="4oR-t1-Ym5" id="pgj-Sv-83U"/>
+                        <outlet property="delegate" destination="4oR-t1-Ym5" id="9cv-zX-wI2"/>
+                    </connections>
                 </comboBox>
             </subviews>
         </customView>
@@ -1028,13 +1032,11 @@
         </viewController>
         <viewController id="4oR-t1-Ym5" customClass="FLUtilityPaneAnchorPointsViewController">
             <connections>
-                <outlet property="anchorId" destination="Slf-lP-eSx" id="eFg-iw-sN3"/>
                 <outlet property="anchorIdComboBox" destination="Slf-lP-eSx" id="YfJ-SW-1oB"/>
                 <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="KBN-Jx-0HM"/>
                 <outlet property="view" destination="WBT-Nu-aXc" id="1H1-Y7-MfP"/>
                 <outlet property="xLookAtStepper" destination="DQh-wX-hv0" id="afX-Ch-sZ2"/>
                 <outlet property="xLookAtTextField" destination="Osf-Vh-6cj" id="ggZ-LG-PWo"/>
-                <outlet property="xPosition" destination="z8w-jD-ETL" id="HKY-aj-ZVz"/>
                 <outlet property="xPositionStepper" destination="e4k-oR-Rjx" id="pdx-YU-2Z1"/>
                 <outlet property="xPositionTextField" destination="z8w-jD-ETL" id="Pud-XM-LIJ"/>
                 <outlet property="yLookAtStepper" destination="jWN-13-KQc" id="vfl-pE-V8W"/>
