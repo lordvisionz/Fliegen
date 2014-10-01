@@ -28,7 +28,6 @@
 
 -(void)awakeFromNib
 {
-    [self toggleEnableInputElements:NO];
     _xPositionTextField.doubleValue = _yPositionTextField.doubleValue = _zPositionTextField.doubleValue = 0;
     _xLookAtTextField.doubleValue = _yLookAtTextField.doubleValue = _zLookAtTextField.doubleValue = 0;
     _anchorIdComboBox.integerValue = 0;
@@ -37,6 +36,7 @@
     
     [anchorPointsCollection addObserver:self forKeyPath:@"selectedAnchorPoint" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
                                 context:NULL];
+    [self toggleEnableInputElements:NO];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -89,11 +89,26 @@
 
 -(void)toggleEnableInputElements:(BOOL)visible
 {
-    for(NSView *view in self.view.subviews)
-    {
-        [view setHidden:!visible];
-    }
+    [_anchorIdComboBox setEnabled:visible];
+    
+    [_xPositionTextField setEnabled:visible];
+    [_yPositionTextField setEnabled:visible];
+    [_zPositionTextField setEnabled:visible];
+    
+    [_xPositionStepper setEnabled:visible];
+    [_yPositionStepper setEnabled:visible];
+    [_zPositionStepper setEnabled:visible];
+    
+    [_xLookAtTextField setEnabled:visible];
+    [_yLookAtTextField setEnabled:visible];
+    [_zLookAtTextField setEnabled:visible];
+    
+    [_xLookAtStepper setEnabled:visible];
+    [_yLookAtStepper setEnabled:visible];
+    [_zLookAtStepper setEnabled:visible];
 }
+
+#pragma mark - NSTextField/combobox value changed
 
 -(BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
 {
@@ -232,6 +247,8 @@
         anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
     }
 }
+
+#pragma mark - Utility Methods
 
 -(FLAnchorPointView*)anchorPointViewForModel:(FLAnchorPoint *)anchorPoint
 {
