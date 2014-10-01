@@ -235,7 +235,8 @@
         
         NSArray *oldHitNoes = [self.sceneView hitTest:lastClickedPoint options:nil];
         NSArray *newHitNodes = [self.sceneView hitTest:newMousePoint options:nil];
-        SCNHitTestResult *hitPlane = [oldHitNoes objectAtIndex:[oldHitNoes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
+        
+        NSUInteger hitIndex =[oldHitNoes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
         {
             SCNNode *node = [obj node];
             if([node.name isEqualToString:@"hitplane"] == YES)
@@ -244,9 +245,12 @@
                 return YES;
             }
             return NO;
-        }]];
-        SCNVector3 oldWorldCoord = hitPlane.worldCoordinates;
+        }];
+        if(hitIndex == NSNotFound) return NO;
         
+        SCNHitTestResult *hitPlane = [oldHitNoes objectAtIndex:hitIndex];
+        
+        SCNVector3 oldWorldCoord = hitPlane.worldCoordinates;
         hitPlane = [newHitNodes objectAtIndex:[newHitNodes indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
          {
              SCNNode *node = [obj node];
