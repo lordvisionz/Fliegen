@@ -10,6 +10,12 @@
 #import <SceneKit/SceneKit.h>
 #import <GLKit/GLKit.h>
 
+typedef NS_ENUM(unsigned short, FLSceneReferenceObject)
+{
+    FLSceneReferenceObjectPokeball = 0,
+    FLSceneReferenceObjectBox = 1
+};
+
 NS_INLINE SCNVector4 FLRotatePointAToFacePointB(SCNVector3 A, SCNVector3 B)
 {
     GLKVector3 upVector = GLKVector3Make(0, 1, 0);

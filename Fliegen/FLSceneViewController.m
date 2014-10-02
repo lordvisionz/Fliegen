@@ -15,6 +15,7 @@
 #import "FLAnchorPointView.h"
 
 #import "FLSceneView.h"
+#import <SceneKit/SceneKit.h>
 
 #import <SceneKit/SceneKit.h>
 #import <SceneKit/SceneKitTypes.h>
@@ -70,17 +71,17 @@
     cameraNode.position = SCNVector3Make(0, 0, 100);
     cameraNode.rotation = SCNVector4Make(0, 0, 0, 0);
 
-    [[self.sceneView.scene.rootNode childNodeWithName:@"pokeball" recursively:NO] removeFromParentNode];
+//    [[self.sceneView.scene.rootNode childNodeWithName:@"pokeball" recursively:NO] removeFromParentNode];
     
-    SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0];
-    SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
-    [boxNode setName:@"box"];
-    boxNode.position = SCNVector3Make(0, 0, 0);
-
-    SCNMaterial *material = [SCNMaterial material];
-    material.diffuse.contents = [NSColor redColor];
-    box.firstMaterial = material;
-    [self.sceneView.scene.rootNode addChildNode:boxNode];
+//    SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0];
+//    SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
+//    [boxNode setName:@"box"];
+//    boxNode.position = SCNVector3Make(0, 0, 0);
+//
+//    SCNMaterial *material = [SCNMaterial material];
+//    material.diffuse.contents = [NSColor redColor];
+//    box.firstMaterial = material;
+//    [self.sceneView.scene.rootNode addChildNode:boxNode];
 }
 
 -(void)awakeFromNib
@@ -89,6 +90,29 @@
     [self.view.window makeFirstResponder:self];
 
     [self setInitialCamera];
+}
+
+-(void)setSceneReferenceObject:(FLSceneReferenceObject)referenceObject
+{
+    [[self.sceneView.scene.rootNode childNodeWithName:@"pokeball" recursively:NO] removeFromParentNode];
+    [[self.sceneView.scene.rootNode childNodeWithName:@"box" recursively:NO] removeFromParentNode];
+    
+    if(referenceObject == FLSceneReferenceObjectBox)
+    {
+        SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0];
+        SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
+        [boxNode setName:@"box"];
+        boxNode.position = SCNVector3Make(0, 0, 0);
+        
+        SCNMaterial *material = [SCNMaterial material];
+        material.diffuse.contents = [NSColor redColor];
+        box.firstMaterial = material;
+        [self.sceneView.scene.rootNode addChildNode:boxNode];
+    }
+    else if(referenceObject == FLSceneReferenceObjectPokeball)
+    {
+        
+    }
 }
 
 -(void)initMenuItems

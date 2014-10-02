@@ -33,10 +33,4 @@
 @property (weak) IBOutlet NSStepper *yLookAtStepper;
 @property (weak) IBOutlet NSStepper *zLookAtStepper;
 
-//@property (readwrite, assign) NSUInteger anchorId;
-//
-//@property (readwrite, assign) SCNVector3 anchorPosition;
-//
-//@property (readwrite, assign) SCNVector3 anchorLookAt;
-
 @end

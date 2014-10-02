@@ -8,6 +8,7 @@
 
 #import "FLUtilityPaneController.h"
 #import "FLUtilityPaneAnchorPointsViewController.h"
+#import "FLUtilityPaneFliegenViewController.h"
 
 @interface FLUtilityPaneController ()
 
@@ -27,13 +28,7 @@
 
 -(void)didFinishLaunching
 {
-//    NSSegmentedCell *cell = _utilityPaneSegmentedControl.cell;
-//    double width = 0;
-//    width = [cell widthForSegment:0];
-//    width += [cell widthForSegment:1];
-//    [cell setWidth:(self.view.frame.size.width - width)  forSegment:2];
-    
-    [_utilityViewPane addSubview:_anchorPointsPane.view];
+    [_utilityViewPane addSubview:_fliegenPropertiesController.view];
 }
 
 - (IBAction)switchUtilityPaneTab:(id)sender
@@ -41,13 +36,13 @@
     NSUInteger selectedSegment = _utilityPaneSegmentedControl.selectedSegment;
     if(selectedSegment == 0)
     {
-        [_miscPane removeFromSuperview];
-        [_utilityViewPane addSubview:_anchorPointsPane.view];
+        [_utilityViewPane.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [_utilityViewPane addSubview:_fliegenPropertiesController.view];
     }
     else if(selectedSegment == 1)
     {
-        [_anchorPointsPane.view removeFromSuperview];
-        [_utilityViewPane addSubview:_miscPane];
+        [_utilityViewPane.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [_utilityViewPane addSubview:_anchorPointsPropertiesPaneController.view];
     }
     
     [self.view setNeedsDisplay:YES];

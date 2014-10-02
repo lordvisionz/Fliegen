@@ -21,6 +21,7 @@
 		7192EF2F18C00105002A34E6 /* Pokeball.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7192EF2E18C00105002A34E6 /* Pokeball.dae */; };
 		71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58318C3E3CC00788605 /* FLSceneView.m */; };
 		71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58618C3EACB00788605 /* FLSceneViewController.m */; };
+		71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */; };
 		71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC4618BE8B7600BCE88E /* Cocoa.framework */; };
 		71EFAC5118BE8B7600BCE88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC4F18BE8B7600BCE88E /* InfoPlist.strings */; };
 		71EFAC5318BE8B7600BCE88E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 71EFAC5218BE8B7600BCE88E /* main.m */; };
@@ -70,6 +71,8 @@
 		71A9B58318C3E3CC00788605 /* FLSceneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSceneView.m; sourceTree = "<group>"; };
 		71A9B58518C3EACB00788605 /* FLSceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneViewController.h; sourceTree = "<group>"; };
 		71A9B58618C3EACB00788605 /* FLSceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSceneViewController.m; sourceTree = "<group>"; };
+		71AB497D19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUtilityPaneFliegenViewController.h; sourceTree = "<group>"; };
+		71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneFliegenViewController.m; sourceTree = "<group>"; };
 		71EFAC4318BE8B7600BCE88E /* Fliegen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fliegen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EFAC4618BE8B7600BCE88E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		71EFAC4918BE8B7600BCE88E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -150,6 +153,8 @@
 				713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */,
 				711C998C19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.h */,
 				711C998D19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m */,
+				71AB497D19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.h */,
+				71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */,
 				71A9B58518C3EACB00788605 /* FLSceneViewController.h */,
 				71A9B58618C3EACB00788605 /* FLSceneViewController.m */,
 			);
@@ -359,6 +364,7 @@
 				713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */,
 				71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */,
 				713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */,
+				71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */,
 				71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
 				717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */,

@@ -688,7 +688,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </customView>
                                     <segmentedControl verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpf-8J-lIa">
-                                        <rect key="frame" x="0.0" y="778" width="85" height="23"/>
+                                        <rect key="frame" x="0.0" y="778" width="60" height="23"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="MKT-c1-TBh"/>
@@ -696,10 +696,10 @@
                                         <segmentedCell key="cell" alignment="left" style="smallSquare" trackingMode="selectOne" id="VD4-1r-Ucs">
                                             <font key="font" metaFont="system"/>
                                             <segments>
-                                                <segment image="NSActionTemplate" imageScaling="none" selected="YES">
+                                                <segment image="NSHomeTemplate" imageScaling="none" selected="YES">
                                                     <nil key="label"/>
                                                 </segment>
-                                                <segment image="NSColumnViewTemplate" imageScaling="none" tag="1">
+                                                <segment image="NSListViewTemplate" imageScaling="none" tag="1">
                                                     <nil key="label"/>
                                                 </segment>
                                             </segments>
@@ -768,7 +768,7 @@
                 <outlet property="utilityPanelController" destination="Ld4-kg-GYh" id="YU9-v3-FEU"/>
             </connections>
         </customObject>
-        <customView id="WBT-Nu-aXc" userLabel="Anchor Points view">
+        <customView id="WBT-Nu-aXc" userLabel="Anchor Points Properties Pane">
             <rect key="frame" x="0.0" y="0.0" width="300" height="780"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
@@ -1018,18 +1018,14 @@
         </customView>
         <viewController id="Ld4-kg-GYh" customClass="FLUtilityPaneController">
             <connections>
-                <outlet property="anchorPointsPane" destination="4oR-t1-Ym5" id="Z7P-Uc-amq"/>
+                <outlet property="anchorPointsPropertiesPaneController" destination="4oR-t1-Ym5" id="vMr-sE-S3O"/>
                 <outlet property="appFrameController" destination="i3n-kY-zXf" id="jA9-3B-sFA"/>
-                <outlet property="miscPane" destination="JQj-fu-jLb" id="v55-qn-FHb"/>
+                <outlet property="fliegenPropertiesController" destination="rGt-DU-HZe" id="Efh-Qh-qVK"/>
                 <outlet property="utilityPaneSegmentedControl" destination="xpf-8J-lIa" id="bWv-zq-DBI"/>
                 <outlet property="utilityViewPane" destination="qUb-ui-Ofg" id="cdn-pP-nxE"/>
                 <outlet property="view" destination="fx3-cY-JRM" id="Kla-Mr-0RB"/>
             </connections>
         </viewController>
-        <customView id="JQj-fu-jLb" userLabel="Misc View">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-        </customView>
         <viewController id="16d-AC-vuq" customClass="FLSceneViewController">
             <connections>
                 <outlet property="appFrameController" destination="i3n-kY-zXf" id="CVf-2M-kQO"/>
@@ -1055,16 +1051,82 @@
                 <outlet property="zPositionTextField" destination="Sgd-eC-FZY" id="98g-cd-Siz"/>
             </connections>
         </viewController>
+        <viewController id="rGt-DU-HZe" customClass="FLUtilityPaneFliegenViewController">
+            <connections>
+                <outlet property="sceneReferenceObject" destination="Var-v4-89B" id="MBQ-fG-bbK"/>
+                <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="yK3-oR-qke"/>
+                <outlet property="view" destination="75R-oZ-gK0" id="Dy5-vm-g1v"/>
+            </connections>
+        </viewController>
         <userDefaultsController representsSharedInstance="YES" id="3PE-Ee-X5Q"/>
         <numberFormatter formatterBehavior="custom10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="3" maximumFractionDigits="1" id="T85-2t-1Lf">
             <metadata>
                 <real key="inspectorSampleValue" value="1"/>
             </metadata>
         </numberFormatter>
+        <customView id="75R-oZ-gK0" userLabel="Fliegen Properties Pane">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="780"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box autoresizesSubviews="NO" fixedFrame="YES" title="Scene" boxType="oldStyle" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="DME-LF-jrO">
+                    <rect key="frame" x="20" y="547" width="260" height="213"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView">
+                        <rect key="frame" x="1" y="1" width="258" height="197"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Clt-Dn-Hga">
+                                <rect key="frame" x="13" y="167" width="110" height="17"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Reference Object" id="8Wp-Wt-ax5">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Var-v4-89B">
+                                <rect key="frame" x="127" y="160" width="119" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Pokeball" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="fhu-nJ-5Ep" id="nUf-FZ-yIc">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <menu key="menu" title="OtherViews" id="gx7-VE-jSH">
+                                        <items>
+                                            <menuItem title="Pokeball" state="on" id="fhu-nJ-5Ep">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="selectReferenceObject:" target="rGt-DU-HZe" id="xWw-rS-1bl"/>
+                                                </connections>
+                                            </menuItem>
+                                            <menuItem title="Box" id="q09-jN-KSO">
+                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                <connections>
+                                                    <action selector="selectReferenceObject:" target="rGt-DU-HZe" id="d6a-He-VbB"/>
+                                                </connections>
+                                            </menuItem>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bq-cx-ZNJ">
+                                <rect key="frame" x="127" y="138" width="118" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Show Axes" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zQ4-fK-wBP">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </subviews>
+                    </view>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </box>
+            </subviews>
+        </customView>
     </objects>
     <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSBookmarksTemplate" width="17" height="12"/>
-        <image name="NSColumnViewTemplate" width="13" height="10"/>
+        <image name="NSHomeTemplate" width="14" height="13"/>
+        <image name="NSListViewTemplate" width="11" height="10"/>
     </resources>
 </document>
