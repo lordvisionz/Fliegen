@@ -8,7 +8,7 @@
 
 #import <SceneKit/SceneKit.h>
 
-@interface FLSceneView : SCNView
+@interface FLSceneView : SCNView<SCNSceneRendererDelegate>
 
 
 

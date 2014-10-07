@@ -14,6 +14,9 @@
 
 @property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
 
-@property (weak) IBOutlet NSPopUpButton *sceneReferenceObject;
+@property (weak) IBOutlet NSButton *showViewportAxes;
+@property (weak) IBOutlet NSButton *showGridlines;
+
+//@property (weak) IBOutlet NSPopUpButton *sceneReferenceObject;
 
 @end

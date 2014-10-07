@@ -16,9 +16,11 @@
 
 @property (weak) IBOutlet FLAppFrameController *appFrameController;
 
--(void)setSceneReferenceObject:(FLSceneReferenceObject)referenceObject;
-
 -(BOOL)mouseDragged:(NSEvent *)theEvent;
+
+-(void)showViewportAxes:(BOOL)visible;
+
+-(void)showGridlines:(BOOL)visible;
 
 -(FLSceneView*)sceneView;
 

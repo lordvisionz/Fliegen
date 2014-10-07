@@ -11,16 +11,6 @@
 
 @implementation FLSceneView
 
-- (id)initWithFrame:(NSRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-
-    }
-    return self;
-}
-
 - (void)drawRect:(NSRect)dirtyRect
 {
 	[super drawRect:dirtyRect];
@@ -44,6 +34,11 @@
 {
     [_controller mouseUp:theEvent];
     [super mouseUp:theEvent];
+}
+
+-(void)renderer:(id<SCNSceneRenderer>)aRenderer willRenderScene:(SCNScene *)scene atTime:(NSTimeInterval)time
+{
+    
 }
 
 @end
