@@ -660,7 +660,7 @@
                     <splitView placeholderIntrinsicWidth="1000" placeholderIntrinsicHeight="800" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xok-CF-2qg">
                         <rect key="frame" x="0.0" y="0.0" width="1001" height="800"/>
                         <subviews>
-                            <sceneView placeholderIntrinsicWidth="700" placeholderIntrinsicHeight="360" sceneName="Pokeball.dae" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv" customClass="FLSceneView">
+                            <sceneView placeholderIntrinsicWidth="700" placeholderIntrinsicHeight="360" sceneName="" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv" customClass="FLSceneView">
                                 <rect key="frame" x="0.0" y="0.0" width="700" height="800"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>

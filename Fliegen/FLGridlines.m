@@ -51,6 +51,11 @@
                                                                primitiveCount:11 bytesPerIndex:sizeof(int)];
     SCNGeometry *horizontalLinesGeometry = [SCNGeometry geometryWithSources:@[horizontalVertexSource] elements:@[element]];
     SCNGeometry *verticalLinesGeometry = [SCNGeometry geometryWithSources:@[verticalVertexSource] elements:@[element]];
+    SCNMaterial *gridlineMaterial = [SCNMaterial material];
+    gridlineMaterial.ambient.contents = gridlineMaterial.diffuse.contents = gridlineMaterial.specular.contents = gridlineMaterial.emission.contents = [NSColor gridColor];
+    horizontalLinesGeometry.firstMaterial = gridlineMaterial;
+    verticalLinesGeometry.firstMaterial = gridlineMaterial;
+    
     SCNNode *horizontalLinesNode = [SCNNode nodeWithGeometry:horizontalLinesGeometry];
     SCNNode *verticalLinesNode = [SCNNode nodeWithGeometry:verticalLinesGeometry];
     

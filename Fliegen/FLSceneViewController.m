@@ -63,7 +63,6 @@
     _isDraggingSelectionHandles = NO;
     [self initMenuItems];
  
-
     return self;
 }
 
@@ -74,23 +73,16 @@
     SCNNode *cameraNode = [SCNNode node];
     cameraNode.camera = [SCNCamera camera];
     [cameraNode.camera setUsesOrthographicProjection:NO];
-
+    cameraNode.camera.zFar = 1000;
     
-//
-//    cameraNode.position = SCNVector3Make(0, 0, 50);
-//    cameraNode.rotation = SCNVector4Make(0.1, 0, 0.1, M_PI_4);
-
     CATransform3D cameraTransform = CATransform3DMakeRotation(M_PI_4/4, 0, 1, 0);
     cameraTransform = CATransform3DTranslate(cameraTransform, 0, 10, 75);
     cameraNode.transform = cameraTransform;
-    
     [self.sceneView.scene.rootNode addChildNode:cameraNode];
-//    self.sceneView.showsStatistics = YES;
-//    cameraNode.pivot = CATransform3DMakeTranslation(0, 0, -50);
     
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
     
-    SCNPlane *plane = [SCNPlane planeWithWidth:10000 height:10000];
+    SCNPlane *plane = [SCNPlane planeWithWidth:FLT_MAX height:FLT_MAX];
     SCNNode *planeNode = [SCNNode nodeWithGeometry:plane];
     [planeNode setName:@"hitplane"];
     
@@ -103,18 +95,8 @@
     [self.sceneView addObserver:self forKeyPath:@"pointOfView.transform" options:NSKeyValueObservingOptionNew context:NULL];
     
     _viewPortAxes = [[FLAxisNode alloc]init];
-//    [self.sceneView.scene.rootNode addChildNode:_viewPortAxes];
-    
     _gridlines = [[FLGridlines alloc] init];
     [self.sceneView.scene.rootNode addChildNode:_gridlines];
-    
-//    SCNPlane *gridPlane = [SCNPlane planeWithWidth:10 height:10];
-//    gridPlane.widthSegmentCount = 10;
-//    gridPlane.heightSegmentCount = 10;
-//    SCNNode *gridPlanesNode = [SCNNode nodeWithGeometry:gridPlane];
-//    gridPlane.firstMaterial.diffuse.contents = [NSColor gridColor];
-//    gridPlane.firstMaterial.doubleSided = YES;
-//    [self.sceneView.scene.rootNode addChildNode:gridPlanesNode];
 }
 
 -(void)awakeFromNib
@@ -125,29 +107,6 @@
     [super awakeFromNib];
     [self setInitialCamera];
 }
-
-//-(void)setSceneReferenceObject:(FLSceneReferenceObject)referenceObject
-//{
-//    [[self.sceneView.scene.rootNode childNodeWithName:@"pokeball" recursively:NO] removeFromParentNode];
-//    [[self.sceneView.scene.rootNode childNodeWithName:@"box" recursively:NO] removeFromParentNode];
-//    
-//    if(referenceObject == FLSceneReferenceObjectBox)
-//    {
-//        SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0];
-//        SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
-//        [boxNode setName:@"box"];
-//        boxNode.position = SCNVector3Make(0, 0, 0);
-//        
-//        SCNMaterial *material = [SCNMaterial material];
-//        material.diffuse.contents = [NSColor redColor];
-//        box.firstMaterial = material;
-//        [self.sceneView.scene.rootNode addChildNode:boxNode];
-//    }
-//    else if(referenceObject == FLSceneReferenceObjectPokeball)
-//    {
-//        
-//    }
-//}
 
 -(void)initMenuItems
 {
@@ -180,25 +139,6 @@
     {
         SCNVector4 rotation = self.sceneView.pointOfView.rotation;
         [self hitPlane].rotation = rotation;
-//        NSLog(@"transform changed");
-        SCNVector3 pointInWorld = [self.sceneView unprojectPoint:SCNVector3Make(35, 35, 0.5)];
-        
-//        SCNNode *node = [self.sceneView.scene.rootNode childNodeWithName:@"box" recursively:YES];
-//        if(node == nil)
-//        {
-//            NSLog(@"point is at %f, %f, %f",pointInWorld.x, pointInWorld.y, pointInWorld.z);
-//            SCNBox *box = [SCNBox boxWithWidth:.3 height:.3 length:.3 chamferRadius:0];
-//            SCNNode *boxNode = [SCNNode nodeWithGeometry:box];
-//            [boxNode setName:@"box"];
-//            boxNode.position = pointInWorld;
-//
-//            SCNMaterial *material = [SCNMaterial material];
-//            material.diffuse.contents = [NSColor redColor];
-//            box.firstMaterial = material;
-//            [self.sceneView.scene.rootNode addChildNode:boxNode];
-//        }
-//        else
-//            node.position = pointInWorld;
     }
 }
 
@@ -271,6 +211,8 @@
     anchorPointsCollection.selectedAnchorPoint = anchorPoint;
     [self.sceneView.scene.rootNode addChildNode:anchorPointView];
 }
+
+#pragma mark - Mouse events
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
@@ -420,51 +362,21 @@
     return NO;
 }
 
-- (double)distanceBetweenPoint:(SCNVector3)point1 point2:(SCNVector3)point2
-{
-    return sqrt(pow((point2.x - point1.x) , 2) + pow((point2.y - point1.y), 2) + pow((point2.z - point1.z), 2));
-}
-
--(SCNVector3)normalisedDirectionBetween:(SCNVector3)point1 point2:(SCNVector3)point2
-{
-    SCNVector3 direction = SCNVector3Make(point2.x - point1.x, point2.y - point1.y, point2.z - point1.z);
-    double magnitude = sqrt(pow(direction.x, 2) + pow(direction.y, 2) + pow(direction.z, 2));
-    
-    direction.x /= magnitude;
-    direction.y /= magnitude;
-    direction.z /= magnitude;
-    
-    return direction;
-}
-
 -(void)mouseUp:(NSEvent *)theEvent
 {
-//    [[self.sceneView.scene.rootNode childNodeWithName:@"hitplane" recursively:YES] removeFromParentNode];
     _selectionHandleInDrag = nil;
 }
 
 -(void)rightMouseDown:(NSEvent *)theEvent
 {
     lastClickedPoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
-
-//    SCNVector4 rotation = self.sceneView.pointOfView.rotation;
-//    
-//    SCNPlane *plane = [SCNPlane planeWithWidth:100000 height:100000];
-//    SCNNode *planeNode = [SCNNode nodeWithGeometry:plane];
-//    [planeNode setName:@"hitplane"];
-//    
-//    [planeNode setRotation:rotation];
-//    SCNMaterial *material = [SCNMaterial material];
-//    material.diffuse.contents = [NSColor clearColor];
-//    [plane setFirstMaterial:material];
-//    [self.sceneView.scene.rootNode addChildNode:planeNode];
     
     [anchorPointsMenu setDelegate:self];
-    
     [self.view.superview setMenu:anchorPointsMenu];
     [self.view.superview rightMouseDown:theEvent];
 }
 
+#pragma mark - NSView overrides
 
 -(BOOL)acceptsFirstResponder
 {
@@ -476,7 +388,12 @@
     return YES;
 }
 
+#pragma mark - Utility
 
+-(SCNNode*)hitPlane
+{
+    return [self.sceneView.scene.rootNode childNodeWithName:@"hitplane" recursively:YES];
+}
 
 -(FLSceneView*)sceneView
 {
@@ -492,18 +409,6 @@
     }];
     SCNNode *cameraNode = [cameras objectAtIndex:0];
     return cameraNode;
-}
-
--(void)menuDidClose:(NSMenu *)menu
-{
-    [[self.sceneView.scene.rootNode childNodeWithName:@"hitplane" recursively:YES] removeFromParentNode];
-}
-
-#pragma mark - Utility
-
--(SCNNode*)hitPlane
-{
-    return [self.sceneView.scene.rootNode childNodeWithName:@"hitplane" recursively:YES];
 }
 
 @end

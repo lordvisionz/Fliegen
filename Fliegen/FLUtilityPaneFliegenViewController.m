@@ -18,16 +18,6 @@
 
 @implementation FLUtilityPaneFliegenViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
-        // Initialization code here.
-    }
-    return self;
-}
-
 - (IBAction)toggleShowViewportAxes:(id)sender
 {
     BOOL checked = [sender state] == NSOnState;
@@ -39,19 +29,5 @@
     BOOL checked = [sender state] == NSOnState;
     [self.utilityPaneController.appFrameController.sceneViewController showGridlines:checked];
 }
-
--(void)awakeFromNib
-{
-
-}
-
-
-
-
-//- (IBAction)selectReferenceObject:(id)sender
-//{
-//    FLSceneReferenceObject referenceObject = [_sceneReferenceObject.menu indexOfItem:sender];
-//    [self.utilityPaneController.appFrameController.sceneViewController setSceneReferenceObject:referenceObject];
-//}
 
 @end
