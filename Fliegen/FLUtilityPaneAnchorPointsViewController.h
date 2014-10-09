@@ -11,7 +11,7 @@
 
 @class FLUtilityPaneController;
 
-@interface FLUtilityPaneAnchorPointsViewController : NSViewController<NSTextFieldDelegate, NSComboBoxDataSource, NSComboBoxDelegate, NSUserInterfaceValidations>
+@interface FLUtilityPaneAnchorPointsViewController : NSViewController<NSTextFieldDelegate, NSComboBoxDataSource, NSComboBoxDelegate>
 
 @property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
 

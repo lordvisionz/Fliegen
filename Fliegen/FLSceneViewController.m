@@ -10,6 +10,7 @@
 #import "FLAppFrameController.h"
 #import "FLUtilityPaneController.h"
 #import "FLUtilityPaneAnchorPointsViewController.h"
+#import "FLUtilityPaneStreamsViewController.h"
 
 #import "FLModel.h"
 #import "FLStreamsCollection.h"
@@ -162,18 +163,6 @@
     else if(visible == NO)
         [_gridlines removeFromParentNode];
 }
-
-#pragma mark - Streams add/delete
-
-//-(void)appendStream:(id)sender
-//{
-//    
-//}
-//
-//-(void)deleteStream:(id)sender
-//{
-//    
-//}
 
 #pragma mark - Anchor Points add/delete
 

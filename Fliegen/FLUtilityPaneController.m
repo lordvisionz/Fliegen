@@ -9,7 +9,7 @@
 #import "FLUtilityPaneController.h"
 #import "FLUtilityPaneAnchorPointsViewController.h"
 #import "FLUtilityPaneFliegenViewController.h"
-#import "FLStreamsViewController.h"
+#import "FLUtilityPaneStreamsViewController.h"
 
 @interface FLUtilityPaneController ()
 

@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Abhishek Moothedath. All rights reserved.
 //
 
-#import "FLStreamsViewController.h"
+#import "FLUtilityPaneStreamsViewController.h"
 #import "FLUtilityPaneController.h"
 #import "FLAppFrameController.h"
 #import "FLSceneViewController.h"
@@ -15,7 +15,7 @@
 #import "FLStream.h"
 #import "FLStreamsCollection.h"
 
-@implementation FLStreamsViewController
+@implementation FLUtilityPaneStreamsViewController
 
 #pragma mark - Init
 
@@ -54,10 +54,13 @@
         {
             self.utilityPaneController.appFrameController.sceneViewController.selectionMode = FLSelectionModeNone;
             [self.streamIDComboBox selectItemAtIndex:0];
+            
             return;
         }
         [self.streamIDComboBox reloadData];
         [self.streamIDComboBox selectItemAtIndex:selectedStream.streamId];
+        [self.streamTypePopupButton selectItemAtIndex:selectedStream.streamType];
+        [self.streamVisualPopupButton selectItemAtIndex:selectedStream.streamVisualType];
     }
 }
 
@@ -72,6 +75,18 @@
 -(void)removeSelectedStream:(id)sender
 {
     [self.utilityPaneController.appFrameController.model.streams deleteSelectedStream];
+}
+
+- (IBAction)streamTypeChanged:(id)sender
+{
+    FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    selectedStream.streamType = _streamTypePopupButton.indexOfSelectedItem;
+}
+
+- (IBAction)streamVisualAidChanged:(id)sender
+{
+    FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    selectedStream.streamVisualType = _streamVisualPopupButton.indexOfSelectedItem;
 }
 
 #pragma mark - stream ID Combobox datasource/delegate/value changed

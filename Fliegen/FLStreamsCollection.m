@@ -45,9 +45,11 @@ NSString *const FLStreamDeletedNotification = @"FLStreamDeletedNotification";
 -(void)appendStream
 {
     FLStream *stream = [[FLStream alloc]init];
-    [_streams addObject:stream];
-    stream.streamId = _streams.count;
+    stream.streamId = _streams.count + 1;
+    stream.streamType = FLStreamTypePosition;
+    stream.streamVisualType = FLStreamVisualTypeSphere;
     
+    [_streams addObject:stream];
     self.selectedStream = stream;
     [[NSNotificationCenter defaultCenter] postNotificationName:FLStreamAddedNotification object:self];
 }

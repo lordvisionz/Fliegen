@@ -963,7 +963,7 @@
                 <outlet property="view" destination="75R-oZ-gK0" id="Dy5-vm-g1v"/>
             </connections>
         </viewController>
-        <viewController id="Env-MU-9bF" customClass="FLStreamsViewController">
+        <viewController id="Env-MU-9bF" customClass="FLUtilityPaneStreamsViewController">
             <connections>
                 <outlet property="streamIDComboBox" destination="wfV-yC-hF5" id="ClS-ER-KDJ"/>
                 <outlet property="streamTypePopupButton" destination="VTG-3D-FdQ" id="i4z-di-q0h"/>
@@ -1051,7 +1051,7 @@
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VTG-3D-FdQ">
                     <rect key="frame" x="121" y="652" width="162" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Look At" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="moI-Q4-kdo" id="vr2-hm-H5R">
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="vr2-hm-H5R">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="E8A-zq-cgZ">
@@ -1059,12 +1059,22 @@
                                 <menuItem title="Camera position" id="RqN-Cx-AKr">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Look At" state="on" id="moI-Q4-kdo">
+                                <menuItem title="Look At" id="moI-Q4-kdo">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
                         </menu>
+                        <connections>
+                            <action selector="streamTypeChanged:" target="Env-MU-9bF" id="PX4-He-A7b"/>
+                        </connections>
                     </popUpButtonCell>
+                    <connections>
+                        <binding destination="i3n-kY-zXf" name="enabled" keyPath="self.model.streams.selectedStream" id="43M-b4-pKZ">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSIsNotNil</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gk-4t-uEs">
                     <rect key="frame" x="21" y="682" width="84" height="17"/>
@@ -1079,8 +1089,25 @@
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="mZZ-El-3BM">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="yiT-Av-Ag7"/>
+                        <menu key="menu" id="yiT-Av-Ag7">
+                            <items>
+                                <menuItem title="Sphere" id="gJ8-Rc-e5W">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Cone" id="Loo-AQ-rH3">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
                     </popUpButtonCell>
+                    <connections>
+                        <action selector="streamVisualAidChanged:" target="Env-MU-9bF" id="sNz-US-oc6"/>
+                        <binding destination="i3n-kY-zXf" name="enabled" keyPath="self.model.streams.selectedStream" id="qu7-Ch-aaq">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSIsNotNil</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rCc-jo-XNm">
                     <rect key="frame" x="50" y="628" width="67" height="17"/>

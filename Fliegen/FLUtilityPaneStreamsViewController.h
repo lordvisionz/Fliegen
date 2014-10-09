@@ -10,7 +10,7 @@
 
 @class FLUtilityPaneController;
 
-@interface FLStreamsViewController : NSViewController<NSComboBoxDataSource, NSComboBoxDelegate>
+@interface FLUtilityPaneStreamsViewController : NSViewController<NSComboBoxDataSource, NSComboBoxDelegate>
 
 @property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
 @property (weak) IBOutlet NSComboBox *streamIDComboBox;
@@ -20,5 +20,7 @@
 - (IBAction)appendStream:(id)sender;
 
 - (IBAction)removeSelectedStream:(id)sender;
+- (IBAction)streamTypeChanged:(id)sender;
+- (IBAction)streamVisualAidChanged:(id)sender;
 
 @end
