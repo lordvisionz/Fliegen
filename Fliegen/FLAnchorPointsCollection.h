@@ -10,9 +10,13 @@
 
 @class FLAnchorPoint;
 
+extern NSString *const FLAnchorPointAddedNotification;
+extern NSString *const FLAnchorPointDeletedNotification;
+extern NSString *const FLAnchorPointSelectionChangedNotification;
+
 @interface FLAnchorPointsCollection : NSObject
 
-@property (readwrite) FLAnchorPoint *selectedAnchorPoint;
+@property (readwrite, nonatomic) FLAnchorPoint *selectedAnchorPoint;
 
 -(FLAnchorPoint*)anchorPointForId:(NSUInteger)anchorPointId;
 

@@ -9,6 +9,10 @@
 #import "FLAnchorPointsCollection.h"
 #import "FLAnchorPoint.h"
 
+NSString *const FLAnchorPointAddedNotification = @"FLAnchorPointAddedNotification";
+NSString *const FLAnchorPointDeletedNotification = @"FLAnchorPointDeletedNotification";
+NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelectionChangedNotification";
+
 @interface FLAnchorPointsCollection()
 {
     NSMutableArray *_anchorPoints;
@@ -40,10 +44,13 @@
     return [_anchorPoints objectAtIndex:index];
 }
 
--(void)appendAnchorPoint:(FLAnchorPoint *)anchorPoint
+-(void)appendAnchorPoint:(FLAnchorPoint*)anchorPoint
 {
     [_anchorPoints addObject:anchorPoint];
     anchorPoint.anchorPointID = _anchorPoints.count;
+    self.selectedAnchorPoint = anchorPoint;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointAddedNotification object:nil];
 }
 
 -(BOOL)deleteSelectedAnchorPoint
@@ -63,13 +70,20 @@
             anchorPoint.anchorPointID -= 1;
         }
     }];
-   
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointDeletedNotification object:nil];
     return YES;
 }
 
 -(NSUInteger)anchorPointsCount
 {
     return _anchorPoints.count;
+}
+
+-(void)setSelectedAnchorPoint:(FLAnchorPoint *)selectedAnchorPoint
+{
+    _selectedAnchorPoint = selectedAnchorPoint;
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointSelectionChangedNotification object:nil];
 }
 
 @end

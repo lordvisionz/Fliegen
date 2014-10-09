@@ -7,7 +7,16 @@
 //
 
 #import "FLStream.h"
+#import "FLAnchorPointsCollection.h"
 
 @implementation FLStream
+
+-(id)init
+{
+    self = [super init];
+    _anchorPoints = [[FLAnchorPointsCollection alloc] init];
+    
+    return self;
+}
 
 @end

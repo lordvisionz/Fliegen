@@ -25,6 +25,8 @@
 @property (weak) IBOutlet NSStepper *yPositionStepper;
 @property (weak) IBOutlet NSStepper *zPositionStepper;
 
+@property (weak) IBOutlet NSButton *deleteSelectedAnchorPointButton;
+
 - (IBAction)appendAnchorPoint:(id)sender;
 
 - (IBAction)removeSelectedAnchorPoint:(id)sender;

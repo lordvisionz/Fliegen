@@ -30,72 +30,101 @@
 
 -(void)awakeFromNib
 {
-    _xPositionTextField.doubleValue = _yPositionTextField.doubleValue = _zPositionTextField.doubleValue = 0;
-    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints;
+    [super awakeFromNib];
     
-    [anchorPointsCollection addObserver:self forKeyPath:@"selectedAnchorPoint" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-                                context:NULL];
-    [self toggleEnableInputElements:NO];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointWasAdded:) name:FLAnchorPointAddedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointWasDeleted:) name:FLAnchorPointDeletedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointSelectionChanged:) name:FLAnchorPointSelectionChangedNotification
+                                               object:nil];
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+#pragma mark - Notifications/KVO
+
+-(void)anchorPointWasAdded:(NSNotification*)notification
 {
-    if([keyPath isEqualToString:@"selectedAnchorPoint"] == YES)
-    {
-        FLAnchorPoint *previousSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeOldKey];
-        FLAnchorPoint *newSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeNewKey];
-        
-        if([newSelectedAnchorPoint isKindOfClass:[NSNull class]] == YES)
-            [self toggleEnableInputElements:NO];
-        else
-        {
-            [self toggleEnableInputElements:YES];
-            self.anchorIdComboBox.integerValue = newSelectedAnchorPoint.anchorPointID;
-
-            if([previousSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO)
-            {
-                [previousSelectedAnchorPoint removeObserver:self forKeyPath:@"position"];
-            }
-            
-            [newSelectedAnchorPoint addObserver:self forKeyPath:@"position" options:NSKeyValueObservingOptionNew context:NULL];
-            
-            _xPositionTextField.doubleValue = newSelectedAnchorPoint.position.x;
-            _yPositionTextField.doubleValue = newSelectedAnchorPoint.position.y;
-            _zPositionTextField.doubleValue = newSelectedAnchorPoint.position.z;
-        }
-    }
-    else if([keyPath isEqualToString:@"position"] == YES)
-    {
-        FLAnchorPoint *anchorPoint = object;
-        _xPositionTextField.doubleValue = anchorPoint.position.x;
-        _yPositionTextField.doubleValue = anchorPoint.position.y;
-        _zPositionTextField.doubleValue = anchorPoint.position.z;
-    }
+    self.utilityPaneController.appFrameController.sceneViewController.selectionMode = FLSelectionModeAnchorPoint;
+    self.utilityPaneController.utilityPaneSegmentedControl.selectedSegment = 2;
+    [self.utilityPaneController switchUtilityPaneTab:nil];
 }
 
--(void)toggleEnableInputElements:(BOOL)visible
+-(void)anchorPointWasDeleted:(NSNotification*)notification
 {
-    [_anchorIdComboBox setEnabled:visible];
-    
-    [_xPositionTextField setEnabled:visible];
-    [_yPositionTextField setEnabled:visible];
-    [_zPositionTextField setEnabled:visible];
-    
-    [_xPositionStepper setEnabled:visible];
-    [_yPositionStepper setEnabled:visible];
-    [_zPositionStepper setEnabled:visible];
+    self.utilityPaneController.appFrameController.sceneViewController.selectionMode = FLSelectionModeNone;
+    [self.anchorIdComboBox reloadData];
 }
 
-#pragma mark - XIB actions
+-(void)anchorPointSelectionChanged:(NSNotification*)notification
+{
+    FLStream *currentStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    FLAnchorPoint *anchorPoint = currentStream.anchorPoints.selectedAnchorPoint;
+    SCNVector3 position = anchorPoint.position;
+    
+    if(anchorPoint == nil)
+    {
+        self.utilityPaneController.appFrameController.sceneViewController.selectionMode = FLSelectionModeNone;
+        [self.anchorIdComboBox selectItemAtIndex:0];
+        return;
+    }
+    [self.anchorIdComboBox reloadData];
+    [self.anchorIdComboBox selectItemAtIndex:anchorPoint.anchorPointID];
+    _xPositionTextField.doubleValue = position.x;
+    _yPositionTextField.doubleValue = position.y;
+    _zPositionTextField.doubleValue = position.z;
+    
+}
+
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    if([keyPath isEqualToString:@"selectedAnchorPoint"] == YES)
+//    {
+//        FLAnchorPoint *previousSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeOldKey];
+//        FLAnchorPoint *newSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeNewKey];
+//        
+//        if([newSelectedAnchorPoint isKindOfClass:[NSNull class]] == YES)
+//            [self toggleEnableInputElements:NO];
+//        else
+//        {
+//            [self toggleEnableInputElements:YES];
+//            self.anchorIdComboBox.integerValue = newSelectedAnchorPoint.anchorPointID;
+//            
+//            if([previousSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO)
+//            {
+//                [previousSelectedAnchorPoint removeObserver:self forKeyPath:@"position"];
+//            }
+//            
+//            [newSelectedAnchorPoint addObserver:self forKeyPath:@"position" options:NSKeyValueObservingOptionNew context:NULL];
+//            
+//            _xPositionTextField.doubleValue = newSelectedAnchorPoint.position.x;
+//            _yPositionTextField.doubleValue = newSelectedAnchorPoint.position.y;
+//            _zPositionTextField.doubleValue = newSelectedAnchorPoint.position.z;
+//        }
+//    }
+//    else if([keyPath isEqualToString:@"position"] == YES)
+//    {
+//        FLAnchorPoint *anchorPoint = object;
+//        _xPositionTextField.doubleValue = anchorPoint.position.x;
+//        _yPositionTextField.doubleValue = anchorPoint.position.y;
+//        _zPositionTextField.doubleValue = anchorPoint.position.z;
+//    }
+//}
+
+#pragma mark - UI actions/callbacks
 
 - (void)appendAnchorPoint:(id)sender
 {
+    FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
     
+    FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc] init];
+    anchorPoint.position = SCNVector3Make(0, 0, 0);
+    [selectedStream.anchorPoints appendAnchorPoint:anchorPoint];
 }
 
 - (void)removeSelectedAnchorPoint:(id)sender
 {
-    
+    FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    [selectedStream.anchorPoints deleteSelectedAnchorPoint];
 }
 
 #pragma mark - NSTextField/combobox value changed
@@ -225,16 +254,33 @@
     return anchorPointView;
 }
 
+-(void)toggleAnchorPointEditControls:(BOOL)visible
+{
+    [_xPositionStepper setEnabled:visible];
+    [_xPositionTextField setEnabled:visible];
+    [_yPositionStepper setEnabled:visible];
+    [_yPositionTextField setEnabled:visible];
+    [_zPositionStepper setEnabled:visible];
+    [_zPositionTextField setEnabled:visible];
+    
+    [_deleteSelectedAnchorPointButton setEnabled:visible];
+}
+
 #pragma mark - Combobox datasource/delegate
 
 -(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    return [self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints anchorPointsCount];
+    FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    return [selectedStream.anchorPoints anchorPointsCount] + 1;
 }
 
 -(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
-    FLAnchorPoint *anchorPoint = [self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints anchorPointForIndex:index];
+    if(index == 0)
+        return @"No Selection";
+    
+    FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    FLAnchorPoint *anchorPoint = [selectedStream.anchorPoints anchorPointForId:index];
     return [NSNumber numberWithUnsignedInteger:anchorPoint.anchorPointID];
 }
 
@@ -243,13 +289,8 @@
     FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints;
 
     NSUInteger index = [_anchorIdComboBox indexOfSelectedItem];
-    FLAnchorPoint *anchorPoint = [anchorPointsCollection anchorPointForIndex:index];
-    
-    if(anchorPoint == nil)
-    {
-        anchorPoint = [anchorPointsCollection anchorPointForId:anchorPointsCollection.anchorPointsCount];
-    }
-    anchorPointsCollection.selectedAnchorPoint = anchorPoint;
+    anchorPointsCollection.selectedAnchorPoint = (index == 0) ? nil : [anchorPointsCollection anchorPointForId:index];
+    [self toggleAnchorPointEditControls:(index > 0)];
 }
 
 

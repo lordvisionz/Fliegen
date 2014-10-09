@@ -913,7 +913,7 @@
                 </box>
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sfv-51-aVe">
                     <rect key="frame" x="133" y="727" width="99" height="26"/>
-                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="R1W-it-JHf">
+                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="20" id="R1W-it-JHf">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -945,6 +945,7 @@
         <viewController id="4oR-t1-Ym5" customClass="FLUtilityPaneAnchorPointsViewController">
             <connections>
                 <outlet property="anchorIdComboBox" destination="sfv-51-aVe" id="XhD-Df-0iF"/>
+                <outlet property="deleteSelectedAnchorPointButton" destination="qXE-HW-58j" id="HVh-nY-q96"/>
                 <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="KBN-Jx-0HM"/>
                 <outlet property="view" destination="WBT-Nu-aXc" id="1H1-Y7-MfP"/>
                 <outlet property="xPositionStepper" destination="e4k-oR-Rjx" id="pdx-YU-2Z1"/>
@@ -957,6 +958,7 @@
         </viewController>
         <viewController id="rGt-DU-HZe" customClass="FLUtilityPaneFliegenViewController">
             <connections>
+                <outlet property="deleteSelectedAnchorPointButton" destination="qXE-HW-58j" id="Daj-wz-2x6"/>
                 <outlet property="showGridlines" destination="IDL-lf-gRx" id="nAU-cS-v4B"/>
                 <outlet property="showViewportAxes" destination="1bq-cx-ZNJ" id="1MA-3Q-A9u"/>
                 <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="yK3-oR-qke"/>
