@@ -8,8 +8,12 @@
 
 #import "FLSceneViewController.h"
 #import "FLAppFrameController.h"
+#import "FLUtilityPaneController.h"
+#import "FLUtilityPaneAnchorPointsViewController.h"
 
 #import "FLModel.h"
+#import "FLStreamsCollection.h"
+#import "FLStream.h"
 #import "FLAnchorPoint.h"
 #import "FLAnchorPointsCollection.h"
 #import "FLAnchorPointView.h"
@@ -26,6 +30,7 @@
 @interface FLSceneViewController ()
 {
     NSMenu *anchorPointsMenu;
+    NSMenu *streamsMenu;
     
     NSPoint lastClickedPoint;
     
@@ -37,12 +42,9 @@
     FLGridlines *_gridlines;
 }
 
-
-
 @end
 
 @implementation FLSceneViewController
-
 
 #pragma mark - Initialize
 
@@ -52,7 +54,7 @@
     if (self)
     {
         _isDraggingSelectionHandles = NO;
-        [self initMenuItems];
+        _selectionMode = FLSelectionModeNone;
     }
     return self;
 }
@@ -61,8 +63,8 @@
 {
     self = [super initWithCoder:aDecoder];
     _isDraggingSelectionHandles = NO;
-    [self initMenuItems];
- 
+    _selectionMode = FLSelectionModeNone;
+    
     return self;
 }
 
@@ -105,33 +107,34 @@
     [self.view.window makeFirstResponder:self];
 
     [super awakeFromNib];
+    [self initMenuItems];
     [self setInitialCamera];
 }
 
 -(void)initMenuItems
 {
     anchorPointsMenu = [[NSMenu alloc]init];
-    NSMenuItem *appendAnchorPoint = [[NSMenuItem alloc]initWithTitle:@"Append Anchor Point" action:@selector(pushAnchorPoint:) keyEquivalent:@""];
-    [appendAnchorPoint setTarget:self];
+    NSMenuItem *appendAnchorPoint = [[NSMenuItem alloc]initWithTitle:@"Append Anchor Point" action:@selector(appendAnchorPoint:) keyEquivalent:@""];
+    [appendAnchorPoint setTarget:self.appFrameController.utilityPanelController.anchorPointsPropertiesPaneController];
     
-    NSMenuItem *deleteAnchorPoint = [[NSMenuItem alloc] initWithTitle:@"Delete Anchor Point" action:@selector(deleteAnchorPoint:) keyEquivalent:@""];
-    [deleteAnchorPoint setTarget:self];
+    NSMenuItem *deleteAnchorPoint = [[NSMenuItem alloc] initWithTitle:@"Delete Anchor Point" action:@selector(removeSelectedAnchorPoint:) keyEquivalent:@""];
+    [deleteAnchorPoint setTarget:self.appFrameController.utilityPanelController.anchorPointsPropertiesPaneController];
 
     [anchorPointsMenu addItem:appendAnchorPoint];
     [anchorPointsMenu addItem:deleteAnchorPoint];
+    
+    streamsMenu = [[NSMenu alloc] init];
+    NSMenuItem *appendStream = [[NSMenuItem alloc]initWithTitle:@"Add new Stream" action:@selector(appendStream:) keyEquivalent:@""];
+    [appendStream setTarget:self.appFrameController.utilityPanelController.streamsPropertiesController];
+    
+    NSMenuItem *deleteStream = [[NSMenuItem alloc] initWithTitle:@"Delete Stream" action:@selector(deleteStream:) keyEquivalent:@""];
+    [deleteStream setTarget:self.appFrameController.utilityPanelController.streamsPropertiesController];
+    
+    [streamsMenu addItem:appendStream];
+    [streamsMenu addItem:deleteStream];
 }
 
 #pragma mark - Validation/KVO/KVC
-
--(BOOL)validateMenuItem:(NSMenuItem *)menuItem
-{
-    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
-    if([menuItem action] == @selector(deleteAnchorPoint:))
-    {
-        return (anchorPointsCollection.selectedAnchorPoint != nil);
-    }
-    return YES;
-}
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -147,9 +150,9 @@
 -(void)showViewportAxes:(BOOL)visible
 {
     if(visible && _viewPortAxes.parentNode == nil)
-       [self.sceneView.scene.rootNode addChildNode:_viewPortAxes];
+        [self.sceneView.scene.rootNode addChildNode:_viewPortAxes];
     else if(visible == NO)
-            [_viewPortAxes removeFromParentNode];
+        [_viewPortAxes removeFromParentNode];
 }
 
 -(void)showGridlines:(BOOL)visible
@@ -160,63 +163,73 @@
         [_gridlines removeFromParentNode];
 }
 
+#pragma mark - Streams add/delete
+
+//-(void)appendStream:(id)sender
+//{
+//    
+//}
+//
+//-(void)deleteStream:(id)sender
+//{
+//    
+//}
+
 #pragma mark - Anchor Points add/delete
 
 -(void)deleteAnchorPoint:(id)sender
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
-    NSArray *anchorPoints = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
-        if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
-        
-        FLAnchorPointView *anchorPointView = (FLAnchorPointView*)child;
-        return (anchorPointView.anchorPointModel.anchorPointID == anchorPointsCollection.selectedAnchorPoint.anchorPointID);
-    }];
-    
-    [anchorPointsCollection deleteSelectedAnchorPoint];
-
-    SCNNode *deletedNode = [anchorPoints objectAtIndex:0];
-    [deletedNode removeFromParentNode];
-    
-    [anchorPointsCollection removeObserver:deletedNode forKeyPath:@"selectedAnchorPoint"];
-    deletedNode = nil;
+//    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
+//    NSArray *anchorPoints = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
+//        if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
+//        
+//        FLAnchorPointView *anchorPointView = (FLAnchorPointView*)child;
+//        return (anchorPointView.anchorPointModel.anchorPointID == anchorPointsCollection.selectedAnchorPoint.anchorPointID);
+//    }];
+//    
+//    [anchorPointsCollection deleteSelectedAnchorPoint];
+//
+//    SCNNode *deletedNode = [anchorPoints objectAtIndex:0];
+//    [deletedNode removeFromParentNode];
+//    
+//    [anchorPointsCollection removeObserver:deletedNode forKeyPath:@"selectedAnchorPoint"];
+//    deletedNode = nil;
 }
 
 -(void)pushAnchorPoint:(id)sender
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
-    
-    FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]init];
-    SCNVector3 lookAt = SCNVector3Make(0, 0, 0);
-    [anchorPoint setLookAt:lookAt];
-
-    NSArray *result = [self.sceneView hitTest:lastClickedPoint options:nil];
-    SCNHitTestResult *hitResult = [result objectAtIndex:0];
-    SCNVector3 localPoint = hitResult.localCoordinates;
-
-    SCNVector4 rotateToLookAt = FLRotatePointAToFacePointB(localPoint, lookAt);
-    
-    SCNVector4 cameraRotation = self.sceneView.pointOfView.rotation;
-    CATransform3D transform = CATransform3DMakeRotation(cameraRotation.w, cameraRotation.x, cameraRotation.y, cameraRotation.z);
-    transform = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
-    transform = CATransform3DRotate(transform, rotateToLookAt.w, rotateToLookAt.x, rotateToLookAt.y, rotateToLookAt.z);
-    
-    SCNVector3 position = SCNVector3Make(transform.m41, transform.m42, transform.m43);
-    [anchorPoint setPosition:position];
-    
-    FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc] initWithAnchorPoint:anchorPoint withRootNode:self.sceneView.scene.rootNode
-                                                                          withTransform:transform];
-    [anchorPointsCollection appendAnchorPoint:anchorPoint];
-    [anchorPointsCollection addObserver:anchorPointView forKeyPath:@"selectedAnchorPoint"
-                                options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
-    anchorPointsCollection.selectedAnchorPoint = anchorPoint;
-    [self.sceneView.scene.rootNode addChildNode:anchorPointView];
+//    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
+//    
+//    FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]init];
+//
+//    NSArray *result = [self.sceneView hitTest:lastClickedPoint options:nil];
+//    SCNHitTestResult *hitResult = [result objectAtIndex:0];
+//    SCNVector3 localPoint = hitResult.localCoordinates;
+//
+////    SCNVector4 rotateToLookAt = FLRotatePointAToFacePointB(localPoint, lookAt);
+//    
+//    SCNVector4 cameraRotation = self.sceneView.pointOfView.rotation;
+//    CATransform3D transform = CATransform3DMakeRotation(cameraRotation.w, cameraRotation.x, cameraRotation.y, cameraRotation.z);
+//    transform = CATransform3DTranslate(transform, localPoint.x, localPoint.y, localPoint.z);
+////    transform = CATransform3DRotate(transform, rotateToLookAt.w, rotateToLookAt.x, rotateToLookAt.y, rotateToLookAt.z);
+//    
+//    SCNVector3 position = SCNVector3Make(transform.m41, transform.m42, transform.m43);
+//    [anchorPoint setPosition:position];
+//    
+//    FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc] initWithAnchorPoint:anchorPoint withRootNode:self.sceneView.scene.rootNode
+//                                                                          withTransform:transform];
+//    [anchorPointsCollection appendAnchorPoint:anchorPoint];
+//    [anchorPointsCollection addObserver:anchorPointView forKeyPath:@"selectedAnchorPoint"
+//                                options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
+//    anchorPointsCollection.selectedAnchorPoint = anchorPoint;
+//    [self.sceneView.scene.rootNode addChildNode:anchorPointView];
 }
 
 #pragma mark - Mouse events
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
+    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.streams.selectedStream.anchorPoints;
     
     lastClickedPoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     NSArray *hitItems = [self.sceneView hitTest:lastClickedPoint options:nil];
@@ -260,7 +273,7 @@
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
+    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.streams.selectedStream.anchorPoints;
     
     NSPoint newMousePoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     if(_isDraggingSelectionHandles)
@@ -313,7 +326,7 @@
         SCNVector3 newWorldCoord = hitPlane.worldCoordinates;
 
         SCNVector3 oldPosition = anchorPointView.position;
-        SCNVector3 lookAtPosition = anchorPointView.anchorPointModel.lookAt;
+//        SCNVector3 lookAtPosition = anchorPointView.anchorPointModel.lookAt;
         
         if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
         {
@@ -321,8 +334,8 @@
             oldPosition.x += distanceDragged;
             anchorPointView.position = oldPosition;
 
-            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
-            anchorPointView.rotation = rotation;
+//            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
+//            anchorPointView.rotation = rotation;
             
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
@@ -334,8 +347,8 @@
             oldPosition.y += distanceDragged;
             anchorPointView.position = oldPosition;
             
-            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
-            anchorPointView.rotation = rotation;
+//            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
+//            anchorPointView.rotation = rotation;
             
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
@@ -347,8 +360,8 @@
             oldPosition.z += distanceDragged;
             anchorPointView.position = oldPosition;
             
-            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
-            anchorPointView.rotation = rotation;
+//            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
+//            anchorPointView.rotation = rotation;
             
             anchorPointView.anchorPointModel.position = anchorPointView.position;
             SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
@@ -371,8 +384,11 @@
 {
     lastClickedPoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     
-    [anchorPointsMenu setDelegate:self];
-    [self.view.superview setMenu:anchorPointsMenu];
+    if(self.selectionMode == FLSelectionModeNone)
+        [self.view.superview setMenu:streamsMenu];
+    else
+        [self.view.superview setMenu:anchorPointsMenu];
+    
     [self.view.superview rightMouseDown:theEvent];
 }
 

@@ -18,6 +18,8 @@
 #import "FLSceneKitUtilities.h"
 
 #import "FLSceneView.h"
+#import "FLStream.h"
+#import "FLStreamsCollection.h"
 #import "FLAnchorPointView.h"
 
 @interface FLUtilityPaneAnchorPointsViewController ()
@@ -29,10 +31,7 @@
 -(void)awakeFromNib
 {
     _xPositionTextField.doubleValue = _yPositionTextField.doubleValue = _zPositionTextField.doubleValue = 0;
-    _xLookAtTextField.doubleValue = _yLookAtTextField.doubleValue = _zLookAtTextField.doubleValue = 0;
-    _anchorIdComboBox.integerValue = 0;
-    
-    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.anchorPointsCollection;
+    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints;
     
     [anchorPointsCollection addObserver:self forKeyPath:@"selectedAnchorPoint" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
                                 context:NULL];
@@ -56,19 +55,13 @@
             if([previousSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO)
             {
                 [previousSelectedAnchorPoint removeObserver:self forKeyPath:@"position"];
-                [previousSelectedAnchorPoint removeObserver:self forKeyPath:@"lookAt"];
             }
             
             [newSelectedAnchorPoint addObserver:self forKeyPath:@"position" options:NSKeyValueObservingOptionNew context:NULL];
-            [newSelectedAnchorPoint addObserver:self forKeyPath:@"lookAt" options:NSKeyValueObservingOptionNew context:NULL];
             
             _xPositionTextField.doubleValue = newSelectedAnchorPoint.position.x;
             _yPositionTextField.doubleValue = newSelectedAnchorPoint.position.y;
             _zPositionTextField.doubleValue = newSelectedAnchorPoint.position.z;
-            
-            _xLookAtTextField.doubleValue = newSelectedAnchorPoint.lookAt.x;
-            _yLookAtTextField.doubleValue = newSelectedAnchorPoint.lookAt.y;
-            _zLookAtTextField.doubleValue = newSelectedAnchorPoint.lookAt.z;
         }
     }
     else if([keyPath isEqualToString:@"position"] == YES)
@@ -77,13 +70,6 @@
         _xPositionTextField.doubleValue = anchorPoint.position.x;
         _yPositionTextField.doubleValue = anchorPoint.position.y;
         _zPositionTextField.doubleValue = anchorPoint.position.z;
-    }
-    else if([keyPath isEqualToString:@"lookAt"] == YES)
-    {
-        FLAnchorPoint *anchorPoint = object;
-        _xLookAtTextField.doubleValue = anchorPoint.lookAt.x;
-        _yLookAtTextField.doubleValue = anchorPoint.lookAt.y;
-        _zLookAtTextField.doubleValue = anchorPoint.lookAt.z;
     }
 }
 
@@ -98,14 +84,18 @@
     [_xPositionStepper setEnabled:visible];
     [_yPositionStepper setEnabled:visible];
     [_zPositionStepper setEnabled:visible];
+}
+
+#pragma mark - XIB actions
+
+- (void)appendAnchorPoint:(id)sender
+{
     
-    [_xLookAtTextField setEnabled:visible];
-    [_yLookAtTextField setEnabled:visible];
-    [_zLookAtTextField setEnabled:visible];
+}
+
+- (void)removeSelectedAnchorPoint:(id)sender
+{
     
-    [_xLookAtStepper setEnabled:visible];
-    [_yLookAtStepper setEnabled:visible];
-    [_zLookAtStepper setEnabled:visible];
 }
 
 #pragma mark - NSTextField/combobox value changed
@@ -113,7 +103,7 @@
 -(BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
 {
     FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
-    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.anchorPointsCollection;
+    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints;
     if(commandSelector == @selector(insertNewline:))
     {
         if(control == _anchorIdComboBox)
@@ -139,19 +129,13 @@
             anchorPoint.position = SCNVector3Make(_xPositionTextField.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
             anchorPointView.position = anchorPoint.position;
             
-            SCNVector3 lookAtPosition = anchorPoint.lookAt;
-            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
-            
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
         }
         else if(control == _yPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionTextField.doubleValue, anchorPoint.position.z);
-            SCNVector3 lookAtPosition = anchorPoint.lookAt;
-            
             anchorPointView.position = anchorPoint.position;
-            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -159,28 +143,10 @@
         else if(control == _zPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionTextField.doubleValue);
-            SCNVector3 lookAtPosition = anchorPoint.lookAt;
-            
             anchorPointView.position = anchorPoint.position;
-            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
             [selectionHandles setTransform:selectionHandlesTransform];
-        }
-        else if(control == _xLookAtTextField)
-        {
-            anchorPoint.lookAt = SCNVector3Make(_xLookAtTextField.doubleValue, anchorPoint.lookAt.y, anchorPoint.lookAt.z);
-            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
-        }
-        else if(control == _yLookAtTextField)
-        {
-            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, _yLookAtTextField.doubleValue, anchorPoint.lookAt.z);
-            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
-        }
-        else if(control == _zLookAtTextField)
-        {
-            anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, anchorPoint.lookAt.y, _zLookAtTextField.doubleValue);
-            anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
         }
         return YES;
     }
@@ -190,7 +156,7 @@
 - (IBAction)stepValue:(id)sender
 {
     FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
-    FLAnchorPoint *anchorPoint = self.utilityPaneController.appFrameController.model.anchorPointsCollection.selectedAnchorPoint;
+    FLAnchorPoint *anchorPoint = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints.selectedAnchorPoint;
     FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
     
     SCNVector3 oldPosition = anchorPoint.position;
@@ -203,19 +169,13 @@
         anchorPoint.position = SCNVector3Make([stepper doubleValue], anchorPoint.position.y, anchorPoint.position.z);
         anchorPointView.position = anchorPoint.position;
         
-        SCNVector3 lookAtPosition = anchorPoint.lookAt;
-        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
-        
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
         [selectionHandles setTransform:selectionHandlesTransform];
     }
     else if(sender == _yPositionStepper)
     {
         anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionStepper.doubleValue, anchorPoint.position.z);
-        SCNVector3 lookAtPosition = anchorPoint.lookAt;
-        
         anchorPointView.position = anchorPoint.position;
-        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
         [selectionHandles setTransform:selectionHandlesTransform];
@@ -223,29 +183,25 @@
     else if(sender == _zPositionStepper)
     {
         anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionStepper.doubleValue);
-        SCNVector3 lookAtPosition = anchorPoint.lookAt;
-        
         anchorPointView.position = anchorPoint.position;
-        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, lookAtPosition);
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
         [selectionHandles setTransform:selectionHandlesTransform];
     }
-    else if(sender == _xLookAtStepper)
+}
+
+#pragma mark - Validation
+
+-(BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    FLStreamsCollection *streamCollection = self.utilityPaneController.appFrameController.model.streams;
+    
+    if([menuItem action] == @selector(removeSelectedAnchorPoint:))
     {
-        anchorPoint.lookAt = SCNVector3Make(_xLookAtStepper.doubleValue, anchorPoint.lookAt.y, anchorPoint.lookAt.z);
-        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
+        FLAnchorPointsCollection *anchorPointsCollection = streamCollection.selectedStream.anchorPoints;
+        return (anchorPointsCollection.selectedAnchorPoint != nil);
     }
-    else if(sender == _yLookAtStepper)
-    {
-        anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, _yLookAtStepper.doubleValue, anchorPoint.lookAt.z);
-        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
-    }
-    else if (sender == _zLookAtStepper)
-    {
-        anchorPoint.lookAt = SCNVector3Make(anchorPoint.lookAt.x, anchorPoint.lookAt.y, _zLookAtStepper.doubleValue);
-        anchorPointView.rotation = FLRotatePointAToFacePointB(anchorPoint.position, anchorPoint.lookAt);
-    }
+    return YES;
 }
 
 #pragma mark - Utility Methods
@@ -273,18 +229,18 @@
 
 -(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    return [self.utilityPaneController.appFrameController.model.anchorPointsCollection anchorPointsCount];
+    return [self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints anchorPointsCount];
 }
 
 -(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
-    FLAnchorPoint *anchorPoint = [self.utilityPaneController.appFrameController.model.anchorPointsCollection anchorPointForIndex:index];
+    FLAnchorPoint *anchorPoint = [self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints anchorPointForIndex:index];
     return [NSNumber numberWithUnsignedInteger:anchorPoint.anchorPointID];
 }
 
 -(void)comboBoxSelectionDidChange:(NSNotification *)notification
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.anchorPointsCollection;
+    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints;
 
     NSUInteger index = [_anchorIdComboBox indexOfSelectedItem];
     FLAnchorPoint *anchorPoint = [anchorPointsCollection anchorPointForIndex:index];

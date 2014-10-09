@@ -9,6 +9,7 @@
 #import "FLUtilityPaneController.h"
 #import "FLUtilityPaneAnchorPointsViewController.h"
 #import "FLUtilityPaneFliegenViewController.h"
+#import "FLStreamsViewController.h"
 
 @interface FLUtilityPaneController ()
 
@@ -33,17 +34,14 @@
 
 - (IBAction)switchUtilityPaneTab:(id)sender
 {
+    [_utilityViewPane.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSUInteger selectedSegment = _utilityPaneSegmentedControl.selectedSegment;
     if(selectedSegment == 0)
-    {
-        [_utilityViewPane.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [_utilityViewPane addSubview:_fliegenPropertiesController.view];
-    }
     else if(selectedSegment == 1)
-    {
-        [_utilityViewPane.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [_utilityViewPane addSubview:_streamsPropertiesController.view];
+    else if(selectedSegment == 2)
         [_utilityViewPane addSubview:_anchorPointsPropertiesPaneController.view];
-    }
     
     [self.view setNeedsDisplay:YES];
 }

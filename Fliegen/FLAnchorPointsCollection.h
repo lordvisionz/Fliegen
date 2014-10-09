@@ -11,9 +11,6 @@
 @class FLAnchorPoint;
 
 @interface FLAnchorPointsCollection : NSObject
-{
-    NSMutableArray *_anchorPoints;
-}
 
 @property (readwrite) FLAnchorPoint *selectedAnchorPoint;
 

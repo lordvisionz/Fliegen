@@ -9,6 +9,13 @@
 #import "FLAnchorPointsCollection.h"
 #import "FLAnchorPoint.h"
 
+@interface FLAnchorPointsCollection()
+{
+    NSMutableArray *_anchorPoints;
+}
+
+@end
+
 @implementation FLAnchorPointsCollection
 
 -(id)init
@@ -43,25 +50,20 @@
 {
     if(_selectedAnchorPoint == nil) return NO;
     
-    [_anchorPoints removeObjectAtIndex:[_anchorPoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-        FLAnchorPoint *anchorPoint = obj;
-        if(anchorPoint.anchorPointID == _selectedAnchorPoint.anchorPointID)
-        {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }]];
+    NSUInteger oldSelectedAnchorPointID = _selectedAnchorPoint.anchorPointID;
+    
+    [_anchorPoints removeObject:self.selectedAnchorPoint];
+    self.selectedAnchorPoint = nil;
+    
     [_anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
     {
         FLAnchorPoint *anchorPoint = obj;
-        if(anchorPoint.anchorPointID > _selectedAnchorPoint.anchorPointID)
+        if(anchorPoint.anchorPointID > oldSelectedAnchorPointID)
         {
             anchorPoint.anchorPointID -= 1;
         }
-            
     }];
-    self.selectedAnchorPoint = nil;
+   
     return YES;
 }
 

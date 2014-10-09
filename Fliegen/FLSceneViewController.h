@@ -11,10 +11,18 @@
 
 @class FLAppFrameController, FLSceneView;
 
+typedef NS_ENUM(unsigned short, FLSelectionMode)
+{
+    FLSelectionModeNone = 0,
+    FLSelectionModeStreams = 1,
+    FLSelectionModeAnchorPoint = 2
+};
 
 @interface FLSceneViewController : NSViewController<NSMenuDelegate>
 
 @property (weak) IBOutlet FLAppFrameController *appFrameController;
+
+@property (readwrite) FLSelectionMode selectionMode;
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent;
 

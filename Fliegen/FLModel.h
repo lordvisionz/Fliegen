@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class FLAnchorPointsCollection;
+@class FLStreamsCollection;
 
 @interface FLModel : NSObject
 
-@property (readonly, retain) FLAnchorPointsCollection *anchorPointsCollection;
+@property (readonly, retain) FLStreamsCollection *streams;
 
 @end

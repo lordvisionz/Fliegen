@@ -16,6 +16,4 @@
 
 @property(readwrite) SCNVector3 position;
 
-@property(readwrite) SCNVector3 lookAt;
-
 @end

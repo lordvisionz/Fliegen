@@ -7,14 +7,14 @@
 //
 
 #import "FLModel.h"
-#import "FLAnchorPointsCollection.h"
+#import "FLStreamsCollection.h"
 
 @implementation FLModel
 
 -(id)init
 {
     self = [super init];
-    _anchorPointsCollection = [[FLAnchorPointsCollection alloc] init];
+    _streams = [[FLStreamsCollection alloc] init];
     
     return self;
 }

@@ -11,7 +11,7 @@
 
 @class FLUtilityPaneController;
 
-@interface FLUtilityPaneAnchorPointsViewController : NSViewController<NSTextFieldDelegate, NSComboBoxDataSource, NSComboBoxDelegate>
+@interface FLUtilityPaneAnchorPointsViewController : NSViewController<NSTextFieldDelegate, NSComboBoxDataSource, NSComboBoxDelegate, NSUserInterfaceValidations>
 
 @property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
 
@@ -25,12 +25,8 @@
 @property (weak) IBOutlet NSStepper *yPositionStepper;
 @property (weak) IBOutlet NSStepper *zPositionStepper;
 
-@property (weak) IBOutlet NSTextField *xLookAtTextField;
-@property (weak) IBOutlet NSTextField *yLookAtTextField;
-@property (weak) IBOutlet NSTextField *zLookAtTextField;
+- (IBAction)appendAnchorPoint:(id)sender;
 
-@property (weak) IBOutlet NSStepper *xLookAtStepper;
-@property (weak) IBOutlet NSStepper *yLookAtStepper;
-@property (weak) IBOutlet NSStepper *zLookAtStepper;
+- (IBAction)removeSelectedAnchorPoint:(id)sender;
 
 @end
