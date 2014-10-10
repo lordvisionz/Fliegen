@@ -9,6 +9,7 @@
 #import "FLAnchorPointView.h"
 
 #import "FLAnchorPoint.h"
+#import "FLSelectionHandles.h"
 
 @implementation FLAnchorPointView
 
@@ -72,9 +73,9 @@
 
 }
 
--(void) setSelectionHandles
+-(FLSelectionHandles*) getSelectionHandles
 {
-    SCNNode *selectionNode = [SCNNode node];
+    FLSelectionHandles *selectionNode = [FLSelectionHandles node];
     [selectionNode setName:@"selectionHandles"];
     SCNCylinder *xAxisRod = [SCNCylinder cylinderWithRadius:.1 height:4];
     SCNNode *xAxisRodNode = [SCNNode nodeWithGeometry:xAxisRod];
@@ -139,7 +140,7 @@
     [zAxisRodNode addChildNode:zAxisConeNode];
     
     [selectionNode addChildNode:zAxisRodNode];
-//    [_rootNode addChildNode:selectionNode];
+    return selectionNode;
 }
 
 //- (BOOL)removeSelectionHandles

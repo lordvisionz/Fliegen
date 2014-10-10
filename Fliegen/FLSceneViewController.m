@@ -23,6 +23,7 @@
 #import "FLStreamView.h"
 #import "FLAxisNode.h"
 #import "FLGridlines.h"
+#import "FLSelectionHandles.h"
 
 #import <SceneKit/SceneKit.h>
 #import <SceneKit/SceneKitTypes.h>
@@ -114,10 +115,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamWasAdded:) name:FLStreamAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamWasDeleted:) name:FLStreamDeletedNotification object:nil];
     
-    
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointWasAdded:) name:FLAnchorPointAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointWasDeleted:) name:FLAnchorPointDeletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointSelectedChanged:)
+                                                 name:FLAnchorPointSelectionChangedNotification object:nil];
 }
 
 -(void)initMenuItems
@@ -179,6 +180,15 @@
 -(void)anchorPointWasDeleted:(NSNotification*)notification
 {
     
+}
+
+-(void)anchorPointSelectedChanged:(NSNotification*)notification
+{
+    FLAnchorPoint *anchorPoint = self.appFrameController.model.streams.selectedStream.anchorPoints.selectedAnchorPoint;
+    FLAnchorPointView *anchorPointView = [self viewForAnchorPoint:anchorPoint];
+    
+    [[self selectionHandles] removeFromParentNode];
+    [self.sceneView.scene.rootNode addChildNode:[anchorPointView getSelectionHandles]];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -253,68 +263,54 @@
 
 -(void)mouseDown:(NSEvent *)theEvent
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.streams.selectedStream.anchorPoints;
-    
     lastClickedPoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     NSArray *hitItems = [self.sceneView hitTest:lastClickedPoint options:nil];
+    SCNHitTestResult *firstHitItem = [self firstSelectableHitTestResult:hitItems];
     
-    if(hitItems.count == 0)
+    if(firstHitItem == nil)
     {
-        anchorPointsCollection.selectedAnchorPoint = nil;
+        self.selectionMode = FLSelectionModeNone;
+        FLStreamsCollection *streams = self.appFrameController.model.streams;
+        FLAnchorPointsCollection *anchorPoints = streams.selectedStream.anchorPoints;
+        
+        anchorPoints.selectedAnchorPoint = nil;
+        streams.selectedStream = nil;
         return;
     }
-    
-    SCNHitTestResult *firstHitItem = [hitItems objectAtIndex:0];
-    SCNNode *selectionNode = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
+    SCNNode *selectionNode = [self selectionHandles];
     if(selectionNode != nil)
     {
         if([selectionNode childNodeWithName:firstHitItem.node.name recursively:YES] != nil)
         {
             _isDraggingSelectionHandles = YES;
             _selectionHandleInDrag = firstHitItem.node;
-            SCNVector4 rotation = self.sceneView.pointOfView.rotation;
-            
-            SCNPlane *plane = [SCNPlane planeWithWidth:10000 height:10000];
-            SCNNode *planeNode = [SCNNode nodeWithGeometry:plane];
-            [planeNode setName:@"hitplane"];
-            
-            [planeNode setRotation:rotation];
-            SCNMaterial *material = [SCNMaterial material];
-            material.diffuse.contents = [NSColor clearColor];
-            [plane setFirstMaterial:material];
-            [self.sceneView.scene.rootNode addChildNode:planeNode];
             return;
         }
     }
-    if([firstHitItem.node isKindOfClass:[FLAnchorPointView class]] == NO)
-    {
-        anchorPointsCollection.selectedAnchorPoint = nil;
-        return;
-    }
+
     FLAnchorPointView *anchorPoint = (FLAnchorPointView*)firstHitItem.node;
     FLStreamView *streamView = (FLStreamView*)anchorPoint.parentNode;
     
     FLStream *selectedStream = [self.appFrameController.model.streams streamForId:streamView.stream.streamId];
     FLAnchorPoint *selectedAnchorPoint = [selectedStream.anchorPoints anchorPointForId:anchorPoint.anchorPoint.anchorPointID];
     
-    [anchorPointsCollection setSelectedAnchorPoint:selectedAnchorPoint];
+    self.appFrameController.model.streams.selectedStream = selectedStream;
+    selectedStream.anchorPoints.selectedAnchorPoint = selectedAnchorPoint;
 }
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.streams.selectedStream.anchorPoints;
-    
     NSPoint newMousePoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     if(_isDraggingSelectionHandles)
     {
+        FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.streams.selectedStream.anchorPoints;
         FLAnchorPoint *selectedAnchorPoint = anchorPointsCollection.selectedAnchorPoint;
-//        FLAnchorPointView *anchorPointView = [self viewForAnchorPoint:selectedAnchorPoint];
         
-        SCNHitTestResult *hitPlane = [self hitTestForNode:[self hitPlane] atPoint:lastClickedPoint];
-        SCNVector3 oldWorldCoord = hitPlane.worldCoordinates;
+        SCNHitTestResult *hitPlaneResult = [self hitTestForNode:[self hitPlane] atPoint:lastClickedPoint];
+        SCNVector3 oldWorldCoord = hitPlaneResult.worldCoordinates;
         
-        hitPlane = [self hitTestForNode:[self hitPlane] atPoint:newMousePoint];
-        SCNVector3 newWorldCoord = hitPlane.worldCoordinates;
+        hitPlaneResult = [self hitTestForNode:[self hitPlane] atPoint:newMousePoint];
+        SCNVector3 newWorldCoord = hitPlaneResult.worldCoordinates;
 
         SCNVector3 oldPosition = selectedAnchorPoint.position;
         
@@ -454,6 +450,41 @@
     return [childNodes objectAtIndex:0];
 }
 
+-(SCNHitTestResult*)firstSelectableHitTestResult:(NSArray*)hitItems
+{
+    NSUInteger hitIndex = [hitItems indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
+    {
+        SCNNode *node = [obj node];
+        BOOL isASelectionHandle = NO;
+        SCNNode *selectionHandles = [self selectionHandles];
+        if(selectionHandles != nil)
+        {
+            isASelectionHandle = ([selectionHandles childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
+                if(child == node)
+                {
+                    *stop = YES;
+                    return YES;
+                }
+                return NO;
+            }].count > 0);
+        }
+        if(isASelectionHandle == YES)
+        {
+            *stop = YES;
+            return YES;
+        }
+        if([node isKindOfClass:[FLAnchorPointView class]] == YES)
+        {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    if(hitIndex == NSNotFound)return nil;
+    
+    return [hitItems objectAtIndex:hitIndex];
+}
+
 -(SCNHitTestResult*)hitTestForNode:(SCNNode*)node atPoint:(NSPoint)point
 {
     NSArray *hitItems = [self.sceneView hitTest:point options:nil];
@@ -473,6 +504,11 @@
 -(SCNNode*)hitPlane
 {
     return [self.sceneView.scene.rootNode childNodeWithName:@"hitplane" recursively:YES];
+}
+
+-(SCNNode*)selectionHandles
+{
+    return [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
 }
 
 -(FLSceneView*)sceneView

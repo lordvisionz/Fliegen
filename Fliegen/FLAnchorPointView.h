@@ -12,7 +12,7 @@
 #import "FLStream.h"
 #import "FLAnchorPointProtocol.h"
 
-@class FLAnchorPoint;
+@class FLAnchorPoint, FLSelectionHandles;
 
 @interface FLAnchorPointView : SCNNode
 
@@ -21,5 +21,7 @@
 @property(readonly, assign) id<FLAnchorPointProtocol> anchorPoint;
 
 -(void)updateGeometry;
+
+-(FLSelectionHandles*)getSelectionHandles;
 
 @end
