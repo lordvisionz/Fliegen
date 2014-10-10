@@ -8,28 +8,64 @@
 
 #import "FLAnchorPointView.h"
 
+#import "FLAnchorPoint.h"
+
 @implementation FLAnchorPointView
 
--(id)initWithAnchorPoint:(FLAnchorPoint *)model withRootNode:(SCNNode*)rootNode withTransform:(CATransform3D)modelTransform
+-(id)initWithAnchorPoint:(id<FLAnchorPointProtocol>)anchorPoint
 {
     self = [super init];
-    _anchorPointModel = model;
-    _rootNode = rootNode;
-    
-    SCNCone *cone = [SCNCone coneWithTopRadius:.1 bottomRadius:1 height:2.5];
-    SCNMaterial *material = [SCNMaterial material];
-    material.diffuse.contents = [NSColor blackColor];
-    [cone setFirstMaterial:material];
-    
-    [self setGeometry:cone];
-    [self setTransform:modelTransform];
+    _anchorPoint = anchorPoint;
+    [self updateGeometry];
     return self;
 }
 
--(void)moveSelectionHandlesTo:(SCNVector3)worldPosition
+//-(id)initWithAnchorPoint:(FLAnchorPoint *)model withRootNode:(SCNNode*)rootNode withTransform:(CATransform3D)modelTransform
+//{
+//    self = [super init];
+//    _anchorPointModel = model;
+//    _rootNode = rootNode;
+//    
+//    SCNCone *cone = [SCNCone coneWithTopRadius:.1 bottomRadius:1 height:2.5];
+//    SCNMaterial *material = [SCNMaterial material];
+//    material.diffuse.contents = [NSColor blackColor];
+//    [cone setFirstMaterial:material];
+//    
+//    [self setGeometry:cone];
+//    [self setTransform:modelTransform];
+//    return self;
+//}
+
+-(void)updateGeometry
 {
+    FLStreamVisualType visualType = self.anchorPoint.stream.streamVisualType;
+    SCNMaterial *material = [SCNMaterial material];
+    [material setLightingModelName:SCNLightingModelBlinn];
+    material.diffuse.contents = [NSColor redColor];
     
+    switch(visualType)
+    {
+        case FLStreamVisualTypeCone:
+        {
+            SCNCone *cone = [SCNCone coneWithTopRadius:.1 bottomRadius:1 height:2.5];
+            cone.firstMaterial = material;
+            
+            self.geometry = cone;
+            self.position = self.anchorPoint.position;
+            break;
+        }
+        case FLStreamVisualTypeSphere:
+        {
+            SCNSphere *sphere = [SCNSphere sphereWithRadius:1];
+            sphere.firstMaterial = material;
+            self.geometry = sphere;
+            
+            self.position = self.anchorPoint.position;
+            break;
+        }
+    }
 }
+
 
 -(void)dealloc
 {
@@ -103,27 +139,36 @@
     [zAxisRodNode addChildNode:zAxisConeNode];
     
     [selectionNode addChildNode:zAxisRodNode];
-    [_rootNode addChildNode:selectionNode];
+//    [_rootNode addChildNode:selectionNode];
 }
 
-- (BOOL)removeSelectionHandles
-{
-    SCNNode *selectionNode = [_rootNode childNodeWithName:@"selectionHandles" recursively:YES];
-    
-    if(selectionNode == nil) return NO;
-    [selectionNode removeFromParentNode];
-    return YES;
-}
+//- (BOOL)removeSelectionHandles
+//{
+//    SCNNode *selectionNode = [_rootNode childNodeWithName:@"selectionHandles" recursively:YES];
+//    
+//    if(selectionNode == nil) return NO;
+//    [selectionNode removeFromParentNode];
+//    return YES;
+//}
+
+//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+//{
+//    FLAnchorPoint *oldSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeOldKey];
+//    FLAnchorPoint *newSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeNewKey];
+//
+//    if(([newSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && newSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
+//        [self setSelectionHandles];
+//    if(([oldSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && oldSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
+//        [self removeSelectionHandles];
+//}
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    FLAnchorPoint *oldSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeOldKey];
-    FLAnchorPoint *newSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeNewKey];
-
-    if(([newSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && newSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
-        [self setSelectionHandles];
-    if(([oldSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && oldSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
-        [self removeSelectionHandles];
+    if([keyPath isEqualToString:NSStringFromSelector(@selector(position))] == YES)
+    {
+        FLAnchorPoint *anchorPoint = object;
+        self.position = anchorPoint.position;
+    }
 }
 
 @end

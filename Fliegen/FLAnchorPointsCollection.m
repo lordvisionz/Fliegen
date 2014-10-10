@@ -22,9 +22,10 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
 
 @implementation FLAnchorPointsCollection
 
--(id)init
+-(id)initWithStream:(id<FLStreamProtocol>)stream
 {
     self = [super init];
+    _stream = stream;
     _anchorPoints = [[NSMutableArray alloc]init];
     _selectedAnchorPoint = nil;
     return self;

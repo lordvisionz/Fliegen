@@ -10,4 +10,16 @@
 
 @implementation FLAnchorPoint
 
+@synthesize anchorPointID = _anchorPointID;
+@synthesize position = _position;
+@synthesize stream = _stream;
+
+-(id)initWithStream:(id<FLStreamProtocol>)stream
+{
+    self = [super init];
+    
+    _stream = stream;
+    return self;
+}
+
 @end

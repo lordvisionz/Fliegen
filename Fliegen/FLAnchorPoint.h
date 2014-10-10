@@ -10,10 +10,10 @@
 #import <SceneKit/SceneKit.h>
 #import <SceneKit/SceneKitTypes.h>
 
-@interface FLAnchorPoint : NSObject
+#import "FLAnchorPointProtocol.h"
 
-@property (readwrite) NSUInteger anchorPointID;
+@interface FLAnchorPoint : NSObject<FLAnchorPointProtocol>
 
-@property(readwrite) SCNVector3 position;
+-(id)initWithStream:(id<FLStreamProtocol>)stream;
 
 @end

@@ -9,21 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <SceneKit/SceneKit.h>
 
-#import "FLAnchorPoint.h"
+#import "FLStream.h"
+#import "FLAnchorPointProtocol.h"
+
+@class FLAnchorPoint;
 
 @interface FLAnchorPointView : SCNNode
-{
-    SCNNode *_rootNode;
-}
 
-@property (readonly) FLAnchorPoint* anchorPointModel;
+-(id)initWithAnchorPoint:(id<FLAnchorPointProtocol>)anchorPoint;
 
--(id)initWithAnchorPoint:(FLAnchorPoint *)model withRootNode:(SCNNode*)rootNode withTransform:(CATransform3D)modelTransform;
+@property(readonly, assign) id<FLAnchorPointProtocol> anchorPoint;
 
-//- (SCNNode*)setSelectionHandlesForRootNode:(SCNNode*)rootNode;
-
-//- (BOOL)removeSelectionHandles;
-
-- (void)moveSelectionHandlesTo:(SCNVector3)worldPosition;
+-(void)updateGeometry;
 
 @end

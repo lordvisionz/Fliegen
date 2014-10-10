@@ -8,27 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "FLStreamProtocol.h"
+
 @class FLAnchorPointsCollection;
 
-typedef NS_ENUM(unsigned short, FLStreamType)
-{
-    FLStreamTypePosition = 0,
-    FLStreamTypeLookAt = 1
-};
-
-typedef NS_ENUM(unsigned short, FLStreamVisualType)
-{
-    FLStreamVisualTypeSphere = 0,
-    FLStreamVisualTypeCone = 1
-};
-
-@interface FLStream : NSObject
-
-@property (readwrite, assign) NSUInteger streamId;
-
-@property (readwrite, assign) FLStreamType streamType;
-
-@property (readwrite, assign) FLStreamVisualType streamVisualType;
+@interface FLStream : NSObject<FLStreamProtocol>
 
 @property (readwrite, retain) FLAnchorPointsCollection *anchorPoints;
 

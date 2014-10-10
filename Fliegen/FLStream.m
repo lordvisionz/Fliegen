@@ -11,10 +11,14 @@
 
 @implementation FLStream
 
+@synthesize streamId = _streamId;
+@synthesize streamType = _streamType;
+@synthesize streamVisualType = _streamVisualType;
+
 -(id)init
 {
     self = [super init];
-    _anchorPoints = [[FLAnchorPointsCollection alloc] init];
+    _anchorPoints = [[FLAnchorPointsCollection alloc] initWithStream:self];
     
     return self;
 }

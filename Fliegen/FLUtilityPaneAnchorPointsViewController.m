@@ -152,11 +152,11 @@
         SCNNode *selectionHandles = [sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
         CATransform3D selectionHandlesTransform = selectionHandles.transform;
         
-        FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
+//        FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
         if(control == _xPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(_xPositionTextField.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
-            anchorPointView.position = anchorPoint.position;
+//            anchorPointView.position = anchorPoint.position;
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -164,7 +164,7 @@
         else if(control == _yPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionTextField.doubleValue, anchorPoint.position.z);
-            anchorPointView.position = anchorPoint.position;
+//            anchorPointView.position = anchorPoint.position;
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -172,7 +172,7 @@
         else if(control == _zPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionTextField.doubleValue);
-            anchorPointView.position = anchorPoint.position;
+//            anchorPointView.position = anchorPoint.position;
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -186,7 +186,7 @@
 {
     FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
     FLAnchorPoint *anchorPoint = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints.selectedAnchorPoint;
-    FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
+//    FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
     
     SCNVector3 oldPosition = anchorPoint.position;
     SCNNode *selectionHandles = [sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
@@ -196,7 +196,7 @@
     if(sender == _xPositionStepper)
     {
         anchorPoint.position = SCNVector3Make([stepper doubleValue], anchorPoint.position.y, anchorPoint.position.z);
-        anchorPointView.position = anchorPoint.position;
+//        anchorPointView.position = anchorPoint.position;
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
         [selectionHandles setTransform:selectionHandlesTransform];
@@ -204,7 +204,7 @@
     else if(sender == _yPositionStepper)
     {
         anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionStepper.doubleValue, anchorPoint.position.z);
-        anchorPointView.position = anchorPoint.position;
+//        anchorPointView.position = anchorPoint.position;
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
         [selectionHandles setTransform:selectionHandlesTransform];
@@ -212,7 +212,7 @@
     else if(sender == _zPositionStepper)
     {
         anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionStepper.doubleValue);
-        anchorPointView.position = anchorPoint.position;
+//        anchorPointView.position = anchorPoint.position;
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
         [selectionHandles setTransform:selectionHandlesTransform];
@@ -235,24 +235,24 @@
 
 #pragma mark - Utility Methods
 
--(FLAnchorPointView*)anchorPointViewForModel:(FLAnchorPoint *)anchorPoint
-{
-    FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
-    __block FLAnchorPointView *anchorPointView;
-    [sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop)
-     {
-         if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
-         anchorPointView = (FLAnchorPointView*) child;
-         
-         if(anchorPointView.anchorPointModel == anchorPoint)
-         {
-             *stop = YES;
-             return YES;
-         }
-         return NO;
-     }];
-    return anchorPointView;
-}
+//-(FLAnchorPointView*)anchorPointViewForModel:(FLAnchorPoint *)anchorPoint
+//{
+//    FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
+//    __block FLAnchorPointView *anchorPointView;
+//    [sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop)
+//     {
+//         if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
+//         anchorPointView = (FLAnchorPointView*) child;
+//         
+//         if(anchorPointView.anchorPointModel == anchorPoint)
+//         {
+//             *stop = YES;
+//             return YES;
+//         }
+//         return NO;
+//     }];
+//    return anchorPointView;
+//}
 
 -(void)toggleAnchorPointEditControls:(BOOL)visible
 {
