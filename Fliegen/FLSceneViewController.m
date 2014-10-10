@@ -160,7 +160,10 @@
 
 -(void)streamWasDeleted:(NSNotification*)notification
 {
-    
+    NSDictionary *userInfo = notification.userInfo;
+    FLStream *deletedStream = [userInfo objectForKey:NSStringFromClass([FLStream class])];
+    FLStreamView *streamViewToBeDeleted = [self viewForStream:deletedStream];
+    [streamViewToBeDeleted removeFromParentNode];
 }
 
 -(void)anchorPointWasAdded:(NSNotification*)notification
@@ -225,8 +228,8 @@
 
 -(void)deleteAnchorPoint:(id)sender
 {
-    
-    
+    [self.appFrameController.model.streams.selectedStream.anchorPoints deleteSelectedAnchorPoint];
+
 //    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
 //    NSArray *anchorPoints = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
 //        if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;

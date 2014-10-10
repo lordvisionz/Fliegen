@@ -58,18 +58,20 @@ NSString *const FLStreamDeletedNotification = @"FLStreamDeletedNotification";
 {
     if(_selectedStream == nil) return NO;
     
-    NSUInteger oldSelectedStreamID = self.selectedStream.streamId;
+    FLStream *oldSelectedStream = self.selectedStream;
     
-    [_streams removeObject:self.selectedStream];
     self.selectedStream = nil;
+    [_streams removeObject:oldSelectedStream];
+    
     
     [_streams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
     {
         FLStream *stream = obj;
-        if(stream.streamId > oldSelectedStreamID)
+        if(stream.streamId > oldSelectedStream.streamId)
             stream.streamId -= 1;
     }];
-    [[NSNotificationCenter defaultCenter] postNotificationName:FLStreamDeletedNotification object:self];
+    NSDictionary *userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:oldSelectedStream, NSStringFromClass([FLStream class]), nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLStreamDeletedNotification object:self userInfo:userInfo];
     return YES;
 }
 
