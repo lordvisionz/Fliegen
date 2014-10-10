@@ -179,7 +179,10 @@
 
 -(void)anchorPointWasDeleted:(NSNotification*)notification
 {
-    
+    NSDictionary *userInfo = notification.userInfo;
+    FLAnchorPoint *deletedAnchorPoint = [userInfo objectForKey:NSStringFromClass([FLAnchorPoint class])];
+    FLAnchorPointView *viewToBeDeleted = [self viewForAnchorPoint:deletedAnchorPoint];
+    [viewToBeDeleted removeFromParentNode];
 }
 
 -(void)anchorPointSelectedChanged:(NSNotification*)notification
@@ -222,6 +225,8 @@
 
 -(void)deleteAnchorPoint:(id)sender
 {
+    
+    
 //    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
 //    NSArray *anchorPoints = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
 //        if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
@@ -314,47 +319,33 @@
         SCNVector3 newWorldCoord = hitPlaneResult.worldCoordinates;
 
         SCNVector3 oldPosition = selectedAnchorPoint.position;
-        
+        SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
         if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
         {
             double distanceDragged = newWorldCoord.x - oldWorldCoord.x;
             oldPosition.x += distanceDragged;
-//            anchorPointView.position = oldPosition;
-            
-//            anchorPointView.anchorPointModel.position = anchorPointView.position;
             selectedAnchorPoint.position = oldPosition;
-            SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
+            
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, distanceDragged, 0, 0)];
         }
         else if([_selectionHandleInDrag.name isEqualToString:@"yAxisTranslate"])
         {
             double distanceDragged = newWorldCoord.y - oldWorldCoord.y;
             oldPosition.y += distanceDragged;
-//            anchorPointView.position = oldPosition;
-            
-//            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
-//            anchorPointView.rotation = rotation;
             selectedAnchorPoint.position = oldPosition;
-//            anchorPointView.anchorPointModel.position = anchorPointView.position;
-            SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
+
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, distanceDragged, 0)];
         }
         else if([_selectionHandleInDrag.name isEqualToString:@"xAxisTranslate"])
         {
             double distanceDragged = newWorldCoord.z - oldWorldCoord.z;
             oldPosition.z += distanceDragged;
-//            anchorPointView.position = oldPosition;
-            
-//            SCNVector4 rotation = FLRotatePointAToFacePointB(oldPosition, lookAtPosition);
-//            anchorPointView.rotation = rotation;
             selectedAnchorPoint.position = oldPosition;
-//            anchorPointView.anchorPointModel.position = anchorPointView.position;
-            SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
+
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, 0, distanceDragged)];
         }
         
         lastClickedPoint = newMousePoint;
-
         return YES;
     }
     return NO;

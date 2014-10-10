@@ -209,25 +209,6 @@
 
 #pragma mark - Utility Methods
 
-//-(FLAnchorPointView*)anchorPointViewForModel:(FLAnchorPoint *)anchorPoint
-//{
-//    FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
-//    __block FLAnchorPointView *anchorPointView;
-//    [sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop)
-//     {
-//         if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
-//         anchorPointView = (FLAnchorPointView*) child;
-//         
-//         if(anchorPointView.anchorPointModel == anchorPoint)
-//         {
-//             *stop = YES;
-//             return YES;
-//         }
-//         return NO;
-//     }];
-//    return anchorPointView;
-//}
-
 -(void)toggleAnchorPointEditControls:(BOOL)visible
 {
     [_xPositionStepper setEnabled:visible];

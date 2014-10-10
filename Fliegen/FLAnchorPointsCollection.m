@@ -58,21 +58,21 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
 {
     if(_selectedAnchorPoint == nil) return NO;
     
-    NSUInteger oldSelectedAnchorPointID = _selectedAnchorPoint.anchorPointID;
+    FLAnchorPoint *oldAnchorPoint = _selectedAnchorPoint;
     
-    [_anchorPoints removeObject:self.selectedAnchorPoint];
     self.selectedAnchorPoint = nil;
+    [_anchorPoints removeObject:oldAnchorPoint];
     
     [_anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
     {
         FLAnchorPoint *anchorPoint = obj;
-        if(anchorPoint.anchorPointID > oldSelectedAnchorPointID)
+        if(anchorPoint.anchorPointID > oldAnchorPoint.anchorPointID)
         {
             anchorPoint.anchorPointID -= 1;
         }
     }];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointDeletedNotification object:nil];
+    NSDictionary *userInfo = [[NSDictionary alloc]initWithObjectsAndKeys:oldAnchorPoint, NSStringFromClass([FLAnchorPoint class]), nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointDeletedNotification object:nil userInfo:userInfo];
     return YES;
 }
 
