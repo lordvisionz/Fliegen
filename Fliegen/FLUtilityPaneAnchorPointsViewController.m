@@ -36,8 +36,8 @@
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointWasDeleted:) name:FLAnchorPointDeletedNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointSelectionChanged:) name:FLAnchorPointSelectionChangedNotification
-                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointSelectionChanged:)
+                                                 name:FLAnchorPointSelectionChangedNotification object:nil];
 }
 
 #pragma mark - Notifications/KVO
@@ -59,7 +59,6 @@
 {
     FLStream *currentStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
     FLAnchorPoint *anchorPoint = currentStream.anchorPoints.selectedAnchorPoint;
-    SCNVector3 position = anchorPoint.position;
     
     if(anchorPoint == nil)
     {
@@ -69,46 +68,21 @@
     }
     [self.anchorIdComboBox reloadData];
     [self.anchorIdComboBox selectItemAtIndex:anchorPoint.anchorPointID];
-    _xPositionTextField.doubleValue = position.x;
-    _yPositionTextField.doubleValue = position.y;
-    _zPositionTextField.doubleValue = position.z;
     
+    [anchorPoint addObserver:self forKeyPath:NSStringFromSelector(@selector(position))
+                     options:(NSKeyValueObservingOptionInitial |NSKeyValueObservingOptionNew) context:NULL];
 }
 
-//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    if([keyPath isEqualToString:@"selectedAnchorPoint"] == YES)
-//    {
-//        FLAnchorPoint *previousSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeOldKey];
-//        FLAnchorPoint *newSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeNewKey];
-//        
-//        if([newSelectedAnchorPoint isKindOfClass:[NSNull class]] == YES)
-//            [self toggleEnableInputElements:NO];
-//        else
-//        {
-//            [self toggleEnableInputElements:YES];
-//            self.anchorIdComboBox.integerValue = newSelectedAnchorPoint.anchorPointID;
-//            
-//            if([previousSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO)
-//            {
-//                [previousSelectedAnchorPoint removeObserver:self forKeyPath:@"position"];
-//            }
-//            
-//            [newSelectedAnchorPoint addObserver:self forKeyPath:@"position" options:NSKeyValueObservingOptionNew context:NULL];
-//            
-//            _xPositionTextField.doubleValue = newSelectedAnchorPoint.position.x;
-//            _yPositionTextField.doubleValue = newSelectedAnchorPoint.position.y;
-//            _zPositionTextField.doubleValue = newSelectedAnchorPoint.position.z;
-//        }
-//    }
-//    else if([keyPath isEqualToString:@"position"] == YES)
-//    {
-//        FLAnchorPoint *anchorPoint = object;
-//        _xPositionTextField.doubleValue = anchorPoint.position.x;
-//        _yPositionTextField.doubleValue = anchorPoint.position.y;
-//        _zPositionTextField.doubleValue = anchorPoint.position.z;
-//    }
-//}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"position"] == YES)
+    {
+        FLAnchorPoint *anchorPoint = object;
+        _xPositionTextField.doubleValue = anchorPoint.position.x;
+        _yPositionTextField.doubleValue = anchorPoint.position.y;
+        _zPositionTextField.doubleValue = anchorPoint.position.z;
+    }
+}
 
 #pragma mark - UI actions/callbacks
 
@@ -116,7 +90,7 @@
 {
     FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
     
-    FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc] init];
+    FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc] initWithStream:selectedStream];
     anchorPoint.position = SCNVector3Make(0, 0, 0);
     [selectedStream.anchorPoints appendAnchorPoint:anchorPoint];
 }

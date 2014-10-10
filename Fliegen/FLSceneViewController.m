@@ -296,6 +296,7 @@
     
     self.appFrameController.model.streams.selectedStream = selectedStream;
     selectedStream.anchorPoints.selectedAnchorPoint = selectedAnchorPoint;
+    self.selectionMode = FLSelectionModeAnchorPoint;
 }
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent
@@ -362,6 +363,7 @@
 -(void)mouseUp:(NSEvent *)theEvent
 {
     _selectionHandleInDrag = nil;
+    _isDraggingSelectionHandles = NO;
 }
 
 -(void)rightMouseDown:(NSEvent *)theEvent
@@ -490,7 +492,7 @@
     NSArray *hitItems = [self.sceneView hitTest:point options:nil];
     NSUInteger hitIndex =[hitItems indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
         {
-            if(obj == node)
+            if([obj node] == node)
             {
                 *stop = YES;
                 return YES;
