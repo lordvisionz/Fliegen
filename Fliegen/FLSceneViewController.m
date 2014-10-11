@@ -156,6 +156,7 @@
     [stream addObserver:streamView forKeyPath:NSStringFromSelector(@selector(streamVisualType))
                 options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     [self.sceneView.scene.rootNode addChildNode:streamView];
+    [[self selectionHandles] removeFromParentNode];
 }
 
 -(void)streamWasDeleted:(NSNotification*)notification
@@ -164,6 +165,7 @@
     FLStream *deletedStream = [userInfo objectForKey:NSStringFromClass([FLStream class])];
     FLStreamView *streamViewToBeDeleted = [self viewForStream:deletedStream];
     [streamViewToBeDeleted removeFromParentNode];
+    [[self selectionHandles] removeFromParentNode];
 }
 
 -(void)anchorPointWasAdded:(NSNotification*)notification
@@ -178,6 +180,7 @@
     
     [anchorPoint addObserver:anchorPointView forKeyPath:NSStringFromSelector(@selector(position))
                      options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    [self.sceneView.scene.rootNode addChildNode:[anchorPointView getSelectionHandles]];
 }
 
 -(void)anchorPointWasDeleted:(NSNotification*)notification
@@ -186,6 +189,7 @@
     FLAnchorPoint *deletedAnchorPoint = [userInfo objectForKey:NSStringFromClass([FLAnchorPoint class])];
     FLAnchorPointView *viewToBeDeleted = [self viewForAnchorPoint:deletedAnchorPoint];
     [viewToBeDeleted removeFromParentNode];
+    [[self selectionHandles] removeFromParentNode];
 }
 
 -(void)anchorPointSelectedChanged:(NSNotification*)notification
@@ -229,22 +233,6 @@
 -(void)deleteAnchorPoint:(id)sender
 {
     [self.appFrameController.model.streams.selectedStream.anchorPoints deleteSelectedAnchorPoint];
-
-//    FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.anchorPointsCollection;
-//    NSArray *anchorPoints = [self.sceneView.scene.rootNode childNodesPassingTest:^BOOL(SCNNode *child, BOOL *stop) {
-//        if([child isKindOfClass:[FLAnchorPointView class]] == NO) return NO;
-//        
-//        FLAnchorPointView *anchorPointView = (FLAnchorPointView*)child;
-//        return (anchorPointView.anchorPointModel.anchorPointID == anchorPointsCollection.selectedAnchorPoint.anchorPointID);
-//    }];
-//    
-//    [anchorPointsCollection deleteSelectedAnchorPoint];
-//
-//    SCNNode *deletedNode = [anchorPoints objectAtIndex:0];
-//    [deletedNode removeFromParentNode];
-//    
-//    [anchorPointsCollection removeObserver:deletedNode forKeyPath:@"selectedAnchorPoint"];
-//    deletedNode = nil;
 }
 
 -(void)pushAnchorPoint:(id)sender
@@ -323,7 +311,7 @@
 
         SCNVector3 oldPosition = selectedAnchorPoint.position;
         SCNNode *selectionHandles = [self.sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
-        if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
+        if([_selectionHandleInDrag.name isEqualToString:@"xAxisTranslate"])
         {
             double distanceDragged = newWorldCoord.x - oldWorldCoord.x;
             oldPosition.x += distanceDragged;
@@ -339,7 +327,7 @@
 
             [selectionHandles setTransform:CATransform3DTranslate(selectionHandles.transform, 0, distanceDragged, 0)];
         }
-        else if([_selectionHandleInDrag.name isEqualToString:@"xAxisTranslate"])
+        else if([_selectionHandleInDrag.name isEqualToString:@"zAxisTranslate"])
         {
             double distanceDragged = newWorldCoord.z - oldWorldCoord.z;
             oldPosition.z += distanceDragged;

@@ -81,13 +81,13 @@
     SCNNode *xAxisRodNode = [SCNNode nodeWithGeometry:xAxisRod];
     xAxisRodNode.name = @"xAxisTranslate";
     SCNMaterial *xAxisMaterial = [SCNMaterial material];
-    xAxisMaterial.diffuse.contents = [NSColor greenColor];
+    xAxisMaterial.diffuse.contents = [NSColor redColor];
     [xAxisRod setFirstMaterial:xAxisMaterial];
     
     
     SCNVector3 xAxisOffset = SCNVector3Make(self.worldTransform.m41, self.worldTransform.m42, self.worldTransform.m43);
     CATransform3D xAxisTransform = CATransform3DMakeTranslation(xAxisOffset.x, xAxisOffset.y, xAxisOffset.z);
-    xAxisTransform = CATransform3DRotate(xAxisTransform, M_PI_2, 1, 0, 0);
+    xAxisTransform = CATransform3DRotate(xAxisTransform, -M_PI_2, 0, 0, 1);
     xAxisTransform = CATransform3DTranslate(xAxisTransform, 0, 2, 0);
     [xAxisRodNode setTransform:xAxisTransform];
     
@@ -104,7 +104,7 @@
     SCNNode *yAxisRodNode = [SCNNode nodeWithGeometry:yAxisRod];
     yAxisRodNode.name = @"yAxisTranslate";
     SCNMaterial *yAxisMaterial = [SCNMaterial material];
-    yAxisMaterial.diffuse.contents = [NSColor blueColor];
+    yAxisMaterial.diffuse.contents = [NSColor greenColor];
     [yAxisRod setFirstMaterial:yAxisMaterial];
     
     CATransform3D yAxisTransform = CATransform3DMakeTranslation(xAxisOffset.x, xAxisOffset.y, xAxisOffset.z);
@@ -124,11 +124,11 @@
     SCNNode *zAxisRodNode = [SCNNode nodeWithGeometry:zAxisRod];
     zAxisRodNode.name = @"zAxisTranslate";
     SCNMaterial *zAxisMaterial = [SCNMaterial material];
-    zAxisMaterial.diffuse.contents = [NSColor redColor];
+    zAxisMaterial.diffuse.contents = [NSColor blueColor];
     [zAxisRod setFirstMaterial:zAxisMaterial];
     
     CATransform3D zAxisTransform = CATransform3DMakeTranslation(xAxisOffset.x, xAxisOffset.y, xAxisOffset.z);
-    zAxisTransform = CATransform3DRotate(zAxisTransform, M_PI_2, 0, 0, 1);
+    zAxisTransform = CATransform3DRotate(zAxisTransform, M_PI_2, 1, 0, 0);
     zAxisTransform = CATransform3DTranslate(zAxisTransform, 0, 2, 0);
     [zAxisRodNode setTransform:zAxisTransform];
     
