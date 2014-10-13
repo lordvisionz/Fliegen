@@ -16,11 +16,18 @@
 @property (weak) IBOutlet NSComboBox *streamIDComboBox;
 @property (weak) IBOutlet NSPopUpButton *streamTypePopupButton;
 @property (weak) IBOutlet NSPopUpButton *streamVisualPopupButton;
+@property (weak) IBOutlet NSTextField *anchorPointsCountLabel;
+@property (weak) IBOutlet NSColorWell *streamColorPicker;
+@property (weak) IBOutlet NSButton *streamsVisibilityCheckBox;
+@property (weak) IBOutlet NSButton *streamsSelectabilityCheckBox;
 
 - (IBAction)appendStream:(id)sender;
 
 - (IBAction)removeSelectedStream:(id)sender;
 - (IBAction)streamTypeChanged:(id)sender;
 - (IBAction)streamVisualAidChanged:(id)sender;
+- (IBAction)streamsVisibilityChanged:(id)sender;
+- (IBAction)streamsSelectabilityChanged:(id)sender;
+- (IBAction)streamColorChanged:(id)sender;
 
 @end

@@ -93,6 +93,7 @@
 		71CD915E19E437A7007913B3 /* FLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLConstants.h; sourceTree = "<group>"; };
 		71ED48E419E8455B00231E71 /* FLSelectionHandles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSelectionHandles.h; sourceTree = "<group>"; };
 		71ED48E519E8455B00231E71 /* FLSelectionHandles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSelectionHandles.m; sourceTree = "<group>"; };
+		71ED48E719EB22E000231E71 /* FLSceneViewController_FLPrivateHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneViewController_FLPrivateHelpers.h; sourceTree = "<group>"; };
 		71EFAC4318BE8B7600BCE88E /* Fliegen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fliegen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71EFAC4618BE8B7600BCE88E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		71EFAC4918BE8B7600BCE88E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -191,6 +192,7 @@
 				71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */,
 				71A9B58518C3EACB00788605 /* FLSceneViewController.h */,
 				71A9B58618C3EACB00788605 /* FLSceneViewController.m */,
+				71ED48E719EB22E000231E71 /* FLSceneViewController_FLPrivateHelpers.h */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

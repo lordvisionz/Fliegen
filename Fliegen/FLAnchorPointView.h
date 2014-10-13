@@ -22,6 +22,8 @@
 
 -(void)updateGeometry;
 
+-(void)updateAnchorPointColor;
+
 -(FLSelectionHandles*)getSelectionHandles;
 
 @end

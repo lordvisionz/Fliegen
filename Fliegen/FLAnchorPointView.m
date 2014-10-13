@@ -21,36 +21,15 @@
     return self;
 }
 
-//-(id)initWithAnchorPoint:(FLAnchorPoint *)model withRootNode:(SCNNode*)rootNode withTransform:(CATransform3D)modelTransform
-//{
-//    self = [super init];
-//    _anchorPointModel = model;
-//    _rootNode = rootNode;
-//    
-//    SCNCone *cone = [SCNCone coneWithTopRadius:.1 bottomRadius:1 height:2.5];
-//    SCNMaterial *material = [SCNMaterial material];
-//    material.diffuse.contents = [NSColor blackColor];
-//    [cone setFirstMaterial:material];
-//    
-//    [self setGeometry:cone];
-//    [self setTransform:modelTransform];
-//    return self;
-//}
-
 -(void)updateGeometry
 {
     FLStreamVisualType visualType = self.anchorPoint.stream.streamVisualType;
-    SCNMaterial *material = [SCNMaterial material];
-    [material setLightingModelName:SCNLightingModelBlinn];
-    material.diffuse.contents = [NSColor redColor];
     
     switch(visualType)
     {
         case FLStreamVisualTypeCone:
         {
             SCNCone *cone = [SCNCone coneWithTopRadius:.1 bottomRadius:1 height:2.5];
-            cone.firstMaterial = material;
-            
             self.geometry = cone;
             self.position = self.anchorPoint.position;
             break;
@@ -58,13 +37,21 @@
         case FLStreamVisualTypeSphere:
         {
             SCNSphere *sphere = [SCNSphere sphereWithRadius:1];
-            sphere.firstMaterial = material;
             self.geometry = sphere;
-            
             self.position = self.anchorPoint.position;
             break;
         }
     }
+    [self updateAnchorPointColor];
+}
+
+-(void)updateAnchorPointColor
+{
+    NSColor *anchorPointColor = self.anchorPoint.stream.streamVisualColor;
+    SCNMaterial *material = [SCNMaterial material];
+    [material setLightingModelName:SCNLightingModelBlinn];
+    material.diffuse.contents = material.specular.contents = material.ambient.contents = anchorPointColor;
+    self.geometry.firstMaterial = material;
 }
 
 

@@ -14,11 +14,13 @@
 @synthesize streamId = _streamId;
 @synthesize streamType = _streamType;
 @synthesize streamVisualType = _streamVisualType;
+@synthesize streamVisualColor = _streamVisualColor;
 
 -(id)init
 {
     self = [super init];
     _anchorPoints = [[FLAnchorPointsCollection alloc] initWithStream:self];
+    _streamVisualColor = [NSColor cyanColor];
     
     return self;
 }

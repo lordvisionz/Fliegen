@@ -16,4 +16,8 @@
 
 @property (readonly, assign) id<FLStreamProtocol> stream;
 
+@property(readwrite, assign, nonatomic) BOOL isVisible;
+
+@property(readwrite, assign, nonatomic) BOOL isSelectable;
+
 @end

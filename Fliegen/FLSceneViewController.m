@@ -9,6 +9,7 @@
 #import "FLSceneViewController.h"
 #import "FLAppFrameController.h"
 #import "FLUtilityPaneController.h"
+#import "FLUtilityPaneStreamsViewController.h"
 #import "FLUtilityPaneAnchorPointsViewController.h"
 #import "FLUtilityPaneStreamsViewController.h"
 
@@ -148,6 +149,7 @@
 
 -(void)streamWasAdded:(NSNotification*)notification
 {
+    FLUtilityPaneStreamsViewController *streamsViewController = self.appFrameController.utilityPanelController.streamsPropertiesController;
     FLStream *stream = self.appFrameController.model.streams.selectedStream;
     FLStreamView *streamView = [[FLStreamView alloc] initWithStream:stream];
 
@@ -155,6 +157,13 @@
                 options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     [stream addObserver:streamView forKeyPath:NSStringFromSelector(@selector(streamVisualType))
                 options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    [stream addObserver:streamView forKeyPath:NSStringFromSelector(@selector(streamVisualColor))
+                options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    [streamView addObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(isSelectable))
+                    options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    [streamView addObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(isVisible))
+                    options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    
     [self.sceneView.scene.rootNode addChildNode:streamView];
     [[self selectionHandles] removeFromParentNode];
 }
@@ -459,8 +468,12 @@
         }
         if([node isKindOfClass:[FLAnchorPointView class]] == YES)
         {
-            *stop = YES;
-            return YES;
+            FLStreamView *streamView = (FLStreamView*)node.parentNode;
+            if(streamView.isSelectable)
+            {
+                *stop = YES;
+                return YES;
+            }
         }
         return NO;
     }];

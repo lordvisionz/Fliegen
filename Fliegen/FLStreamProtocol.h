@@ -28,4 +28,6 @@ typedef NS_ENUM(unsigned short, FLStreamVisualType)
 
 @property (readwrite, assign) FLStreamVisualType streamVisualType;
 
+@property (readwrite, assign) NSColor *streamVisualColor;
+
 @end
