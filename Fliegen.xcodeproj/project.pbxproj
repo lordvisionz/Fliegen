@@ -13,6 +13,8 @@
 		713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53A18C019D0001E05EF /* FLAppFrameController.m */; };
 		713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */; };
 		715EDFD619E774D60014C185 /* FLStreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 715EDFD519E774D60014C185 /* FLStreamView.m */; };
+		715FFFA219EC5ACA006553DF /* FLFlatBezierCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */; };
+		715FFFA519EC5ADF006553DF /* FLCubicBezierCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 715FFFA419EC5ADF006553DF /* FLCubicBezierCurve.m */; };
 		717CBE8118E666B100D9CBEB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717CBE8018E666B100D9CBEB /* GLKit.framework */; };
 		717CBE8718E7AE2E00D9CBEB /* FLAnchorPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */; };
 		717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */; };
@@ -66,6 +68,13 @@
 		715EDFD319E7733E0014C185 /* FLStreamProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLStreamProtocol.h; sourceTree = "<group>"; };
 		715EDFD419E774D60014C185 /* FLStreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLStreamView.h; sourceTree = "<group>"; };
 		715EDFD519E774D60014C185 /* FLStreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLStreamView.m; sourceTree = "<group>"; };
+		715FFF9F19EC538C006553DF /* FLCurveInterpolationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCurveInterpolationProtocol.h; sourceTree = "<group>"; };
+		715FFFA019EC5ACA006553DF /* FLFlatBezierCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLFlatBezierCurve.h; sourceTree = "<group>"; };
+		715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLFlatBezierCurve.m; sourceTree = "<group>"; };
+		715FFFA319EC5ADF006553DF /* FLCubicBezierCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCubicBezierCurve.h; sourceTree = "<group>"; };
+		715FFFA419EC5ADF006553DF /* FLCubicBezierCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCubicBezierCurve.m; sourceTree = "<group>"; };
+		715FFFA619EC61E0006553DF /* FLStreamsCollectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLStreamsCollectionProtocol.h; sourceTree = "<group>"; };
+		715FFFA719EC656C006553DF /* FLAnchorPointsCollectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointsCollectionProtocol.h; sourceTree = "<group>"; };
 		717CBE8018E666B100D9CBEB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		717CBE8518E7AE2E00D9CBEB /* FLAnchorPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointView.h; sourceTree = "<group>"; };
 		717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPointView.m; sourceTree = "<group>"; };
@@ -144,6 +153,7 @@
 		713FE53318C01871001E05EF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				715EDFD119E772970014C185 /* Protocols */,
 				711C998F19BD4FEF00D02B3A /* FLModel.h */,
 				711C999019BD4FEF00D02B3A /* FLModel.m */,
 				717D9BC719E4C7F8006E3198 /* FLStreamsCollection.h */,
@@ -154,6 +164,10 @@
 				717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */,
 				713FE52B18C00707001E05EF /* FLAnchorPoint.h */,
 				713FE52C18C00707001E05EF /* FLAnchorPoint.m */,
+				715FFFA019EC5ACA006553DF /* FLFlatBezierCurve.h */,
+				715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */,
+				715FFFA319EC5ADF006553DF /* FLCubicBezierCurve.h */,
+				715FFFA419EC5ADF006553DF /* FLCubicBezierCurve.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -200,8 +214,11 @@
 		715EDFD119E772970014C185 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				715EDFD219E772EE0014C185 /* FLAnchorPointProtocol.h */,
+				715FFFA619EC61E0006553DF /* FLStreamsCollectionProtocol.h */,
+				715FFFA719EC656C006553DF /* FLAnchorPointsCollectionProtocol.h */,
 				715EDFD319E7733E0014C185 /* FLStreamProtocol.h */,
+				715EDFD219E772EE0014C185 /* FLAnchorPointProtocol.h */,
+				715FFF9F19EC538C006553DF /* FLCurveInterpolationProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -258,7 +275,6 @@
 		71EFAC4C18BE8B7600BCE88E /* Fliegen */ = {
 			isa = PBXGroup;
 			children = (
-				715EDFD119E772970014C185 /* Protocols */,
 				713FE53518C0187E001E05EF /* Controller */,
 				713FE53418C01878001E05EF /* View */,
 				713FE53318C01871001E05EF /* Model */,
@@ -410,8 +426,10 @@
 				71CD915D19E433A9007913B3 /* FLGridlines.m in Sources */,
 				717D9BC619E4896C006E3198 /* FLUtilityPaneStreamsViewController.m in Sources */,
 				715EDFD619E774D60014C185 /* FLStreamView.m in Sources */,
+				715FFFA519EC5ADF006553DF /* FLCubicBezierCurve.m in Sources */,
 				717D9BC919E4C7F8006E3198 /* FLStreamsCollection.m in Sources */,
 				71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */,
+				715FFFA219EC5ACA006553DF /* FLFlatBezierCurve.m in Sources */,
 				71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
 				71ED48E619E8455B00231E71 /* FLSelectionHandles.m in Sources */,

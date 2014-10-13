@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FLStreamProtocol.h"
+#import <SceneKit/SceneKit.h>
+
+@protocol FLStreamProtocol;
 
 @protocol FLAnchorPointProtocol <NSObject>
 

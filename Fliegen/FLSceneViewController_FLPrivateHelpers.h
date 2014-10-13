@@ -8,10 +8,12 @@
 
 #import "FLSceneViewController.h"
 
-@class FLStream, FLStreamView;
+@class FLStream, FLStreamView, FLAnchorPoint, FLAnchorPointView;
 
 @interface FLSceneViewController ()
 
 -(FLStreamView*)viewForStream:(FLStream*)stream;
+
+-(FLAnchorPointView*)viewForAnchorPoint:(FLAnchorPoint*)anchorPoint;
 
 @end

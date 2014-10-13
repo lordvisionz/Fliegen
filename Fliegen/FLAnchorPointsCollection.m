@@ -22,6 +22,10 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
 
 @implementation FLAnchorPointsCollection
 
+@synthesize anchorPoints = _anchorPoints;
+@synthesize stream = _stream;
+@synthesize selectedAnchorPoint = _selectedAnchorPoint;
+
 -(id)initWithStream:(id<FLStreamProtocol>)stream
 {
     self = [super init];
@@ -59,7 +63,7 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
     if(_selectedAnchorPoint == nil) return NO;
     
     FLAnchorPoint *oldAnchorPoint = _selectedAnchorPoint;
-    
+
     self.selectedAnchorPoint = nil;
     [_anchorPoints removeObject:oldAnchorPoint];
     
@@ -76,13 +80,10 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
     return YES;
 }
 
--(NSUInteger)anchorPointsCount
-{
-    return _anchorPoints.count;
-}
-
 -(void)setSelectedAnchorPoint:(FLAnchorPoint *)selectedAnchorPoint
 {
+    if(selectedAnchorPoint == _selectedAnchorPoint) return;
+    
     _selectedAnchorPoint = selectedAnchorPoint;
     [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointSelectionChangedNotification object:nil];
 }

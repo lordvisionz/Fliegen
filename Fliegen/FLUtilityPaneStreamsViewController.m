@@ -29,12 +29,22 @@
     
     FLStreamsCollection *streams = self.utilityPaneController.appFrameController.model.streams;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamWasAdded:) name:FLStreamAddedNotification object:streams];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamWasDeleted:) name:FLStreamDeletedNotification object:streams];
-    [streams addObserver:self forKeyPath:NSStringFromSelector(@selector(selectedStream)) options:NSKeyValueObservingOptionNew context:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamWasAdded:)
+                                                 name:FLStreamAddedNotification object:streams];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(streamWasDeleted:)
+                                                 name:FLStreamDeletedNotification object:streams];
+    [streams addObserver:self forKeyPath:NSStringFromSelector(@selector(selectedStream))
+                 options:NSKeyValueObservingOptionNew context:NULL];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasAdded:) name:FLAnchorPointAddedNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasDeleted:) name:FLAnchorPointDeletedNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasAdded:)
+                                                name:FLAnchorPointAddedNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasDeleted:)
+                                                name:FLAnchorPointDeletedNotification object:nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Notifications/KVO
@@ -85,6 +95,7 @@
         [self.streamVisualPopupButton selectItemAtIndex:selectedStream.streamVisualType];
         self.streamsVisibilityCheckBox.state = (viewForStream.isVisible) ? NSOnState : NSOffState;
         self.streamsSelectabilityCheckBox.state = viewForStream.isSelectable ? NSOnState : NSOffState;
+        [self.streamInterpolationPopupButton selectItemAtIndex:selectedStream.streamInterpolationType];
         [self updateAnchorPointsCountLabel];
     }
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(isSelectable))] == YES)
@@ -95,7 +106,7 @@
         self.streamsSelectabilityCheckBox.state = (view.isSelectable == YES) ? NSOnState : NSOffState;
         
         if(view.isSelectable == NO)
-            stream.anchorPoints.selectedAnchorPoint = nil;
+            stream.anchorPointsCollection.selectedAnchorPoint = nil;
     }
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(isVisible))] == YES)
     {
@@ -103,7 +114,12 @@
         
         FLStreamView *view = object;
         self.streamsVisibilityCheckBox.state = (view.isVisible == YES) ? NSOnState : NSOffState;
-        stream.anchorPoints.selectedAnchorPoint = nil;
+        stream.anchorPointsCollection.selectedAnchorPoint = nil;
+    }
+    else if([keyPath isEqualToString:NSStringFromSelector(@selector(streamInterpolationType))] == YES)
+    {
+        FLStream* stream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+        [self.streamInterpolationPopupButton selectItemAtIndex:stream.streamInterpolationType];
     }
 }
 
@@ -124,6 +140,10 @@
 {
     FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
     selectedStream.streamType = _streamTypePopupButton.indexOfSelectedItem;
+    selectedStream.streamInterpolationType = (selectedStream.streamType == FLStreamTypeLookAt) ?
+        FLStreamInterpolationTypeNone : FLStreamInterpolationTypeFlat;
+
+    [self.streamInterpolationPopupButton setEnabled:(selectedStream.streamType == FLStreamTypePosition)];
 }
 
 - (IBAction)streamVisualAidChanged:(id)sender
@@ -154,11 +174,14 @@
     selectedStream.streamVisualColor = selectedColor;
 }
 
+- (IBAction)streamInterpolationChanged:(id)sender {
+}
+
 #pragma mark - stream ID Combobox datasource/delegate/value changed
 
 -(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    return [self.utilityPaneController.appFrameController.model.streams streamsCount] + 1;
+    return self.utilityPaneController.appFrameController.model.streams.count + 1;
 }
 
 -(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
@@ -196,7 +219,8 @@
 -(void)updateAnchorPointsCountLabel
 {
     FLStream *stream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
-    self.anchorPointsCountLabel.stringValue = (stream == nil) ? @"No Selection" : [NSString stringWithFormat:@"%li",[stream.anchorPoints anchorPointsCount]];
+    self.anchorPointsCountLabel.stringValue = (stream == nil) ? @"No Selection" :
+    [NSString stringWithFormat:@"%li",stream.anchorPointsCollection.anchorPoints.count ];
 }
 
 @end

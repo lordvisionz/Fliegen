@@ -11,6 +11,7 @@
 #import "FLUtilityPaneController.h"
 #import "FLAppFrameController.h"
 #import "FLSceneViewController.h"
+#import "FLSceneViewController_FLPrivateHelpers.h"
 
 #import <GLKit/GLKMath.h>
 #import "FLModel.h"
@@ -40,6 +41,11 @@
                                                  name:FLAnchorPointSelectionChangedNotification object:nil];
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Notifications/KVO
 
 -(void)anchorPointWasAdded:(NSNotification*)notification
@@ -47,10 +53,21 @@
     self.utilityPaneController.appFrameController.sceneViewController.selectionMode = FLSelectionModeAnchorPoint;
     self.utilityPaneController.utilityPaneSegmentedControl.selectedSegment = 2;
     [self.utilityPaneController switchUtilityPaneTab:nil];
+    
+    FLStream *currentStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    FLAnchorPoint *anchorPoint = currentStream.anchorPointsCollection.selectedAnchorPoint;
+    
+    [anchorPoint addObserver:self forKeyPath:NSStringFromSelector(@selector(position))
+                     options:(NSKeyValueObservingOptionInitial |NSKeyValueObservingOptionNew) context:NULL];
 }
 
 -(void)anchorPointWasDeleted:(NSNotification*)notification
 {
+    NSDictionary *userInfo = notification.userInfo;
+    FLAnchorPoint *deletedAnchorPoint = [userInfo objectForKey:NSStringFromClass([FLAnchorPoint class])];
+
+    [deletedAnchorPoint removeObserver:self forKeyPath:NSStringFromSelector(@selector(position))];
+    
     self.utilityPaneController.appFrameController.sceneViewController.selectionMode = FLSelectionModeNone;
     [self.anchorIdComboBox reloadData];
 }
@@ -58,7 +75,7 @@
 -(void)anchorPointSelectionChanged:(NSNotification*)notification
 {
     FLStream *currentStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
-    FLAnchorPoint *anchorPoint = currentStream.anchorPoints.selectedAnchorPoint;
+    FLAnchorPoint *anchorPoint = currentStream.anchorPointsCollection.selectedAnchorPoint;
     
     if(anchorPoint == nil)
     {
@@ -68,14 +85,11 @@
     }
     [self.anchorIdComboBox reloadData];
     [self.anchorIdComboBox selectItemAtIndex:anchorPoint.anchorPointID];
-    
-    [anchorPoint addObserver:self forKeyPath:NSStringFromSelector(@selector(position))
-                     options:(NSKeyValueObservingOptionInitial |NSKeyValueObservingOptionNew) context:NULL];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if([keyPath isEqualToString:@"position"] == YES)
+    if([keyPath isEqualToString:NSStringFromSelector(@selector(position))] == YES)
     {
         FLAnchorPoint *anchorPoint = object;
         _xPositionTextField.doubleValue = anchorPoint.position.x;
@@ -92,13 +106,13 @@
     
     FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc] initWithStream:selectedStream];
     anchorPoint.position = SCNVector3Make(0, 0, 0);
-    [selectedStream.anchorPoints appendAnchorPoint:anchorPoint];
+    [selectedStream.anchorPointsCollection appendAnchorPoint:anchorPoint];
 }
 
 - (void)removeSelectedAnchorPoint:(id)sender
 {
     FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
-    [selectedStream.anchorPoints deleteSelectedAnchorPoint];
+    [selectedStream.anchorPointsCollection deleteSelectedAnchorPoint];
 }
 
 #pragma mark - NSTextField/combobox value changed
@@ -106,7 +120,9 @@
 -(BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
 {
     FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
-    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints;
+    FLAnchorPointsCollection *anchorPointsCollection =
+    self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPointsCollection;
+    
     if(commandSelector == @selector(insertNewline:))
     {
         if(control == _anchorIdComboBox)
@@ -114,7 +130,7 @@
             NSUInteger anchorPointID = _anchorIdComboBox.integerValue;
             FLAnchorPoint *point = [anchorPointsCollection anchorPointForId:anchorPointID];
             if(point == nil)
-                point = [anchorPointsCollection anchorPointForId:anchorPointsCollection.anchorPointsCount];
+                point = [anchorPointsCollection anchorPointForId:anchorPointsCollection.anchorPoints.count];
             
             anchorPointsCollection.selectedAnchorPoint = point;
             
@@ -159,8 +175,7 @@
 - (IBAction)stepValue:(id)sender
 {
     FLSceneView *sceneView = self.utilityPaneController.appFrameController.sceneViewController.sceneView;
-    FLAnchorPoint *anchorPoint = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints.selectedAnchorPoint;
-//    FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
+    FLAnchorPoint *anchorPoint = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPointsCollection.selectedAnchorPoint;
     
     SCNVector3 oldPosition = anchorPoint.position;
     SCNNode *selectionHandles = [sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
@@ -201,7 +216,7 @@
     
     if([menuItem action] == @selector(removeSelectedAnchorPoint:))
     {
-        FLAnchorPointsCollection *anchorPointsCollection = streamCollection.selectedStream.anchorPoints;
+        FLAnchorPointsCollection *anchorPointsCollection = streamCollection.selectedStream.anchorPointsCollection;
         return (anchorPointsCollection.selectedAnchorPoint != nil);
     }
     return YES;
@@ -226,7 +241,7 @@
 -(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
     FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
-    return [selectedStream.anchorPoints anchorPointsCount] + 1;
+    return selectedStream.anchorPointsCollection.anchorPoints.count + 1;
 }
 
 -(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
@@ -235,13 +250,13 @@
         return @"No Selection";
     
     FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
-    FLAnchorPoint *anchorPoint = [selectedStream.anchorPoints anchorPointForId:index];
+    FLAnchorPoint *anchorPoint = [selectedStream.anchorPointsCollection anchorPointForId:index];
     return [NSNumber numberWithUnsignedInteger:anchorPoint.anchorPointID];
 }
 
 -(void)comboBoxSelectionDidChange:(NSNotification *)notification
 {
-    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPoints;
+    FLAnchorPointsCollection *anchorPointsCollection = self.utilityPaneController.appFrameController.model.streams.selectedStream.anchorPointsCollection;
 
     NSUInteger index = [_anchorIdComboBox indexOfSelectedItem];
     anchorPointsCollection.selectedAnchorPoint = (index == 0) ? nil : [anchorPointsCollection anchorPointForId:index];

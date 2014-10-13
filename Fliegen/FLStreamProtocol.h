@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FLAnchorPointsCollectionProtocol.h"
 
 typedef NS_ENUM(unsigned short, FLStreamType)
 {
@@ -20,6 +21,13 @@ typedef NS_ENUM(unsigned short, FLStreamVisualType)
     FLStreamVisualTypeCone = 1
 };
 
+typedef NS_ENUM(unsigned short, FLStreamInterpolationType)
+{
+    FLStreamInterpolationTypeNone = 0,
+    FLStreamInterpolationTypeFlat = 1,
+    FLStreamInterpolationTypeCubicBezier = 2
+};
+
 @protocol FLStreamProtocol <NSObject>
 
 @property (readwrite, assign) NSUInteger streamId;
@@ -29,5 +37,9 @@ typedef NS_ENUM(unsigned short, FLStreamVisualType)
 @property (readwrite, assign) FLStreamVisualType streamVisualType;
 
 @property (readwrite, assign) NSColor *streamVisualColor;
+
+@property (readwrite, assign) FLStreamInterpolationType streamInterpolationType;
+
+@property (readonly) id<FLAnchorPointsCollectionProtocol> anchorPointsCollection;
 
 @end

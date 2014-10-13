@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FLStreamProtocol.h"
+#import "FLAnchorPointsCollectionProtocol.h"
 
 @class FLAnchorPoint;
 
@@ -15,22 +16,8 @@ extern NSString *const FLAnchorPointAddedNotification;
 extern NSString *const FLAnchorPointDeletedNotification;
 extern NSString *const FLAnchorPointSelectionChangedNotification;
 
-@interface FLAnchorPointsCollection : NSObject
+@interface FLAnchorPointsCollection : NSObject<FLAnchorPointsCollectionProtocol>
 
 -(id)initWithStream:(id<FLStreamProtocol>)stream;
-
-@property (readonly) id<FLStreamProtocol> stream;
-
-@property (readwrite, nonatomic) FLAnchorPoint *selectedAnchorPoint;
-
--(FLAnchorPoint*)anchorPointForId:(NSUInteger)anchorPointId;
-
--(FLAnchorPoint*)anchorPointForIndex:(NSUInteger)index;
-
--(void)appendAnchorPoint:(FLAnchorPoint*)anchorPoint;
-
--(BOOL)deleteSelectedAnchorPoint;
-
--(NSUInteger)anchorPointsCount;
 
 @end

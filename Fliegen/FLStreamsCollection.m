@@ -21,6 +21,9 @@ NSString *const FLStreamDeletedNotification = @"FLStreamDeletedNotification";
 
 @implementation FLStreamsCollection
 
+@synthesize selectedStream = _selectedStream;
+@synthesize streams = _streams;
+
 -(id)init
 {
     self = [super init];
@@ -63,7 +66,6 @@ NSString *const FLStreamDeletedNotification = @"FLStreamDeletedNotification";
     self.selectedStream = nil;
     [_streams removeObject:oldSelectedStream];
     
-    
     [_streams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
     {
         FLStream *stream = obj;
@@ -75,7 +77,7 @@ NSString *const FLStreamDeletedNotification = @"FLStreamDeletedNotification";
     return YES;
 }
 
--(NSUInteger)streamsCount
+-(NSUInteger)count
 {
     return _streams.count;
 }

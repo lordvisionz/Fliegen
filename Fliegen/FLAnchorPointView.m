@@ -130,26 +130,6 @@
     return selectionNode;
 }
 
-//- (BOOL)removeSelectionHandles
-//{
-//    SCNNode *selectionNode = [_rootNode childNodeWithName:@"selectionHandles" recursively:YES];
-//    
-//    if(selectionNode == nil) return NO;
-//    [selectionNode removeFromParentNode];
-//    return YES;
-//}
-
-//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    FLAnchorPoint *oldSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeOldKey];
-//    FLAnchorPoint *newSelectedAnchorPoint = [change objectForKey:NSKeyValueChangeNewKey];
-//
-//    if(([newSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && newSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
-//        [self setSelectionHandles];
-//    if(([oldSelectedAnchorPoint isKindOfClass:[NSNull class]] == NO) && oldSelectedAnchorPoint.anchorPointID == _anchorPointModel.anchorPointID)
-//        [self removeSelectionHandles];
-//}
-
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if([keyPath isEqualToString:NSStringFromSelector(@selector(position))] == YES)

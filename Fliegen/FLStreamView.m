@@ -9,15 +9,34 @@
 #import "FLStreamView.h"
 #import "FLAnchorPointView.h"
 
+#import "FLFlatBezierCurve.h"
+#import "FLCubicBezierCurve.h"
+#import "FLAnchorPointsCollection.h"
+
+@interface FLStreamView()
+{
+    id<FLCurveInterpolationProtocol> _curveInterpolator;
+}
+
+@end
+
 @implementation FLStreamView
 
--(id)initWithStream:(id<FLStreamProtocol>)stream
+-(id)initWithStream:(NSObject<FLStreamProtocol>*)stream
 {
     self = [super init];
     _stream = stream;
     _isVisible = YES;
     _isSelectable = YES;
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasAdded:)
+                                                name:FLAnchorPointAddedNotification object:nil];
     return self;
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 #pragma mark - Property setters
@@ -46,11 +65,17 @@
 
 #pragma mark - Notifications/KVO
 
+-(void)anchorPointWasAdded:(NSNotification*)notification
+{
+//    FLStream *stream =
+//    NSArray *interpolatedPoints = _curveInterpolator interpolatePoints:<#(NSArray *)#>
+}
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if([keyPath isEqualToString:NSStringFromSelector(@selector(streamType))] == YES)
     {
-        NSLog(@"stream type changed");
+
     }
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(streamVisualType)) ] == YES)
     {
@@ -59,6 +84,28 @@
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(streamVisualColor))] == YES)
     {
         [self.childNodes makeObjectsPerformSelector:@selector(updateAnchorPointColor)];
+    }
+    else if([keyPath isEqualToString:NSStringFromSelector(@selector(streamInterpolationType))] == YES)
+    {
+        FLStream *stream = object;
+        switch(stream.streamInterpolationType)
+        {
+            case FLStreamInterpolationTypeFlat:
+            {
+                _curveInterpolator = [[FLFlatBezierCurve alloc] init];
+                break;
+            }
+            case FLStreamInterpolationTypeCubicBezier:
+            {
+                _curveInterpolator = [[FLCubicBezierCurve alloc] init];
+                break;
+            }
+            default:
+            {
+                _curveInterpolator = nil;
+                break;
+            }
+        }
     }
 }
 

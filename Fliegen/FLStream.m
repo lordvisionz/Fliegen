@@ -15,12 +15,15 @@
 @synthesize streamType = _streamType;
 @synthesize streamVisualType = _streamVisualType;
 @synthesize streamVisualColor = _streamVisualColor;
+@synthesize streamInterpolationType = _streamInterpolationType;
+@synthesize anchorPointsCollection = _anchorPointsCollection;
 
 -(id)init
 {
     self = [super init];
-    _anchorPoints = [[FLAnchorPointsCollection alloc] initWithStream:self];
+    _anchorPointsCollection = [[FLAnchorPointsCollection alloc] initWithStream:self];
     _streamVisualColor = [NSColor cyanColor];
+    _streamInterpolationType = FLStreamInterpolationTypeFlat;
     
     return self;
 }

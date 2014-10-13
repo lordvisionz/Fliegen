@@ -122,6 +122,11 @@
                                                  name:FLAnchorPointSelectionChangedNotification object:nil];
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)initMenuItems
 {
     anchorPointsMenu = [[NSMenu alloc]init];
@@ -163,6 +168,8 @@
                     options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     [streamView addObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(isVisible))
                     options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    [stream addObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(streamInterpolationType))
+                options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     
     [self.sceneView.scene.rootNode addChildNode:streamView];
     [[self selectionHandles] removeFromParentNode];
@@ -173,7 +180,18 @@
     NSDictionary *userInfo = notification.userInfo;
     FLStream *deletedStream = [userInfo objectForKey:NSStringFromClass([FLStream class])];
     FLStreamView *streamViewToBeDeleted = [self viewForStream:deletedStream];
+    
+    FLUtilityPaneStreamsViewController *streamsViewController = self.appFrameController.utilityPanelController.streamsPropertiesController;
+    
+    [deletedStream removeObserver:streamViewToBeDeleted forKeyPath:NSStringFromSelector(@selector(streamType))];
+    [deletedStream removeObserver:streamViewToBeDeleted forKeyPath:NSStringFromSelector(@selector(streamVisualType))];
+    [deletedStream removeObserver:streamViewToBeDeleted forKeyPath:NSStringFromSelector(@selector(streamVisualColor))];
+    [streamViewToBeDeleted removeObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(isSelectable))];
+    [streamViewToBeDeleted removeObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(isVisible))];
+    [deletedStream removeObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(streamInterpolationType))];
     [streamViewToBeDeleted removeFromParentNode];
+    streamViewToBeDeleted = nil;
+    
     [[self selectionHandles] removeFromParentNode];
 }
 
@@ -182,7 +200,7 @@
     FLStream *stream = self.appFrameController.model.streams.selectedStream;
     FLStreamView *streamView = [self viewForStream:stream];
     
-    FLAnchorPoint *anchorPoint = self.appFrameController.model.streams.selectedStream.anchorPoints.selectedAnchorPoint;
+    FLAnchorPoint *anchorPoint = self.appFrameController.model.streams.selectedStream.anchorPointsCollection.selectedAnchorPoint;
     FLAnchorPointView *anchorPointView = [[FLAnchorPointView alloc]initWithAnchorPoint:anchorPoint];
     
     [streamView addChildNode:anchorPointView];
@@ -197,13 +215,16 @@
     NSDictionary *userInfo = notification.userInfo;
     FLAnchorPoint *deletedAnchorPoint = [userInfo objectForKey:NSStringFromClass([FLAnchorPoint class])];
     FLAnchorPointView *viewToBeDeleted = [self viewForAnchorPoint:deletedAnchorPoint];
+    
+    [deletedAnchorPoint removeObserver:viewToBeDeleted forKeyPath:NSStringFromSelector(@selector(position))];
+    
     [viewToBeDeleted removeFromParentNode];
     [[self selectionHandles] removeFromParentNode];
 }
 
 -(void)anchorPointSelectedChanged:(NSNotification*)notification
 {
-    FLAnchorPoint *anchorPoint = self.appFrameController.model.streams.selectedStream.anchorPoints.selectedAnchorPoint;
+    FLAnchorPoint *anchorPoint = self.appFrameController.model.streams.selectedStream.anchorPointsCollection.selectedAnchorPoint;
     FLAnchorPointView *anchorPointView = [self viewForAnchorPoint:anchorPoint];
     
     [[self selectionHandles] removeFromParentNode];
@@ -241,13 +262,14 @@
 
 -(void)deleteAnchorPoint:(id)sender
 {
-    [self.appFrameController.model.streams.selectedStream.anchorPoints deleteSelectedAnchorPoint];
+    FLStream *selectedStream = self.appFrameController.model.streams.selectedStream;
+    [selectedStream.anchorPointsCollection deleteSelectedAnchorPoint];
 }
 
 -(void)pushAnchorPoint:(id)sender
 {
     FLStream *selectedStream = self.appFrameController.model.streams.selectedStream;
-    FLAnchorPointsCollection *anchorPointsCollection = selectedStream.anchorPoints;
+    FLAnchorPointsCollection *anchorPointsCollection = selectedStream.anchorPointsCollection;
     
     FLAnchorPoint *anchorPoint = [[FLAnchorPoint alloc]initWithStream:selectedStream];
 
@@ -276,7 +298,7 @@
     {
         self.selectionMode = FLSelectionModeNone;
         FLStreamsCollection *streams = self.appFrameController.model.streams;
-        FLAnchorPointsCollection *anchorPoints = streams.selectedStream.anchorPoints;
+        FLAnchorPointsCollection *anchorPoints = streams.selectedStream.anchorPointsCollection;
         
         anchorPoints.selectedAnchorPoint = nil;
         streams.selectedStream = nil;
@@ -297,10 +319,10 @@
     FLStreamView *streamView = (FLStreamView*)anchorPoint.parentNode;
     
     FLStream *selectedStream = [self.appFrameController.model.streams streamForId:streamView.stream.streamId];
-    FLAnchorPoint *selectedAnchorPoint = [selectedStream.anchorPoints anchorPointForId:anchorPoint.anchorPoint.anchorPointID];
+    FLAnchorPoint *selectedAnchorPoint = [selectedStream.anchorPointsCollection anchorPointForId:anchorPoint.anchorPoint.anchorPointID];
     
     self.appFrameController.model.streams.selectedStream = selectedStream;
-    selectedStream.anchorPoints.selectedAnchorPoint = selectedAnchorPoint;
+    selectedStream.anchorPointsCollection.selectedAnchorPoint = selectedAnchorPoint;
     self.selectionMode = FLSelectionModeAnchorPoint;
 }
 
@@ -309,7 +331,7 @@
     NSPoint newMousePoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     if(_isDraggingSelectionHandles)
     {
-        FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.streams.selectedStream.anchorPoints;
+        FLAnchorPointsCollection *anchorPointsCollection = self.appFrameController.model.streams.selectedStream.anchorPointsCollection;
         FLAnchorPoint *selectedAnchorPoint = anchorPointsCollection.selectedAnchorPoint;
         
         SCNHitTestResult *hitPlaneResult = [self hitTestForNode:[self hitPlane] atPoint:lastClickedPoint];
@@ -378,7 +400,7 @@
     FLStreamsCollection *streamCollection = self.appFrameController.model.streams;
     if(action == @selector(deleteAnchorPoint:))
     {
-        FLAnchorPointsCollection *anchorPointsCollection = streamCollection.selectedStream.anchorPoints;
+        FLAnchorPointsCollection *anchorPointsCollection = streamCollection.selectedStream.anchorPointsCollection;
         return (anchorPointsCollection.selectedAnchorPoint != nil);
     }
     return YES;
@@ -421,7 +443,7 @@
 {
     FLStreamView *streamView = (FLStreamView*)view.parentNode;
     FLStream *stream = [self.appFrameController.model.streams streamForId:streamView.stream.streamId];
-    return [stream.anchorPoints anchorPointForId:view.anchorPoint.anchorPointID];
+    return [stream.anchorPointsCollection anchorPointForId:view.anchorPoint.anchorPointID];
 }
 
 -(FLAnchorPointView*)viewForAnchorPoint:(FLAnchorPoint*)anchorPoint

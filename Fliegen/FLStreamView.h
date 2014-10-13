@@ -14,7 +14,7 @@
 
 -(id)initWithStream:(id<FLStreamProtocol>)stream;
 
-@property (readonly, assign) id<FLStreamProtocol> stream;
+@property (readonly, assign) NSObject<FLStreamProtocol> *stream;
 
 @property(readwrite, assign, nonatomic) BOOL isVisible;
 

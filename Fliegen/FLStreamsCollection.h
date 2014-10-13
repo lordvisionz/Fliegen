@@ -8,23 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class FLStream;
+#import "FLStreamsCollectionProtocol.h"
 
 extern NSString *const FLStreamAddedNotification;
 extern NSString *const FLStreamDeletedNotification;
 
-@interface FLStreamsCollection : NSObject
+@interface FLStreamsCollection : NSObject<FLStreamsCollectionProtocol>
 
-@property (readwrite) FLStream *selectedStream;
 
--(FLStream*)streamForId:(NSUInteger)streamId;
-
--(FLStream*)streamForIndex:(NSUInteger)index;
-
--(void)appendStream;
-
--(BOOL)deleteSelectedStream;
-
--(NSUInteger)streamsCount;
 
 @end

@@ -14,6 +14,5 @@
 
 @interface FLStream : NSObject<FLStreamProtocol>
 
-@property (readwrite, retain) FLAnchorPointsCollection *anchorPoints;
 
 @end
