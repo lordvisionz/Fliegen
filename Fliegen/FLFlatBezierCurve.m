@@ -12,7 +12,7 @@
 
 -(NSArray *)interpolatePoints:(NSArray *)points
 {
-    NSMutableArray *interpolatedPoints = [NSMutableArray new];
+    NSMutableArray *interpolatedPoints = [[NSMutableArray alloc]initWithArray:points];
     
     return interpolatedPoints;
 }

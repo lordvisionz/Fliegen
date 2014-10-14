@@ -8,14 +8,18 @@
 
 #import "FLStreamView.h"
 #import "FLAnchorPointView.h"
+#import "FLCurveNode.h"
 
 #import "FLFlatBezierCurve.h"
 #import "FLCubicBezierCurve.h"
 #import "FLAnchorPointsCollection.h"
+#import "FLAnchorPoint.h"
 
 @interface FLStreamView()
 {
     id<FLCurveInterpolationProtocol> _curveInterpolator;
+    
+    SCNNode *_curveNode;
 }
 
 @end
@@ -28,9 +32,12 @@
     _stream = stream;
     _isVisible = YES;
     _isSelectable = YES;
+    _curveInterpolator = [[FLFlatBezierCurve alloc] init];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasAdded:)
                                                 name:FLAnchorPointAddedNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasDeleted:)
+                                                name:FLAnchorPointDeletedNotification object:nil];
     return self;
 }
 
@@ -59,23 +66,34 @@
     _isSelectable = isSelectable;
     if(_isSelectable == YES)
         self.isVisible = YES;
-    
-    
 }
 
 #pragma mark - Notifications/KVO
 
 -(void)anchorPointWasAdded:(NSNotification*)notification
 {
-//    FLStream *stream =
-//    NSArray *interpolatedPoints = _curveInterpolator interpolatePoints:<#(NSArray *)#>
+    [self recomputeInterpolationCurve];
+    NSObject<FLAnchorPointProtocol> *anchorPoint = [_stream.anchorPointsCollection selectedAnchorPoint];
+    
+    [anchorPoint addObserver:self forKeyPath:NSStringFromSelector(@selector(position)) options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+-(void)anchorPointWasDeleted:(NSNotification*)notification
+{
+    [self recomputeInterpolationCurve];
+    NSDictionary *userInfo = notification.userInfo;
+    FLAnchorPoint *deletedAnchorPoint = [userInfo objectForKey:NSStringFromClass([FLAnchorPoint class])];
+    [deletedAnchorPoint removeObserver:self forKeyPath:NSStringFromSelector(@selector(position))];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if([keyPath isEqualToString:NSStringFromSelector(@selector(streamType))] == YES)
     {
-
+        if(_stream.streamType == FLStreamTypePosition)
+           [self addChildNode:_curveNode];
+        else if(_stream.streamType == FLStreamTypeLookAt)
+                [_curveNode removeFromParentNode];
     }
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(streamVisualType)) ] == YES)
     {
@@ -107,6 +125,22 @@
             }
         }
     }
+    else if([keyPath isEqualToString:NSStringFromSelector(@selector(position))] == YES)
+    {
+        [self recomputeInterpolationCurve];
+    }
+}
+
+#pragma mark - Private Helpers
+
+-(void)recomputeInterpolationCurve
+{
+    NSArray *interpolatedPoints = [_curveInterpolator interpolatePoints:_stream.anchorPointsCollection.anchorPoints];
+    [_curveNode removeFromParentNode];
+    _curveNode = nil;
+    
+    _curveNode = [[FLCurveNode alloc]initWithStreamView:self points:interpolatedPoints];
+    [self addChildNode:_curveNode];
 }
 
 @end
