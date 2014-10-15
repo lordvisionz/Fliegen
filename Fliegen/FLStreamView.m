@@ -12,6 +12,8 @@
 
 #import "FLFlatBezierCurve.h"
 #import "FLCubicBezierCurve.h"
+#import "FLQuadraticBezierCurve.h"
+
 #import "FLAnchorPointsCollection.h"
 #import "FLAnchorPoint.h"
 
@@ -105,17 +107,21 @@
     }
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(streamInterpolationType))] == YES)
     {
+        [_curveNode removeFromParentNode];
         FLStream *stream = object;
+        
         switch(stream.streamInterpolationType)
         {
             case FLStreamInterpolationTypeFlat:
             {
                 _curveInterpolator = [[FLFlatBezierCurve alloc] init];
+                [self recomputeInterpolationCurve];
                 break;
             }
-            case FLStreamInterpolationTypeCubicBezier:
+            case FLStreamInterpolationTypeQuadraticBezier:
             {
-                _curveInterpolator = [[FLCubicBezierCurve alloc] init];
+                _curveInterpolator = [[FLQuadraticBezierCurve alloc] init];
+                [self recomputeInterpolationCurve];
                 break;
             }
             default:

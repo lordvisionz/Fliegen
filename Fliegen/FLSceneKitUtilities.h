@@ -26,3 +26,13 @@ NS_INLINE SCNVector4 FLRotatePointAToFacePointB(SCNVector3 A, SCNVector3 B)
     
     return SCNVector4Make(rotationVector.x, rotationVector.y, rotationVector.z, angle);
 }
+
+NS_INLINE SCNVector3 FLMultiplyVectorByScalar(SCNVector3 A, float b)
+{
+    return SCNVector3Make(A.x * b, A.y * b, A.z * b);
+}
+
+NS_INLINE SCNVector3 FLAddVectorToVector(SCNVector3 A, SCNVector3 B)
+{
+    return SCNVector3Make(A.x + B.x, A.y + B.y, A.z + B.z);
+}

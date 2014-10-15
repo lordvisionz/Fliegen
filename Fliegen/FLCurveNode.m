@@ -31,11 +31,11 @@
 
     for(int i = 0, lineSegmentCounter = 0; i < points.count; i++)
     {
-        id<FLAnchorPointProtocol> anchorPoint = [points objectAtIndex:i];
-        lineSegments[lineSegmentCounter++] = [anchorPoint position];
+        SCNVector3 position = [[points objectAtIndex:i] SCNVector3Value];
+        lineSegments[lineSegmentCounter++] = position;
         if(i == 0 || (i == points.count - 1)) continue;
         
-        lineSegments[lineSegmentCounter++] = [anchorPoint position];
+        lineSegments[lineSegmentCounter++] = position;
     }
     
     SCNGeometrySource *curve = [SCNGeometrySource geometrySourceWithVertices:lineSegments count:lineSegmentCount];

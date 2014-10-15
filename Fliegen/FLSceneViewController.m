@@ -170,6 +170,8 @@
                     options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     [stream addObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(streamInterpolationType))
                 options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    [stream addObserver:streamView forKeyPath:NSStringFromSelector(@selector(streamInterpolationType))
+                options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     
     [self.sceneView.scene.rootNode addChildNode:streamView];
     [[self selectionHandles] removeFromParentNode];
@@ -189,6 +191,8 @@
     [streamViewToBeDeleted removeObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(isSelectable))];
     [streamViewToBeDeleted removeObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(isVisible))];
     [deletedStream removeObserver:streamsViewController forKeyPath:NSStringFromSelector(@selector(streamInterpolationType))];
+    [deletedStream removeObserver:streamViewToBeDeleted forKeyPath:NSStringFromSelector(@selector(streamInterpolationType))];
+    
     [streamViewToBeDeleted removeFromParentNode];
     streamViewToBeDeleted = nil;
     

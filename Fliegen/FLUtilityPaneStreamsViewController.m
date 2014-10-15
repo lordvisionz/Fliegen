@@ -174,7 +174,10 @@
     selectedStream.streamVisualColor = selectedColor;
 }
 
-- (IBAction)streamInterpolationChanged:(id)sender {
+- (IBAction)streamInterpolationChanged:(id)sender
+{
+    FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
+    selectedStream.streamInterpolationType = [_streamInterpolationPopupButton indexOfSelectedItem];
 }
 
 #pragma mark - stream ID Combobox datasource/delegate/value changed
