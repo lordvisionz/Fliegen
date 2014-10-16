@@ -24,8 +24,8 @@ typedef NS_ENUM(unsigned short, FLStreamVisualType)
 typedef NS_ENUM(unsigned short, FLStreamInterpolationType)
 {
     FLStreamInterpolationTypeNone = 0,
-    FLStreamInterpolationTypeFlat = 1,
-    FLStreamInterpolationTypeQuadraticBezier = 2
+    FLStreamInterpolationTypeLinear = 1,
+    FLStreamInterpolationTypeBSplines = 2
 };
 
 @protocol FLStreamProtocol <NSObject>

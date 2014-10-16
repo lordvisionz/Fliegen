@@ -14,7 +14,6 @@
 		713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */; };
 		715EDFD619E774D60014C185 /* FLStreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 715EDFD519E774D60014C185 /* FLStreamView.m */; };
 		715FFFA219EC5ACA006553DF /* FLFlatBezierCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */; };
-		715FFFA519EC5ADF006553DF /* FLCubicBezierCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 715FFFA419EC5ADF006553DF /* FLCubicBezierCurve.m */; };
 		717CBE8118E666B100D9CBEB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717CBE8018E666B100D9CBEB /* GLKit.framework */; };
 		717CBE8718E7AE2E00D9CBEB /* FLAnchorPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */; };
 		717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */; };
@@ -24,12 +23,12 @@
 		7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2718BE9154002A34E6 /* QuartzCore.framework */; };
 		7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2918BE915C002A34E6 /* SceneKit.framework */; };
 		71A1011E19EDABF300AC918E /* FLCurveNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A1011D19EDABF300AC918E /* FLCurveNode.m */; };
-		71A1012119EDE6F800AC918E /* FLQuadraticBezierCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A1012019EDE6F800AC918E /* FLQuadraticBezierCurve.m */; };
 		71A5FFB819E1CA5C006A99BD /* FLAxisNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A5FFB719E1CA5C006A99BD /* FLAxisNode.m */; };
 		71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58318C3E3CC00788605 /* FLSceneView.m */; };
 		71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58618C3EACB00788605 /* FLSceneViewController.m */; };
 		71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */; };
 		71CD915D19E433A9007913B3 /* FLGridlines.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CD915C19E433A9007913B3 /* FLGridlines.m */; };
+		71ED013219F067C70033C9E0 /* FLBSplinesCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 71ED013119F067C70033C9E0 /* FLBSplinesCurve.m */; };
 		71ED48E619E8455B00231E71 /* FLSelectionHandles.m in Sources */ = {isa = PBXBuildFile; fileRef = 71ED48E519E8455B00231E71 /* FLSelectionHandles.m */; };
 		71EFAC4718BE8B7600BCE88E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71EFAC4618BE8B7600BCE88E /* Cocoa.framework */; };
 		71EFAC5118BE8B7600BCE88E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71EFAC4F18BE8B7600BCE88E /* InfoPlist.strings */; };
@@ -73,8 +72,6 @@
 		715FFF9F19EC538C006553DF /* FLCurveInterpolationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCurveInterpolationProtocol.h; sourceTree = "<group>"; };
 		715FFFA019EC5ACA006553DF /* FLFlatBezierCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLFlatBezierCurve.h; sourceTree = "<group>"; };
 		715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLFlatBezierCurve.m; sourceTree = "<group>"; };
-		715FFFA319EC5ADF006553DF /* FLCubicBezierCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCubicBezierCurve.h; sourceTree = "<group>"; };
-		715FFFA419EC5ADF006553DF /* FLCubicBezierCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCubicBezierCurve.m; sourceTree = "<group>"; };
 		715FFFA619EC61E0006553DF /* FLStreamsCollectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLStreamsCollectionProtocol.h; sourceTree = "<group>"; };
 		715FFFA719EC656C006553DF /* FLAnchorPointsCollectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointsCollectionProtocol.h; sourceTree = "<group>"; };
 		717CBE8018E666B100D9CBEB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
@@ -93,8 +90,6 @@
 		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		71A1011C19EDABF300AC918E /* FLCurveNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCurveNode.h; sourceTree = "<group>"; };
 		71A1011D19EDABF300AC918E /* FLCurveNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCurveNode.m; sourceTree = "<group>"; };
-		71A1011F19EDE6F800AC918E /* FLQuadraticBezierCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLQuadraticBezierCurve.h; sourceTree = "<group>"; };
-		71A1012019EDE6F800AC918E /* FLQuadraticBezierCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLQuadraticBezierCurve.m; sourceTree = "<group>"; };
 		71A5FFB619E1CA5C006A99BD /* FLAxisNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAxisNode.h; sourceTree = "<group>"; };
 		71A5FFB719E1CA5C006A99BD /* FLAxisNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAxisNode.m; sourceTree = "<group>"; };
 		71A9B58218C3E3CC00788605 /* FLSceneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneView.h; sourceTree = "<group>"; };
@@ -106,6 +101,8 @@
 		71CD915B19E433A9007913B3 /* FLGridlines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGridlines.h; sourceTree = "<group>"; };
 		71CD915C19E433A9007913B3 /* FLGridlines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLGridlines.m; sourceTree = "<group>"; };
 		71CD915E19E437A7007913B3 /* FLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLConstants.h; sourceTree = "<group>"; };
+		71ED013019F067C70033C9E0 /* FLBSplinesCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLBSplinesCurve.h; sourceTree = "<group>"; };
+		71ED013119F067C70033C9E0 /* FLBSplinesCurve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBSplinesCurve.m; sourceTree = "<group>"; };
 		71ED48E419E8455B00231E71 /* FLSelectionHandles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSelectionHandles.h; sourceTree = "<group>"; };
 		71ED48E519E8455B00231E71 /* FLSelectionHandles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSelectionHandles.m; sourceTree = "<group>"; };
 		71ED48E719EB22E000231E71 /* FLSceneViewController_FLPrivateHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneViewController_FLPrivateHelpers.h; sourceTree = "<group>"; };
@@ -172,10 +169,8 @@
 				713FE52C18C00707001E05EF /* FLAnchorPoint.m */,
 				715FFFA019EC5ACA006553DF /* FLFlatBezierCurve.h */,
 				715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */,
-				71A1011F19EDE6F800AC918E /* FLQuadraticBezierCurve.h */,
-				71A1012019EDE6F800AC918E /* FLQuadraticBezierCurve.m */,
-				715FFFA319EC5ADF006553DF /* FLCubicBezierCurve.h */,
-				715FFFA419EC5ADF006553DF /* FLCubicBezierCurve.m */,
+				71ED013019F067C70033C9E0 /* FLBSplinesCurve.h */,
+				71ED013119F067C70033C9E0 /* FLBSplinesCurve.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -434,9 +429,9 @@
 				71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */,
 				713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */,
 				71CD915D19E433A9007913B3 /* FLGridlines.m in Sources */,
+				71ED013219F067C70033C9E0 /* FLBSplinesCurve.m in Sources */,
 				717D9BC619E4896C006E3198 /* FLUtilityPaneStreamsViewController.m in Sources */,
 				715EDFD619E774D60014C185 /* FLStreamView.m in Sources */,
-				715FFFA519EC5ADF006553DF /* FLCubicBezierCurve.m in Sources */,
 				717D9BC919E4C7F8006E3198 /* FLStreamsCollection.m in Sources */,
 				71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */,
 				715FFFA219EC5ACA006553DF /* FLFlatBezierCurve.m in Sources */,
@@ -447,7 +442,6 @@
 				717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */,
 				711C998E19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m in Sources */,
 				717D9BCC19E4C821006E3198 /* FLStream.m in Sources */,
-				71A1012119EDE6F800AC918E /* FLQuadraticBezierCurve.m in Sources */,
 				71A5FFB819E1CA5C006A99BD /* FLAxisNode.m in Sources */,
 				713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */,
 				71F8058818E4A52600EF22C7 /* SCNNode+FLAdditions.m in Sources */,

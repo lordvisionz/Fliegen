@@ -141,7 +141,7 @@
     FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
     selectedStream.streamType = _streamTypePopupButton.indexOfSelectedItem;
     selectedStream.streamInterpolationType = (selectedStream.streamType == FLStreamTypeLookAt) ?
-        FLStreamInterpolationTypeNone : FLStreamInterpolationTypeFlat;
+        FLStreamInterpolationTypeNone : FLStreamInterpolationTypeLinear;
 
     [self.streamInterpolationPopupButton setEnabled:(selectedStream.streamType == FLStreamTypePosition)];
 }

@@ -11,8 +11,7 @@
 #import "FLCurveNode.h"
 
 #import "FLFlatBezierCurve.h"
-#import "FLCubicBezierCurve.h"
-#import "FLQuadraticBezierCurve.h"
+#import "FLBSplinesCurve.h"
 
 #import "FLAnchorPointsCollection.h"
 #import "FLAnchorPoint.h"
@@ -112,15 +111,15 @@
         
         switch(stream.streamInterpolationType)
         {
-            case FLStreamInterpolationTypeFlat:
+            case FLStreamInterpolationTypeLinear:
             {
                 _curveInterpolator = [[FLFlatBezierCurve alloc] init];
                 [self recomputeInterpolationCurve];
                 break;
             }
-            case FLStreamInterpolationTypeQuadraticBezier:
+            case FLStreamInterpolationTypeBSplines:
             {
-                _curveInterpolator = [[FLQuadraticBezierCurve alloc] init];
+                _curveInterpolator = [[FLBSplinesCurve alloc] init];
                 [self recomputeInterpolationCurve];
                 break;
             }
@@ -145,7 +144,13 @@
     [_curveNode removeFromParentNode];
     _curveNode = nil;
     
-    _curveNode = [[FLCurveNode alloc]initWithStreamView:self points:interpolatedPoints];
+    NSMutableArray *scnVector3Points = [[NSMutableArray alloc] init];
+    [interpolatedPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    {
+        id<FLAnchorPointProtocol> anchorPoint = obj;
+        [scnVector3Points addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
+    }];
+    _curveNode = [[FLCurveNode alloc]initWithStreamView:self points:scnVector3Points];
     [self addChildNode:_curveNode];
 }
 

@@ -911,7 +911,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="0RH-qc-P2S">
-                    <rect key="frame" x="12" y="643" width="276" height="5"/>
+                    <rect key="frame" x="12" y="643" width="276" height="4"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1237,7 +1237,7 @@
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aGG-zI-mdu" userLabel="stream iterpolation">
                     <rect key="frame" x="121" y="648" width="162" height="26"/>
-                    <popUpButtonCell key="cell" type="push" title="Quadratic Bezier" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="gPo-qq-z1r" id="wpl-Ar-oes" userLabel="stream interpolation">
+                    <popUpButtonCell key="cell" type="push" title="B-Splines" bezelStyle="rounded" alignment="right" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="gPo-qq-z1r" id="wpl-Ar-oes" userLabel="stream interpolation">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
                         <menu key="menu" id="g0b-zl-U86">
@@ -1245,10 +1245,10 @@
                                 <menuItem title="None" id="adL-Al-41U">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Flat" state="on" id="T5c-Wn-d04">
+                                <menuItem title="Linear" id="T5c-Wn-d04">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Quadratic Bezier" state="on" id="gPo-qq-z1r">
+                                <menuItem title="B-Splines" state="on" id="gPo-qq-z1r">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>
