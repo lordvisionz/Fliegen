@@ -23,7 +23,7 @@
     self = [super init];
     _anchorPointsCollection = [[FLAnchorPointsCollection alloc] initWithStream:self];
     _streamVisualColor = [NSColor cyanColor];
-    _streamInterpolationType = FLStreamInterpolationTypeFlat;
+    _streamInterpolationType = FLStreamInterpolationTypeLinear;
     
     return self;
 }

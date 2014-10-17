@@ -140,17 +140,18 @@
 
 -(void)recomputeInterpolationCurve
 {
-    NSArray *interpolatedPoints = [_curveInterpolator interpolatePoints:_stream.anchorPointsCollection.anchorPoints];
     [_curveNode removeFromParentNode];
     _curveNode = nil;
     
     NSMutableArray *scnVector3Points = [[NSMutableArray alloc] init];
-    [interpolatedPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    [_stream.anchorPointsCollection.anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
     {
         id<FLAnchorPointProtocol> anchorPoint = obj;
         [scnVector3Points addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
     }];
-    _curveNode = [[FLCurveNode alloc]initWithStreamView:self points:scnVector3Points];
+    NSArray *interpolatedPoints = [_curveInterpolator interpolatePoints:scnVector3Points];
+    
+    _curveNode = [[FLCurveNode alloc]initWithStreamView:self points:interpolatedPoints];
     [self addChildNode:_curveNode];
 }
 
