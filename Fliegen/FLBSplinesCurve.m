@@ -45,7 +45,7 @@
     NSUInteger internalKnotsCount = m - 2 * (p + 1);
     for(int i = 0; i < internalKnotsCount; i++)
     {
-        T[4+i] = (double)1 / internalKnotsCount;
+        T[4+i] = (double)1 / (internalKnotsCount + 1);
     }
     T[n] = 1;
     T[n+1] = 1;
