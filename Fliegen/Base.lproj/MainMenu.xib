@@ -730,25 +730,26 @@
                     <constraint firstAttribute="trailing" secondItem="xok-CF-2qg" secondAttribute="trailing" id="xdR-7Y-kNM"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="7993E336-A301-4966-AB87-CF7E1EBEF6F8" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="zFJ-pS-zw9">
+            <toolbar key="toolbar" implicitIdentifier="7993E336-A301-4966-AB87-CF7E1EBEF6F8" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="small" id="zFJ-pS-zw9">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="o01-II-AHt"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="ove-Xk-jCy"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="y3C-CJ-c7S"/>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="sG5-DV-YIi"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="NXc-rd-8yc"/>
-                    <toolbarItem implicitItemIdentifier="1CF56580-1E81-4C16-BCB6-4EED319A5D96" label="Properties" paletteLabel="Toolbar Item" tag="-1" image="NSBookmarksTemplate" selectable="YES" id="RlL-qg-iXG">
+                    <toolbarItem implicitItemIdentifier="1CF56580-1E81-4C16-BCB6-4EED319A5D96" explicitItemIdentifier="properties" label="Hide Properties" paletteLabel="Toolbar Item" toolTip="Show/Hide Properties Tab" tag="-1" image="NSHomeTemplate" visibilityPriority="1" id="RlL-qg-iXG">
+                        <size key="minSize" width="16" height="16"/>
+                        <size key="maxSize" width="16" height="16"/>
                         <connections>
-                            <action selector="toggleUtilitiesPanel:" target="i3n-kY-zXf" id="5ea-gK-WpY"/>
+                            <action selector="toggleUtilitiesPanel:" target="i3n-kY-zXf" id="3aS-ek-A7G"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="hmO-Ng-KNV"/>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="o01-II-AHt"/>
-                    <toolbarItem reference="ove-Xk-jCy"/>
                     <toolbarItem reference="NXc-rd-8yc"/>
                     <toolbarItem reference="RlL-qg-iXG"/>
+                    <toolbarItem reference="hmO-Ng-KNV"/>
                 </defaultToolbarItems>
+                <connections>
+                    <outlet property="delegate" destination="i3n-kY-zXf" id="7Nt-vI-eRe"/>
+                </connections>
             </toolbar>
         </window>
         <customObject id="494" customClass="AppDelegate">
@@ -762,7 +763,9 @@
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="i3n-kY-zXf" customClass="FLAppFrameController">
             <connections>
+                <outlet property="propertiesToolbarItem" destination="RlL-qg-iXG" id="432-QU-BEK"/>
                 <outlet property="sceneViewController" destination="16d-AC-vuq" id="Id8-J4-R2Z"/>
+                <outlet property="showHidePropertiesToolbarItem" destination="RlL-qg-iXG" id="Ndc-WY-f9C"/>
                 <outlet property="splitView" destination="xok-CF-2qg" id="FN3-Ob-9Nu"/>
                 <outlet property="utilityPanelController" destination="Ld4-kg-GYh" id="YU9-v3-FEU"/>
             </connections>
@@ -911,7 +914,7 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="0RH-qc-P2S">
-                    <rect key="frame" x="12" y="643" width="276" height="4"/>
+                    <rect key="frame" x="12" y="643" width="276" height="5"/>
                     <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
@@ -1276,7 +1279,6 @@
     </objects>
     <resources>
         <image name="NSAddTemplate" width="8" height="8"/>
-        <image name="NSBookmarksTemplate" width="17" height="12"/>
         <image name="NSHomeTemplate" width="14" height="13"/>
         <image name="NSIconViewTemplate" width="11" height="10"/>
         <image name="NSListViewTemplate" width="11" height="10"/>

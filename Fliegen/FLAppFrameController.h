@@ -11,7 +11,7 @@
 
 @class FLUtilityPaneController, FLSceneViewController, FLModel;
 
-@interface FLAppFrameController : NSObject<NSSplitViewDelegate>
+@interface FLAppFrameController : NSObject<NSSplitViewDelegate, NSToolbarDelegate>
 
 @property (readonly, retain) FLModel *model;
 
@@ -19,6 +19,8 @@
 
 @property (weak) IBOutlet FLSceneViewController *sceneViewController;
 @property (weak) IBOutlet FLUtilityPaneController *utilityPanelController;
+
+@property (weak) IBOutlet NSToolbarItem *propertiesToolbarItem;
 
 - (IBAction)toggleUtilitiesPanel:(id)sender;
 
