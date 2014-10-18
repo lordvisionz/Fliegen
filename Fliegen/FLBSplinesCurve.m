@@ -45,14 +45,15 @@
     NSUInteger internalKnotsCount = m - 2 * (p + 1);
     for(int i = 0; i < internalKnotsCount; i++)
     {
-        T[4+i] = (double)1 / (internalKnotsCount + 1);
+        T[4+i] = (double)(i + 1) / (internalKnotsCount + 1);
     }
     T[n] = 1;
     T[n+1] = 1;
     T[n+2] = 1;
     T[n+3] = 1;
+    [interpolatedPoints addObject:[NSValue valueWithSCNVector3:[[points objectAtIndex:0] SCNVector3Value]]];
     
-    for(int x = 0; x < _steps; x++)
+    for(int x = 1; x < _steps; x++)
     {
         double t = (double)x / _steps;
         SCNVector3 Ct = SCNVector3Make(0, 0, 0);
@@ -66,7 +67,7 @@
         }
         [interpolatedPoints addObject:[NSValue valueWithSCNVector3:Ct]];
     }
-    
+    [interpolatedPoints addObject:[NSValue valueWithSCNVector3:[[points lastObject] SCNVector3Value]]];
     return interpolatedPoints;
 }
 
