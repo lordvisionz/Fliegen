@@ -39,6 +39,8 @@
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(anchorPointSelectionChanged:)
                                                  name:FLAnchorPointSelectionChangedNotification object:nil];
+    
+    [self anchorPointSelectionChanged:nil];
 }
 
 -(void)dealloc
@@ -58,7 +60,7 @@
     FLAnchorPoint *anchorPoint = currentStream.anchorPointsCollection.selectedAnchorPoint;
     
     [anchorPoint addObserver:self forKeyPath:NSStringFromSelector(@selector(position))
-                     options:(NSKeyValueObservingOptionInitial |NSKeyValueObservingOptionNew) context:NULL];
+                     options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
 }
 
 -(void)anchorPointWasDeleted:(NSNotification*)notification
@@ -142,11 +144,9 @@
         SCNNode *selectionHandles = [sceneView.scene.rootNode childNodeWithName:@"selectionHandles" recursively:YES];
         CATransform3D selectionHandlesTransform = selectionHandles.transform;
         
-//        FLAnchorPointView *anchorPointView = [self anchorPointViewForModel:anchorPoint];
         if(control == _xPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(_xPositionTextField.doubleValue, anchorPoint.position.y, anchorPoint.position.z);
-//            anchorPointView.position = anchorPoint.position;
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -154,7 +154,6 @@
         else if(control == _yPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionTextField.doubleValue, anchorPoint.position.z);
-//            anchorPointView.position = anchorPoint.position;
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -162,7 +161,6 @@
         else if(control == _zPositionTextField)
         {
             anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionTextField.doubleValue);
-//            anchorPointView.position = anchorPoint.position;
             
             selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
             [selectionHandles setTransform:selectionHandlesTransform];
@@ -185,7 +183,6 @@
     if(sender == _xPositionStepper)
     {
         anchorPoint.position = SCNVector3Make([stepper doubleValue], anchorPoint.position.y, anchorPoint.position.z);
-//        anchorPointView.position = anchorPoint.position;
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, anchorPoint.position.x - oldPosition.x, 0, 0);
         [selectionHandles setTransform:selectionHandlesTransform];
@@ -193,7 +190,6 @@
     else if(sender == _yPositionStepper)
     {
         anchorPoint.position = SCNVector3Make(anchorPoint.position.x, _yPositionStepper.doubleValue, anchorPoint.position.z);
-//        anchorPointView.position = anchorPoint.position;
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, anchorPoint.position.y - oldPosition.y, 0);
         [selectionHandles setTransform:selectionHandlesTransform];
@@ -201,7 +197,6 @@
     else if(sender == _zPositionStepper)
     {
         anchorPoint.position = SCNVector3Make(anchorPoint.position.x, anchorPoint.position.y, _zPositionStepper.doubleValue);
-//        anchorPointView.position = anchorPoint.position;
         
         selectionHandlesTransform = CATransform3DTranslate(selectionHandlesTransform, 0, 0, anchorPoint.position.z - oldPosition.z);
         [selectionHandles setTransform:selectionHandlesTransform];
@@ -262,7 +257,4 @@
     anchorPointsCollection.selectedAnchorPoint = (index == 0) ? nil : [anchorPointsCollection anchorPointForId:index];
     [self toggleAnchorPointEditControls:(index > 0)];
 }
-
-
-
 @end
