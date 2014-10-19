@@ -43,6 +43,10 @@
     
     FLAxisNode *_viewPortAxes;
     FLGridlines *_gridlines;
+    
+    SCNNode *_defaultCamera;
+    
+    SCNNode *_tempNode;
 }
 
 @end
@@ -75,15 +79,15 @@
 {
     self.sceneView.scene = [SCNScene scene];
     
-    SCNNode *cameraNode = [SCNNode node];
-    cameraNode.camera = [SCNCamera camera];
-    [cameraNode.camera setUsesOrthographicProjection:NO];
-    cameraNode.camera.zFar = 1000;
+    _defaultCamera = [SCNNode node];
+    _defaultCamera.camera = [SCNCamera camera];
+    [_defaultCamera.camera setUsesOrthographicProjection:NO];
+    _defaultCamera.camera.zFar = 1000;
     
     CATransform3D cameraTransform = CATransform3DMakeRotation(M_PI_4/4, 0, 1, 0);
     cameraTransform = CATransform3DTranslate(cameraTransform, 0, 10, 75);
-    cameraNode.transform = cameraTransform;
-    [self.sceneView.scene.rootNode addChildNode:cameraNode];
+    _defaultCamera.transform = cameraTransform;
+    [self.sceneView.scene.rootNode addChildNode:_defaultCamera];
     
     SCNVector4 rotation = self.sceneView.pointOfView.rotation;
     
@@ -102,6 +106,14 @@
     _viewPortAxes = [[FLAxisNode alloc]init];
     _gridlines = [[FLGridlines alloc] init];
     [self.sceneView.scene.rootNode addChildNode:_gridlines];
+    
+    SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0.25];
+    box.firstMaterial.diffuse.contents = [NSColor redColor];
+    box.firstMaterial.specular.contents = [NSColor cyanColor];
+    box.firstMaterial.lightingModelName = SCNLightingModelPhong;
+    _tempNode = [SCNNode nodeWithGeometry:box];
+    _tempNode.name = @"temp";
+    [self.sceneView.scene.rootNode addChildNode:_tempNode];
 }
 
 -(void)awakeFromNib
@@ -260,6 +272,54 @@
         [self.sceneView.scene.rootNode addChildNode:_gridlines];
     else if(visible == NO)
         [_gridlines removeFromParentNode];
+}
+
+-(void)startVisualization:(double)time
+{
+    FLStream *selectedStream = self.appFrameController.model.streams.selectedStream;
+    NSArray *anchorPoints = [selectedStream.anchorPointsCollection anchorPoints];
+    NSMutableArray *scnPoints = [NSMutableArray new];
+    
+    [anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        id<FLAnchorPointProtocol> anchorPoint = obj;
+        [scnPoints addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
+    }];
+    
+    SCNNode *streamCamera = [SCNNode node];
+    streamCamera.camera = [SCNCamera camera];
+    streamCamera.camera.usesOrthographicProjection = NO;
+    streamCamera.camera.zFar = 1000;
+    streamCamera.position = [[selectedStream.anchorPointsCollection anchorPointForId:1] position];
+    [self.sceneView.scene.rootNode addChildNode:streamCamera];
+    self.sceneView.pointOfView = streamCamera;
+    
+    NSUInteger totalFrames = time * 24;
+    
+    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    NSMutableArray *positionAnimationPoints = [NSMutableArray new];
+    
+    for(NSUInteger i = 0; i < totalFrames; i++)
+    {
+        FLStreamView *view = [self viewForStream:selectedStream];
+        SCNVector3 interpolatedPosition = [view.curveInterpolator interpolatePoints:scnPoints atTime:(double) i / totalFrames];
+        [positionAnimationPoints addObject:[NSValue valueWithSCNVector3:interpolatedPosition]];
+    }
+    positionAnimation.values = positionAnimationPoints;
+    positionAnimation.duration = time;
+    positionAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    
+    SCNConstraint *constraint = [SCNLookAtConstraint lookAtConstraintWithTarget:_tempNode];
+    streamCamera.constraints = @[constraint];
+    
+    [SCNTransaction begin];
+    self.sceneView.allowsCameraControl = NO;
+    [SCNTransaction setCompletionBlock:^{
+        self.sceneView.pointOfView = _defaultCamera;
+        [streamCamera removeFromParentNode];
+        self.sceneView.allowsCameraControl = YES;
+    }];
+    [streamCamera addAnimation:positionAnimation forKey:@"position"];
+    [SCNTransaction commit];
 }
 
 #pragma mark - Anchor Points add/delete

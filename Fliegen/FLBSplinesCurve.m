@@ -71,6 +71,45 @@
     return interpolatedPoints;
 }
 
+-(SCNVector3)interpolatePoints:(NSArray *)points atTime:(double)t
+{
+    if(points.count < 5) return SCNVector3Make(0, 0, 0);
+    
+    NSUInteger n = points.count;
+    NSUInteger m = n + 4;
+    NSUInteger p = m - n - 1;
+    
+    double T[m];
+    T[0] = 0;
+    T[1] = 0;
+    T[2] = 0;
+    T[3] = 0;
+    
+    NSUInteger internalKnotsCount = m - 2 * (p + 1);
+    for(int i = 0; i < internalKnotsCount; i++)
+    {
+        T[4+i] = (double)(i + 1) / (internalKnotsCount + 1);
+    }
+    T[n] = 1;
+    T[n+1] = 1;
+    T[n+2] = 1;
+    T[n+3] = 1;
+    
+    SCNVector3 Ct = SCNVector3Make(0, 0, 0);
+    
+    for(NSUInteger i = 0; i < points.count; i++)
+    {
+        SCNVector3 Pi = [[points objectAtIndex:i] SCNVector3Value];
+        double Nipt = [self computeNijtWithI:i j:p t:t T:T];
+        SCNVector3 Ci = FLMultiplyVectorByScalar(Pi, Nipt);
+        Ct = FLAddVectorToVector(Ct, Ci);
+    }
+    
+    return Ct;
+}
+
+#pragma mark - Helpers
+
 -(double) computeNijtWithI:(NSUInteger)i j:(NSUInteger)j t:(double)t T:(double[])T
 {
     if(j == 0)

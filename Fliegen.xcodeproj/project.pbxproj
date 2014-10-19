@@ -22,6 +22,7 @@
 		717D9BCC19E4C821006E3198 /* FLStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 717D9BCB19E4C821006E3198 /* FLStream.m */; };
 		7192EF2818BE9154002A34E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2718BE9154002A34E6 /* QuartzCore.framework */; };
 		7192EF2A18BE915C002A34E6 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7192EF2918BE915C002A34E6 /* SceneKit.framework */; };
+		71997BC919F4319E00CEC885 /* FLUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 71997BC819F4319E00CEC885 /* FLUtilities.m */; };
 		71A1011E19EDABF300AC918E /* FLCurveNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A1011D19EDABF300AC918E /* FLCurveNode.m */; };
 		71A5FFB819E1CA5C006A99BD /* FLAxisNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A5FFB719E1CA5C006A99BD /* FLAxisNode.m */; };
 		71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58318C3E3CC00788605 /* FLSceneView.m */; };
@@ -88,6 +89,7 @@
 		717D9BCB19E4C821006E3198 /* FLStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLStream.m; sourceTree = "<group>"; };
 		7192EF2718BE9154002A34E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7192EF2918BE915C002A34E6 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		71997BC819F4319E00CEC885 /* FLUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilities.m; sourceTree = "<group>"; };
 		71A1011C19EDABF300AC918E /* FLCurveNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCurveNode.h; sourceTree = "<group>"; };
 		71A1011D19EDABF300AC918E /* FLCurveNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCurveNode.m; sourceTree = "<group>"; };
 		71A5FFB619E1CA5C006A99BD /* FLAxisNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAxisNode.h; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				71F8058618E4A52600EF22C7 /* SCNNode+FLAdditions.h */,
 				71F8058718E4A52600EF22C7 /* SCNNode+FLAdditions.m */,
 				717D2A4C19D5FCB40039C0D4 /* FLSceneKitUtilities.h */,
+				71997BC819F4319E00CEC885 /* FLUtilities.m */,
 				71CD915E19E437A7007913B3 /* FLConstants.h */,
 				71EFAC5818BE8B7600BCE88E /* AppDelegate.h */,
 				71EFAC5918BE8B7600BCE88E /* AppDelegate.m */,
@@ -431,6 +434,7 @@
 				71CD915D19E433A9007913B3 /* FLGridlines.m in Sources */,
 				71ED013219F067C70033C9E0 /* FLBSplinesCurve.m in Sources */,
 				717D9BC619E4896C006E3198 /* FLUtilityPaneStreamsViewController.m in Sources */,
+				71997BC919F4319E00CEC885 /* FLUtilities.m in Sources */,
 				715EDFD619E774D60014C185 /* FLStreamView.m in Sources */,
 				717D9BC919E4C7F8006E3198 /* FLStreamsCollection.m in Sources */,
 				71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */,

@@ -36,3 +36,8 @@ NS_INLINE SCNVector3 FLAddVectorToVector(SCNVector3 A, SCNVector3 B)
 {
     return SCNVector3Make(A.x + B.x, A.y + B.y, A.z + B.z);
 }
+
+NS_INLINE SCNVector3 FLLerp(SCNVector3 A, SCNVector3 B, float t)
+{
+    return SCNVector3Make(A.x + (B.x - A.x) * t, A.y + (B.y - A.y) * t, A.z + (B.z - A.z) * t);
+}

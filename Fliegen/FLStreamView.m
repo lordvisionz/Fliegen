@@ -18,7 +18,7 @@
 
 @interface FLStreamView()
 {
-    id<FLCurveInterpolationProtocol> _curveInterpolator;
+    
     
     SCNNode *_curveNode;
 }
@@ -142,13 +142,14 @@
 {
     [_curveNode removeFromParentNode];
     _curveNode = nil;
-    
+   
     NSMutableArray *scnVector3Points = [[NSMutableArray alloc] init];
     [_stream.anchorPointsCollection.anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-    {
-        id<FLAnchorPointProtocol> anchorPoint = obj;
-        [scnVector3Points addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
-    }];
+     {
+         id<FLAnchorPointProtocol> anchorPoint = obj;
+         [scnVector3Points addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
+     }];
+    
     NSArray *interpolatedPoints = [_curveInterpolator interpolatePoints:scnVector3Points];
     
     _curveNode = [[FLCurveNode alloc]initWithStreamView:self points:interpolatedPoints];

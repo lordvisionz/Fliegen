@@ -40,6 +40,8 @@
                                                 name:FLAnchorPointAddedNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasDeleted:)
                                                 name:FLAnchorPointDeletedNotification object:nil];
+    
+    [_visualizationTime setDoubleValue:10];
 }
 
 -(void)dealloc
@@ -178,6 +180,12 @@
 {
     FLStream *selectedStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;
     selectedStream.streamInterpolationType = [_streamInterpolationPopupButton indexOfSelectedItem];
+}
+
+- (IBAction)startVisualization:(id)sender
+{
+    [self.utilityPaneController.appFrameController.sceneViewController startVisualization:_visualizationTime.doubleValue];
+//    [_visualizationButton setEnabled:NO];
 }
 
 #pragma mark - stream ID Combobox datasource/delegate/value changed

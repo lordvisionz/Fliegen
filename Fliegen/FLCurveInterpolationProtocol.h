@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SceneKit/SceneKit.h>
 
 @protocol FLCurveInterpolationProtocol <NSObject>
 
 -(NSArray*)interpolatePoints:(NSArray*)points;
+
+-(SCNVector3)interpolatePoints:(NSArray*)points atTime:(double)t;
 
 @end

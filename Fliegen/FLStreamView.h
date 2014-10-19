@@ -7,7 +7,7 @@
 //
 
 #import <SceneKit/SceneKit.h>
-
+#import "FLCurveInterpolationProtocol.h"
 #import "FLStreamProtocol.h"
 
 @interface FLStreamView : SCNNode
@@ -19,5 +19,7 @@
 @property(readwrite, assign, nonatomic) BOOL isVisible;
 
 @property(readwrite, assign, nonatomic) BOOL isSelectable;
+
+@property(readonly, retain, nonatomic) id<FLCurveInterpolationProtocol> curveInterpolator;
 
 @end
