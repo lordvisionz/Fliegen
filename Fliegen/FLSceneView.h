@@ -8,10 +8,8 @@
 
 #import <SceneKit/SceneKit.h>
 
-@interface FLSceneView : SCNView<SCNSceneRendererDelegate>
+@interface FLSceneView : SCNView
 
-
-
-@property (weak) IBOutlet NSViewController *controller;
+@property (weak) NSViewController *controller;
 
 @end

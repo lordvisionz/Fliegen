@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
-        <plugIn identifier="com.apple.SceneKitIBPlugin" version="6245"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -660,18 +659,14 @@
                     <splitView placeholderIntrinsicWidth="1000" placeholderIntrinsicHeight="800" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xok-CF-2qg">
                         <rect key="frame" x="0.0" y="0.0" width="1001" height="800"/>
                         <subviews>
-                            <sceneView placeholderIntrinsicWidth="700" placeholderIntrinsicHeight="360" sceneName="" autoenablesDefaultLighting="YES" allowsCameraControl="YES" id="OrN-Ou-AMv" customClass="FLSceneView">
+                            <customView id="HXv-c6-m76" userLabel="editorPlaceholder">
                                 <rect key="frame" x="0.0" y="0.0" width="700" height="800"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="800" id="wt8-I0-z1q"/>
+                                    <constraint firstAttribute="height" constant="800" id="YOj-TA-9aJ"/>
                                 </constraints>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="controller" destination="16d-AC-vuq" id="6Qu-hi-Kpd"/>
-                                </connections>
-                            </sceneView>
-                            <customView horizontalHuggingPriority="1000" verticalHuggingPriority="1000" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="800" id="fx3-cY-JRM">
+                            </customView>
+                            <customView horizontalHuggingPriority="1000" verticalHuggingPriority="1000" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="800" id="fx3-cY-JRM" userLabel="propertiesTab">
                                 <rect key="frame" x="701" y="0.0" width="300" height="800"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
@@ -733,16 +728,28 @@
             <toolbar key="toolbar" implicitIdentifier="7993E336-A301-4966-AB87-CF7E1EBEF6F8" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="small" id="zFJ-pS-zw9">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="NXc-rd-8yc"/>
-                    <toolbarItem implicitItemIdentifier="1CF56580-1E81-4C16-BCB6-4EED319A5D96" explicitItemIdentifier="properties" label="Hide Properties" paletteLabel="Toolbar Item" toolTip="Show/Hide Properties Tab" tag="-1" image="NSHomeTemplate" visibilityPriority="1" id="RlL-qg-iXG">
+                    <toolbarItem implicitItemIdentifier="1CF56580-1E81-4C16-BCB6-4EED319A5D96" explicitItemIdentifier="properties" label="Hide Properties" paletteLabel="Properties tab" toolTip="Show/Hide Properties Tab" tag="-1" image="NSHomeTemplate" visibilityPriority="1" id="RlL-qg-iXG">
                         <size key="minSize" width="16" height="16"/>
                         <size key="maxSize" width="16" height="16"/>
                         <connections>
                             <action selector="toggleUtilitiesPanel:" target="i3n-kY-zXf" id="3aS-ek-A7G"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="hmO-Ng-KNV"/>
+                    <toolbarItem implicitItemIdentifier="9C102237-8D2D-4CC7-A0D0-27EF7118612D" explicitItemIdentifier="sceneEditor" label="Scene Editor" paletteLabel="Scene Editor" toolTip="View Scene Editor" tag="-1" image="NSIChatTheaterTemplate" selectable="YES" id="CBV-Hj-9dU">
+                        <connections>
+                            <action selector="toggleEditor:" target="i3n-kY-zXf" id="TDk-Vn-9GH"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="C36C3F85-2165-437A-B409-EDD20C12BC1E" explicitItemIdentifier="simulationEditor" label="Simulation Editor" paletteLabel="Simulation Editor" toolTip="View the Simulation Editor" tag="-1" image="NSFlowViewTemplate" selectable="YES" id="yjz-aC-4Cn">
+                        <connections>
+                            <action selector="toggleEditor:" target="i3n-kY-zXf" id="Ic6-MF-w12"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
+                    <toolbarItem reference="NXc-rd-8yc"/>
+                    <toolbarItem reference="CBV-Hj-9dU"/>
+                    <toolbarItem reference="yjz-aC-4Cn"/>
                     <toolbarItem reference="NXc-rd-8yc"/>
                     <toolbarItem reference="RlL-qg-iXG"/>
                 </defaultToolbarItems>
@@ -753,18 +760,19 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="anchorPointsViewController" destination="16d-AC-vuq" id="9tV-kE-3ND"/>
-                <outlet property="freeFloatingScene" destination="OrN-Ou-AMv" id="vAH-3U-O8y"/>
-                <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="WRr-Sn-0ZV"/>
+                <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="2Zd-Tn-Md3"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="i3n-kY-zXf" customClass="FLAppFrameController">
             <connections>
+                <outlet property="editorPlaceholderView" destination="HXv-c6-m76" id="i0h-Hm-Rsw"/>
                 <outlet property="propertiesToolbarItem" destination="RlL-qg-iXG" id="432-QU-BEK"/>
+                <outlet property="sceneEditorToolbarItem" destination="CBV-Hj-9dU" id="b18-dp-CpC"/>
                 <outlet property="sceneViewController" destination="16d-AC-vuq" id="Id8-J4-R2Z"/>
-                <outlet property="showHidePropertiesToolbarItem" destination="RlL-qg-iXG" id="Ndc-WY-f9C"/>
+                <outlet property="simVisTimeViewController" destination="anX-aR-HGd" id="U8I-ib-WUc"/>
+                <outlet property="simulationEditorToolbarItem" destination="yjz-aC-4Cn" id="3g0-vk-g38"/>
                 <outlet property="splitView" destination="xok-CF-2qg" id="FN3-Ob-9Nu"/>
                 <outlet property="utilityPanelController" destination="Ld4-kg-GYh" id="YU9-v3-FEU"/>
             </connections>
@@ -946,7 +954,11 @@
         <viewController id="16d-AC-vuq" customClass="FLSceneViewController">
             <connections>
                 <outlet property="appFrameController" destination="i3n-kY-zXf" id="CVf-2M-kQO"/>
-                <outlet property="view" destination="OrN-Ou-AMv" id="Xzh-bo-T26"/>
+            </connections>
+        </viewController>
+        <viewController id="anX-aR-HGd" customClass="FLSimulationVisualizationTimeController">
+            <connections>
+                <outlet property="appFrameController" destination="i3n-kY-zXf" id="X1h-F6-Sbk"/>
             </connections>
         </viewController>
         <viewController id="4oR-t1-Ym5" customClass="FLUtilityPaneAnchorPointsViewController">
@@ -984,8 +996,6 @@
                 <outlet property="streamsVisibilityCheckBox" destination="Rz2-Ri-pHy" id="3pn-fK-clM"/>
                 <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="lUi-0B-5c3"/>
                 <outlet property="view" destination="20j-7I-Q7x" id="bhz-Lr-wFH"/>
-                <outlet property="visualizationButton" destination="RGZ-S5-aZQ" id="eRc-N5-CTL"/>
-                <outlet property="visualizationTime" destination="mQX-kw-LZA" id="DTC-LQ-yUM"/>
             </connections>
         </viewController>
         <userDefaultsController representsSharedInstance="YES" id="3PE-Ee-X5Q"/>
@@ -1275,38 +1285,14 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ta-SP-By3">
-                    <rect key="frame" x="18" y="448" width="122" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Stream Visualization" id="RGs-ox-Fg0">
-                        <font key="font" metaFont="smallSystemBold"/>
-                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RGZ-S5-aZQ">
-                    <rect key="frame" x="14" y="412" width="82" height="32"/>
-                    <buttonCell key="cell" type="push" title="Visualize" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0ym-qE-5Bs">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="startVisualization:" target="Env-MU-9bF" id="Knh-si-Mn3"/>
-                    </connections>
-                </button>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mQX-kw-LZA">
-                    <rect key="frame" x="192" y="418" width="96" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="W1e-ld-mj5">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
             </subviews>
         </customView>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="8" height="8"/>
+        <image name="NSFlowViewTemplate" width="15" height="10"/>
         <image name="NSHomeTemplate" width="14" height="13"/>
+        <image name="NSIChatTheaterTemplate" width="15" height="13"/>
         <image name="NSIconViewTemplate" width="11" height="10"/>
         <image name="NSListViewTemplate" width="11" height="10"/>
         <image name="NSMenuMixedStateTemplate" width="10" height="3"/>

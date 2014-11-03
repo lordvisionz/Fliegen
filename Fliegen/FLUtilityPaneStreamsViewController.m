@@ -182,11 +182,11 @@
     selectedStream.streamInterpolationType = [_streamInterpolationPopupButton indexOfSelectedItem];
 }
 
-- (IBAction)startVisualization:(id)sender
-{
-    [self.utilityPaneController.appFrameController.sceneViewController startVisualization:_visualizationTime.doubleValue];
-//    [_visualizationButton setEnabled:NO];
-}
+//- (IBAction)startVisualization:(id)sender
+//{
+//    [self.utilityPaneController.appFrameController.sceneViewController startVisualization:_visualizationTime.doubleValue];
+////    [_visualizationButton setEnabled:NO];
+//}
 
 #pragma mark - stream ID Combobox datasource/delegate/value changed
 

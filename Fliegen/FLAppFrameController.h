@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <SceneKit/SceneKit.h>
 
-@class FLUtilityPaneController, FLSceneViewController, FLModel;
+@class FLUtilityPaneController, FLSceneViewController, FLSimulationVisualizationTimeController, FLModel;
 
 @interface FLAppFrameController : NSObject<NSSplitViewDelegate, NSToolbarDelegate>
 
@@ -18,10 +18,16 @@
 @property (weak) IBOutlet NSSplitView *splitView;
 
 @property (weak) IBOutlet FLSceneViewController *sceneViewController;
+@property (weak) IBOutlet FLSimulationVisualizationTimeController *simVisTimeViewController;
 @property (weak) IBOutlet FLUtilityPaneController *utilityPanelController;
 
+@property (weak) IBOutlet NSView *editorPlaceholderView;
+
 @property (weak) IBOutlet NSToolbarItem *propertiesToolbarItem;
+@property (weak) IBOutlet NSToolbarItem *simulationEditorToolbarItem;
+@property (weak) IBOutlet NSToolbarItem *sceneEditorToolbarItem;
 
 - (IBAction)toggleUtilitiesPanel:(id)sender;
+- (IBAction)toggleEditor:(id)sender;
 
 @end

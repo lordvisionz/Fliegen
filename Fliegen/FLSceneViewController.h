@@ -30,7 +30,7 @@ typedef NS_ENUM(unsigned short, FLSelectionMode)
 
 -(void)showGridlines:(BOOL)visible;
 
--(void)startVisualization:(double)time;
+//-(void)startVisualization:(double)time;
 
 -(FLSceneView*)sceneView;
 

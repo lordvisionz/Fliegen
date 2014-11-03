@@ -72,13 +72,19 @@
     _isDraggingSelectionHandles = NO;
     _selectionMode = FLSelectionModeNone;
     
+    FLSceneView *sceneView = [[FLSceneView alloc] initWithFrame:NSZeroRect];
+    sceneView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    sceneView.controller = self;
+    sceneView.allowsCameraControl = YES;
+    sceneView.scene = [SCNScene scene];
+    sceneView.autoenablesDefaultLighting = YES;
+    
+    self.view = sceneView;
     return self;
 }
 
 -(void)setInitialCamera
 {
-    self.sceneView.scene = [SCNScene scene];
-    
     _defaultCamera = [SCNNode node];
     _defaultCamera.camera = [SCNCamera camera];
     [_defaultCamera.camera setUsesOrthographicProjection:NO];
@@ -107,13 +113,13 @@
     _gridlines = [[FLGridlines alloc] init];
     [self.sceneView.scene.rootNode addChildNode:_gridlines];
     
-    SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0.25];
-    box.firstMaterial.diffuse.contents = [NSColor redColor];
-    box.firstMaterial.specular.contents = [NSColor cyanColor];
-    box.firstMaterial.lightingModelName = SCNLightingModelPhong;
-    _tempNode = [SCNNode nodeWithGeometry:box];
-    _tempNode.name = @"temp";
-    [self.sceneView.scene.rootNode addChildNode:_tempNode];
+//    SCNBox *box = [SCNBox boxWithWidth:3 height:3 length:3 chamferRadius:0.25];
+//    box.firstMaterial.diffuse.contents = [NSColor redColor];
+//    box.firstMaterial.specular.contents = [NSColor cyanColor];
+//    box.firstMaterial.lightingModelName = SCNLightingModelPhong;
+//    _tempNode = [SCNNode nodeWithGeometry:box];
+//    _tempNode.name = @"temp";
+//    [self.sceneView.scene.rootNode addChildNode:_tempNode];
 }
 
 -(void)awakeFromNib
@@ -122,6 +128,7 @@
     [self.view.window makeFirstResponder:self];
 
     [super awakeFromNib];
+    
     [self initMenuItems];
     [self setInitialCamera];
     
@@ -274,53 +281,53 @@
         [_gridlines removeFromParentNode];
 }
 
--(void)startVisualization:(double)time
-{
-    FLStream *selectedStream = self.appFrameController.model.streams.selectedStream;
-    NSArray *anchorPoints = [selectedStream.anchorPointsCollection anchorPoints];
-    NSMutableArray *scnPoints = [NSMutableArray new];
-    
-    [anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        id<FLAnchorPointProtocol> anchorPoint = obj;
-        [scnPoints addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
-    }];
-    
-    SCNNode *streamCamera = [SCNNode node];
-    streamCamera.camera = [SCNCamera camera];
-    streamCamera.camera.usesOrthographicProjection = NO;
-    streamCamera.camera.zFar = 1000;
-    streamCamera.position = [[selectedStream.anchorPointsCollection anchorPointForId:1] position];
-    [self.sceneView.scene.rootNode addChildNode:streamCamera];
-    self.sceneView.pointOfView = streamCamera;
-    
-    NSUInteger totalFrames = time * 24;
-    
-    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    NSMutableArray *positionAnimationPoints = [NSMutableArray new];
-    
-    for(NSUInteger i = 0; i < totalFrames; i++)
-    {
-        FLStreamView *view = [self viewForStream:selectedStream];
-        SCNVector3 interpolatedPosition = [view.curveInterpolator interpolatePoints:scnPoints atTime:(double) i / totalFrames];
-        [positionAnimationPoints addObject:[NSValue valueWithSCNVector3:interpolatedPosition]];
-    }
-    positionAnimation.values = positionAnimationPoints;
-    positionAnimation.duration = time;
-    positionAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    
-    SCNConstraint *constraint = [SCNLookAtConstraint lookAtConstraintWithTarget:_tempNode];
-    streamCamera.constraints = @[constraint];
-    
-    [SCNTransaction begin];
-    self.sceneView.allowsCameraControl = NO;
-    [SCNTransaction setCompletionBlock:^{
-        self.sceneView.pointOfView = _defaultCamera;
-        [streamCamera removeFromParentNode];
-        self.sceneView.allowsCameraControl = YES;
-    }];
-    [streamCamera addAnimation:positionAnimation forKey:@"position"];
-    [SCNTransaction commit];
-}
+//-(void)startVisualization:(double)time
+//{
+//    FLStream *selectedStream = self.appFrameController.model.streams.selectedStream;
+//    NSArray *anchorPoints = [selectedStream.anchorPointsCollection anchorPoints];
+//    NSMutableArray *scnPoints = [NSMutableArray new];
+//    
+//    [anchorPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        id<FLAnchorPointProtocol> anchorPoint = obj;
+//        [scnPoints addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
+//    }];
+//    
+//    SCNNode *streamCamera = [SCNNode node];
+//    streamCamera.camera = [SCNCamera camera];
+//    streamCamera.camera.usesOrthographicProjection = NO;
+//    streamCamera.camera.zFar = 1000;
+//    streamCamera.position = [[selectedStream.anchorPointsCollection anchorPointForId:1] position];
+//    [self.sceneView.scene.rootNode addChildNode:streamCamera];
+//    self.sceneView.pointOfView = streamCamera;
+//    
+//    NSUInteger totalFrames = time * 24;
+//    
+//    CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+//    NSMutableArray *positionAnimationPoints = [NSMutableArray new];
+//    
+//    for(NSUInteger i = 0; i < totalFrames; i++)
+//    {
+//        FLStreamView *view = [self viewForStream:selectedStream];
+//        SCNVector3 interpolatedPosition = [view.curveInterpolator interpolatePoints:scnPoints atTime:(double) i / totalFrames];
+//        [positionAnimationPoints addObject:[NSValue valueWithSCNVector3:interpolatedPosition]];
+//    }
+//    positionAnimation.values = positionAnimationPoints;
+//    positionAnimation.duration = time;
+//    positionAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+//    
+//    SCNConstraint *constraint = [SCNLookAtConstraint lookAtConstraintWithTarget:_tempNode];
+//    streamCamera.constraints = @[constraint];
+//    
+//    [SCNTransaction begin];
+//    self.sceneView.allowsCameraControl = NO;
+//    [SCNTransaction setCompletionBlock:^{
+//        self.sceneView.pointOfView = _defaultCamera;
+//        [streamCamera removeFromParentNode];
+//        self.sceneView.allowsCameraControl = YES;
+//    }];
+//    [streamCamera addAnimation:positionAnimation forKey:@"position"];
+//    [SCNTransaction commit];
+//}
 
 #pragma mark - Anchor Points add/delete
 

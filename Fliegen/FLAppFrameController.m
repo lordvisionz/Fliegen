@@ -11,7 +11,9 @@
 #import "FLConstants.h"
 
 #import "FLSceneView.h"
+#import "FLSceneViewController.h"
 #import "FLUtilityPaneController.h"
+#import "FLSimulationVisualizationTimeController.h"
 
 @implementation FLAppFrameController
 
@@ -25,7 +27,8 @@
 
 -(void)awakeFromNib
 {
-
+    [_sceneEditorToolbarItem.toolbar setSelectedItemIdentifier:_sceneEditorToolbarItem.itemIdentifier];
+    [_editorPlaceholderView setSubviews:@[_sceneViewController.view]];
 }
 
 - (IBAction)toggleUtilitiesPanel:(id)sender
@@ -44,18 +47,30 @@
     }
 }
 
+- (IBAction)toggleEditor:(id)sender
+{
+    if(sender == _sceneEditorToolbarItem)
+    {
+        [_editorPlaceholderView setSubviews:@[_sceneViewController.view]];
+    }
+    else
+    {
+        [_editorPlaceholderView setSubviews:@[_simVisTimeViewController.view]];
+    }
+}
+
 #pragma mark - Toolbar delegate
 
 -(NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
-    return nil;
+    return @[_sceneEditorToolbarItem.itemIdentifier, _simulationEditorToolbarItem.itemIdentifier];
 }
 
 #pragma mark - Split View delegate
 
 -(BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview
 {
-    return ([subview isKindOfClass:[FLSceneView class]] == NO);
+    return subview != _editorPlaceholderView;
 }
 
 -(CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex
@@ -72,7 +87,7 @@
 
 -(BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)view
 {
-    return ([view isKindOfClass:[FLSceneView class]] == YES);
+    return view == _editorPlaceholderView;
 }
 
 -(void)splitViewDidResizeSubviews:(NSNotification *)notification

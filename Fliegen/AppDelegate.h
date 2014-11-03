@@ -18,9 +18,6 @@
 
 
 
-@property (unsafe_unretained) IBOutlet FLSceneViewController *anchorPointsViewController;
-
-
 @property (unsafe_unretained) IBOutlet FLUtilityPaneController *utilityPaneController;
 
 @end

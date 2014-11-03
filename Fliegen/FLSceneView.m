@@ -36,9 +36,14 @@
     [super mouseUp:theEvent];
 }
 
--(void)renderer:(id<SCNSceneRenderer>)aRenderer willRenderScene:(SCNScene *)scene atTime:(NSTimeInterval)time
+-(void)rightMouseDown:(NSEvent *)theEvent
 {
-    
+    [_controller rightMouseDown:theEvent];
+}
+
+-(void)viewDidMoveToSuperview
+{
+    self.frame = self.superview.frame;
 }
 
 @end
