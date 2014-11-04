@@ -40,17 +40,26 @@
     [_utilityViewPane.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSUInteger selectedSegment = _utilityPaneSegmentedControl.selectedSegment;
     if(selectedSegment == 0)
+    {
         [_utilityViewPane addSubview:_fliegenPropertiesController.view];
+        _appFrameController.sceneEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.sceneEditorToolbarItem.itemIdentifier;
+    }
     else if(selectedSegment == 1)
+    {
         [_utilityViewPane addSubview:_streamsPropertiesController.view];
+        _appFrameController.sceneEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.sceneEditorToolbarItem.itemIdentifier;
+    }
     else if(selectedSegment == 2)
+    {
         [_utilityViewPane addSubview:_anchorPointsPropertiesPaneController.view];
+        _appFrameController.sceneEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.sceneEditorToolbarItem.itemIdentifier;
+    }
     else if(selectedSegment == 3)
     {
         [_utilityViewPane addSubview:_simVisPropertiesController.view];
         _appFrameController.simulationEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.simulationEditorToolbarItem.itemIdentifier;
-        [_appFrameController toggleEditor:nil];
     }
+    [_appFrameController toggleEditor:nil];
     [self.view setNeedsDisplay:YES];
 }
 
