@@ -10,7 +10,7 @@
 
 @class FLAppFrameController;
 
-@interface FLSimulationVisualizationTimeController : NSViewController
+@interface FLSimulationVisualizationViewController : NSViewController
 
 @property (weak) IBOutlet FLAppFrameController *appFrameController;
 

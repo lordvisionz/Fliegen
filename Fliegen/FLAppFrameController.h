@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <SceneKit/SceneKit.h>
 
-@class FLUtilityPaneController, FLSceneViewController, FLSimulationVisualizationTimeController, FLModel;
+@class FLUtilityPaneController, FLSceneViewController, FLSimulationVisualizationViewController, FLModel;
 
 @interface FLAppFrameController : NSObject<NSSplitViewDelegate, NSToolbarDelegate>
 
@@ -18,7 +18,7 @@
 @property (weak) IBOutlet NSSplitView *splitView;
 
 @property (weak) IBOutlet FLSceneViewController *sceneViewController;
-@property (weak) IBOutlet FLSimulationVisualizationTimeController *simVisTimeViewController;
+@property (weak) IBOutlet FLSimulationVisualizationViewController *simVisTimeViewController;
 @property (weak) IBOutlet FLUtilityPaneController *utilityPanelController;
 
 @property (weak) IBOutlet NSView *editorPlaceholderView;

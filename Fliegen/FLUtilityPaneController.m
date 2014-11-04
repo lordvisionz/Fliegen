@@ -7,9 +7,12 @@
 //
 
 #import "FLUtilityPaneController.h"
+
+#import "FLAppFrameController.h"
 #import "FLUtilityPaneAnchorPointsViewController.h"
 #import "FLUtilityPaneFliegenViewController.h"
 #import "FLUtilityPaneStreamsViewController.h"
+#import "FLUtilityPaneSimVisViewController.h"
 
 @interface FLUtilityPaneController ()
 
@@ -42,7 +45,12 @@
         [_utilityViewPane addSubview:_streamsPropertiesController.view];
     else if(selectedSegment == 2)
         [_utilityViewPane addSubview:_anchorPointsPropertiesPaneController.view];
-    
+    else if(selectedSegment == 3)
+    {
+        [_utilityViewPane addSubview:_simVisPropertiesController.view];
+        _appFrameController.simulationEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.simulationEditorToolbarItem.itemIdentifier;
+        [_appFrameController toggleEditor:nil];
+    }
     [self.view setNeedsDisplay:YES];
 }
 

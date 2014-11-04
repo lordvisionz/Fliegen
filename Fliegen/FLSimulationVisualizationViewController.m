@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Abhishek Moothedath. All rights reserved.
 //
 
-#import "FLSimulationVisualizationTimeController.h"
+#import "FLSimulationVisualizationViewController.h"
 
 #import "FLSimulationVisualizationView.h"
 
-@interface FLSimulationVisualizationTimeController ()
+@interface FLSimulationVisualizationViewController ()
 
 @end
 
-@implementation FLSimulationVisualizationTimeController
+@implementation FLSimulationVisualizationViewController
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {

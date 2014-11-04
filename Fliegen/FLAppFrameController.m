@@ -13,7 +13,7 @@
 #import "FLSceneView.h"
 #import "FLSceneViewController.h"
 #import "FLUtilityPaneController.h"
-#import "FLSimulationVisualizationTimeController.h"
+#import "FLSimulationVisualizationViewController.h"
 
 @implementation FLAppFrameController
 
@@ -49,13 +49,24 @@
 
 - (IBAction)toggleEditor:(id)sender
 {
-    if(sender == _sceneEditorToolbarItem)
+    
+    if([_sceneEditorToolbarItem.toolbar.selectedItemIdentifier isEqualToString:_sceneEditorToolbarItem.itemIdentifier])
     {
         [_editorPlaceholderView setSubviews:@[_sceneViewController.view]];
+        if(_utilityPanelController.utilityPaneSegmentedControl.selectedSegment == 3)
+        {
+            _utilityPanelController.utilityPaneSegmentedControl.selectedSegment = 1;
+            [_utilityPanelController switchUtilityPaneTab:nil];
+        }
     }
-    else
+    else if([_simulationEditorToolbarItem.toolbar.selectedItemIdentifier isEqualToString:_simulationEditorToolbarItem.itemIdentifier])
     {
         [_editorPlaceholderView setSubviews:@[_simVisTimeViewController.view]];
+        if(_utilityPanelController.utilityPaneSegmentedControl.selectedSegment != 3)
+        {
+            _utilityPanelController.utilityPaneSegmentedControl.selectedSegment = 3;
+            [_utilityPanelController switchUtilityPaneTab:nil];
+        }
     }
 }
 

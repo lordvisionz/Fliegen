@@ -8,17 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FLUtilityPaneAnchorPointsViewController, FLAppFrameController, FLUtilityPaneFliegenViewController, FLUtilityPaneStreamsViewController;
+@class FLUtilityPaneAnchorPointsViewController, FLAppFrameController, FLUtilityPaneFliegenViewController, FLUtilityPaneStreamsViewController,
+FLUtilityPaneSimVisViewController;
 
 @interface FLUtilityPaneController : NSViewController
 
 @property (weak) IBOutlet FLAppFrameController *appFrameController;
 
 @property (weak) IBOutlet NSSegmentedControl *utilityPaneSegmentedControl;
+@property (weak) IBOutlet NSView *utilityViewPane;
+
 @property (weak) IBOutlet FLUtilityPaneAnchorPointsViewController *anchorPointsPropertiesPaneController;
 @property (weak) IBOutlet FLUtilityPaneFliegenViewController *fliegenPropertiesController;
-@property (weak) IBOutlet NSView *utilityViewPane;
 @property (weak) IBOutlet FLUtilityPaneStreamsViewController *streamsPropertiesController;
+@property (weak) IBOutlet FLUtilityPaneSimVisViewController *simVisPropertiesController;
 
 - (IBAction)switchUtilityPaneTab:(id)sender;
 

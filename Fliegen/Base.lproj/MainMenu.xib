@@ -680,7 +680,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="780"/>
                                     </customView>
                                     <segmentedControl verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpf-8J-lIa">
-                                        <rect key="frame" x="0.0" y="778" width="88" height="23"/>
+                                        <rect key="frame" x="0.0" y="778" width="120" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="MKT-c1-TBh"/>
                                         </constraints>
@@ -694,6 +694,9 @@
                                                     <nil key="label"/>
                                                 </segment>
                                                 <segment toolTip="Anchor points" image="NSListViewTemplate" imageScaling="none">
+                                                    <nil key="label"/>
+                                                </segment>
+                                                <segment toolTip="Simulation Visualization Properties" image="NSFlowViewTemplate" imageScaling="none">
                                                     <nil key="label"/>
                                                 </segment>
                                             </segments>
@@ -945,6 +948,7 @@
                 <outlet property="anchorPointsPropertiesPaneController" destination="4oR-t1-Ym5" id="vMr-sE-S3O"/>
                 <outlet property="appFrameController" destination="i3n-kY-zXf" id="jA9-3B-sFA"/>
                 <outlet property="fliegenPropertiesController" destination="rGt-DU-HZe" id="Efh-Qh-qVK"/>
+                <outlet property="simVisPropertiesController" destination="MQD-S1-4A0" id="bTk-WY-B0L"/>
                 <outlet property="streamsPropertiesController" destination="Env-MU-9bF" id="AV8-NK-kec"/>
                 <outlet property="utilityPaneSegmentedControl" destination="xpf-8J-lIa" id="bWv-zq-DBI"/>
                 <outlet property="utilityViewPane" destination="qUb-ui-Ofg" id="cdn-pP-nxE"/>
@@ -956,7 +960,7 @@
                 <outlet property="appFrameController" destination="i3n-kY-zXf" id="CVf-2M-kQO"/>
             </connections>
         </viewController>
-        <viewController id="anX-aR-HGd" customClass="FLSimulationVisualizationTimeController">
+        <viewController id="anX-aR-HGd" customClass="FLSimulationVisualizationViewController">
             <connections>
                 <outlet property="appFrameController" destination="i3n-kY-zXf" id="X1h-F6-Sbk"/>
             </connections>
@@ -996,6 +1000,11 @@
                 <outlet property="streamsVisibilityCheckBox" destination="Rz2-Ri-pHy" id="3pn-fK-clM"/>
                 <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="lUi-0B-5c3"/>
                 <outlet property="view" destination="20j-7I-Q7x" id="bhz-Lr-wFH"/>
+            </connections>
+        </viewController>
+        <viewController id="MQD-S1-4A0" customClass="FLUtilityPaneSimVisViewController">
+            <connections>
+                <outlet property="view" destination="1rR-fg-eS9" id="NXj-aI-G3g"/>
             </connections>
         </viewController>
         <userDefaultsController representsSharedInstance="YES" id="3PE-Ee-X5Q"/>
@@ -1286,6 +1295,10 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+        </customView>
+        <customView id="1rR-fg-eS9" userLabel="Sim/Vis Properties Pane">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="780"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
         </customView>
     </objects>
     <resources>

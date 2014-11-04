@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		711C998E19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 711C998D19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m */; };
 		711C999119BD4FEF00D02B3A /* FLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 711C999019BD4FEF00D02B3A /* FLModel.m */; };
-		711F436D1A06D27500BBB8DA /* FLSimulationVisualizationTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 711F436C1A06D27500BBB8DA /* FLSimulationVisualizationTimeController.m */; };
+		711F436D1A06D27500BBB8DA /* FLSimulationVisualizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 711F436C1A06D27500BBB8DA /* FLSimulationVisualizationViewController.m */; };
 		713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE52C18C00707001E05EF /* FLAnchorPoint.m */; };
 		713FE53B18C019D0001E05EF /* FLAppFrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53A18C019D0001E05EF /* FLAppFrameController.m */; };
 		713FE54018C057DF001E05EF /* FLUtilityPaneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 713FE53F18C057DF001E05EF /* FLUtilityPaneController.m */; };
 		715EDFD619E774D60014C185 /* FLStreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 715EDFD519E774D60014C185 /* FLStreamView.m */; };
 		715FFFA219EC5ACA006553DF /* FLFlatBezierCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */; };
 		716228061A0710A400529697 /* FLSimulationVisualizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 716228051A0710A400529697 /* FLSimulationVisualizationView.m */; };
+		716228091A0718E200529697 /* FLUtilityPaneSimVisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 716228081A0718E200529697 /* FLUtilityPaneSimVisViewController.m */; };
 		717CBE8118E666B100D9CBEB /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717CBE8018E666B100D9CBEB /* GLKit.framework */; };
 		717CBE8718E7AE2E00D9CBEB /* FLAnchorPointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */; };
 		717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 717CBE8918E7BEE900D9CBEB /* FLAnchorPointsCollection.m */; };
@@ -62,8 +63,8 @@
 		711C998D19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneAnchorPointsViewController.m; sourceTree = "<group>"; };
 		711C998F19BD4FEF00D02B3A /* FLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLModel.h; sourceTree = "<group>"; };
 		711C999019BD4FEF00D02B3A /* FLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLModel.m; sourceTree = "<group>"; };
-		711F436B1A06D27500BBB8DA /* FLSimulationVisualizationTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSimulationVisualizationTimeController.h; sourceTree = "<group>"; };
-		711F436C1A06D27500BBB8DA /* FLSimulationVisualizationTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSimulationVisualizationTimeController.m; sourceTree = "<group>"; };
+		711F436B1A06D27500BBB8DA /* FLSimulationVisualizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSimulationVisualizationViewController.h; sourceTree = "<group>"; };
+		711F436C1A06D27500BBB8DA /* FLSimulationVisualizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSimulationVisualizationViewController.m; sourceTree = "<group>"; };
 		713FE52B18C00707001E05EF /* FLAnchorPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPoint.h; sourceTree = "<group>"; };
 		713FE52C18C00707001E05EF /* FLAnchorPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPoint.m; sourceTree = "<group>"; };
 		713FE53918C019D0001E05EF /* FLAppFrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAppFrameController.h; sourceTree = "<group>"; };
@@ -81,6 +82,8 @@
 		715FFFA719EC656C006553DF /* FLAnchorPointsCollectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointsCollectionProtocol.h; sourceTree = "<group>"; };
 		716228041A0710A400529697 /* FLSimulationVisualizationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSimulationVisualizationView.h; sourceTree = "<group>"; };
 		716228051A0710A400529697 /* FLSimulationVisualizationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSimulationVisualizationView.m; sourceTree = "<group>"; };
+		716228071A0718E200529697 /* FLUtilityPaneSimVisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUtilityPaneSimVisViewController.h; sourceTree = "<group>"; };
+		716228081A0718E200529697 /* FLUtilityPaneSimVisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneSimVisViewController.m; sourceTree = "<group>"; };
 		717CBE8018E666B100D9CBEB /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		717CBE8518E7AE2E00D9CBEB /* FLAnchorPointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnchorPointView.h; sourceTree = "<group>"; };
 		717CBE8618E7AE2E00D9CBEB /* FLAnchorPointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnchorPointView.m; sourceTree = "<group>"; };
@@ -219,11 +222,13 @@
 				711C998D19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m */,
 				71AB497D19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.h */,
 				71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */,
+				716228071A0718E200529697 /* FLUtilityPaneSimVisViewController.h */,
+				716228081A0718E200529697 /* FLUtilityPaneSimVisViewController.m */,
 				71A9B58518C3EACB00788605 /* FLSceneViewController.h */,
 				71A9B58618C3EACB00788605 /* FLSceneViewController.m */,
 				71ED48E719EB22E000231E71 /* FLSceneViewController_FLPrivateHelpers.h */,
-				711F436B1A06D27500BBB8DA /* FLSimulationVisualizationTimeController.h */,
-				711F436C1A06D27500BBB8DA /* FLSimulationVisualizationTimeController.m */,
+				711F436B1A06D27500BBB8DA /* FLSimulationVisualizationViewController.h */,
+				711F436C1A06D27500BBB8DA /* FLSimulationVisualizationViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				71EFAC5A18BE8B7600BCE88E /* AppDelegate.m in Sources */,
 				713FE52D18C00707001E05EF /* FLAnchorPoint.m in Sources */,
 				71CD915D19E433A9007913B3 /* FLGridlines.m in Sources */,
+				716228091A0718E200529697 /* FLUtilityPaneSimVisViewController.m in Sources */,
 				71ED013219F067C70033C9E0 /* FLBSplinesCurve.m in Sources */,
 				717D9BC619E4896C006E3198 /* FLUtilityPaneStreamsViewController.m in Sources */,
 				71997BC919F4319E00CEC885 /* FLUtilities.m in Sources */,
@@ -454,7 +460,7 @@
 				71A1011E19EDABF300AC918E /* FLCurveNode.m in Sources */,
 				71EFAC5318BE8B7600BCE88E /* main.m in Sources */,
 				71ED48E619E8455B00231E71 /* FLSelectionHandles.m in Sources */,
-				711F436D1A06D27500BBB8DA /* FLSimulationVisualizationTimeController.m in Sources */,
+				711F436D1A06D27500BBB8DA /* FLSimulationVisualizationViewController.m in Sources */,
 				717CBE8A18E7BEE900D9CBEB /* FLAnchorPointsCollection.m in Sources */,
 				711C998E19BD294800D02B3A /* FLUtilityPaneAnchorPointsViewController.m in Sources */,
 				717D9BCC19E4C821006E3198 /* FLStream.m in Sources */,
