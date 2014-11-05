@@ -82,4 +82,12 @@ NSString *const FLStreamDeletedNotification = @"FLStreamDeletedNotification";
     return _streams.count;
 }
 
+-(NSArray *)streamsWithStreamType:(FLStreamType)streamType
+{
+    return [_streams objectsAtIndexes:[_streams indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop)
+    {
+        return ([obj streamType] == streamType);  
+    }]];
+}
+
 @end

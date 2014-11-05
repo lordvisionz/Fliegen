@@ -8,6 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FLUtilityPaneSimVisViewController : NSViewController
+@class FLUtilityPaneController;
+
+@interface FLUtilityPaneSimVisViewController : NSViewController<NSComboBoxDataSource, NSComboBoxDelegate>
+
+@property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
+
+
+@property (weak) IBOutlet NSComboBox *cameraPositionsComboBox;
+@property (weak) IBOutlet NSComboBox *cameraLookAtComboBox;
 
 @end

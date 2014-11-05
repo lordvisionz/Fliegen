@@ -26,4 +26,6 @@
 
 -(BOOL)deleteSelectedStream;
 
+-(NSArray*)streamsWithStreamType:(FLStreamType)streamType;
+
 @end

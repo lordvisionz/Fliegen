@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class FLStreamsCollection;
+#import "FLStreamsCollectionProtocol.h"
 
 @interface FLModel : NSObject
 
-@property (readonly, retain) FLStreamsCollection *streams;
+@property (readonly, retain) id<FLStreamsCollectionProtocol> streams;
 
 @end

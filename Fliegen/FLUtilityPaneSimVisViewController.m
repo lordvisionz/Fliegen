@@ -7,6 +7,10 @@
 //
 
 #import "FLUtilityPaneSimVisViewController.h"
+#import "FLUtilityPaneController.h"
+#import "FLAppFrameController.h"
+#import "FLModel.h"
+#import "FLStreamsCollectionProtocol.h"
 
 @interface FLUtilityPaneSimVisViewController ()
 
@@ -14,6 +18,17 @@
 
 @implementation FLUtilityPaneSimVisViewController
 
+-(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
+{
+    id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
+    return [streams streamsWithStreamType:(aComboBox == _cameraPositionsComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt].count;
+}
 
+-(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
+{
+    id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
+    id<FLStreamProtocol> stream = [[streams streamsWithStreamType:(aComboBox == _cameraPositionsComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt] objectAtIndex:index];
+    return [NSNumber numberWithInteger:[stream streamId]];
+}
 
 @end
