@@ -33,6 +33,5 @@
 - (IBAction)streamsSelectabilityChanged:(id)sender;
 - (IBAction)streamColorChanged:(id)sender;
 - (IBAction)streamInterpolationChanged:(id)sender;
-- (IBAction)startVisualization:(id)sender;
 
 @end

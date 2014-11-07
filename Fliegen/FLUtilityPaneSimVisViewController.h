@@ -18,4 +18,6 @@
 @property (weak) IBOutlet NSComboBox *cameraPositionsComboBox;
 @property (weak) IBOutlet NSComboBox *cameraLookAtComboBox;
 
+-(void)viewDidAppear;
+
 @end

@@ -58,6 +58,7 @@
     {
         [_utilityViewPane addSubview:_simVisPropertiesController.view];
         _appFrameController.simulationEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.simulationEditorToolbarItem.itemIdentifier;
+        [_simVisPropertiesController viewDidAppear];
     }
     [_appFrameController toggleEditor:nil];
     [self.view setNeedsDisplay:YES];

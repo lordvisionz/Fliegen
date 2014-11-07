@@ -31,4 +31,16 @@
     return [NSNumber numberWithInteger:[stream streamId]];
 }
 
+-(void)viewDidAppear
+{
+    [_cameraLookAtComboBox reloadData];
+    [_cameraPositionsComboBox reloadData];
+    
+    if(_cameraLookAtComboBox.numberOfItems > 0)
+       [_cameraLookAtComboBox selectItemAtIndex:0];
+    
+    if(_cameraPositionsComboBox.numberOfItems > 0)
+        [_cameraPositionsComboBox selectItemAtIndex:0];
+}
+
 @end
