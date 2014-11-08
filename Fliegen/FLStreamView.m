@@ -89,14 +89,7 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if([keyPath isEqualToString:NSStringFromSelector(@selector(streamType))] == YES)
-    {
-        if(_stream.streamType == FLStreamTypePosition)
-           [self addChildNode:_curveNode];
-        else if(_stream.streamType == FLStreamTypeLookAt)
-                [_curveNode removeFromParentNode];
-    }
-    else if([keyPath isEqualToString:NSStringFromSelector(@selector(streamVisualType)) ] == YES)
+    if([keyPath isEqualToString:NSStringFromSelector(@selector(streamVisualType)) ] == YES)
     {
         [self.childNodes makeObjectsPerformSelector:@selector(updateGeometry)];
     }
