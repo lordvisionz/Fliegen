@@ -104,6 +104,7 @@
 -(void)splitViewDidResizeSubviews:(NSNotification *)notification
 {
     [_propertiesToolbarItem setLabel:([_splitView isSubviewCollapsed:_utilityPanelController.view] == YES) ? @"Show Properties" : @"Hide Properties" ];
+    [_editorPlaceholderView setNeedsDisplay:YES];
 }
 
 @end

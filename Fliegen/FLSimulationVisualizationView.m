@@ -8,13 +8,24 @@
 
 #import "FLSimulationVisualizationView.h"
 
+#import "FLSimulationVisualizationViewController.h"
+
 @implementation FLSimulationVisualizationView
 
 - (void)drawRect:(NSRect)dirtyRect
 {
     [super drawRect:dirtyRect];
+    [[NSColor whiteColor] set];
+    NSRectFill(self.frame);
     
-    // Drawing code here.
+    [self drawSimViz];
+}
+
+-(void)drawSimViz
+{
+    NSSize size = self.frame.size;
+    
+    
 }
 
 -(void)viewDidMoveToSuperview

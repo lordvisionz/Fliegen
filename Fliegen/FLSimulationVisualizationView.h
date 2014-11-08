@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class FLSimulationVisualizationViewController;
+
 @interface FLSimulationVisualizationView : NSView
+
+@property (weak) FLSimulationVisualizationViewController *controller;
 
 @end

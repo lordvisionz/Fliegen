@@ -7,11 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FLStreamProtocol.h"
 
 @class FLAppFrameController;
 
 @interface FLSimulationVisualizationViewController : NSViewController
 
 @property (weak) IBOutlet FLAppFrameController *appFrameController;
+
+@property (readonly) id<FLStreamProtocol> selectedCameraStream;
+
+@property (readonly) id<FLStreamProtocol> selectedCameraLookAt;
 
 @end

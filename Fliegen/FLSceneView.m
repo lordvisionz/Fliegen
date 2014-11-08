@@ -11,12 +11,6 @@
 
 @implementation FLSceneView
 
-- (void)drawRect:(NSRect)dirtyRect
-{
-	[super drawRect:dirtyRect];
-}
-
-
 -(void)mouseDown:(NSEvent *)theEvent
 {
     [_controller mouseDown:theEvent];

@@ -33,13 +33,13 @@ NSString *const FLStreamDeletedNotification = @"FLStreamDeletedNotification";
     return self;
 }
 
--(FLStream *)streamForId:(NSUInteger)streamId
+-(id<FLStreamProtocol>)streamForId:(NSUInteger)streamId
 {
     if(streamId > _streams.count) return nil;
     return [_streams objectAtIndex:(streamId - 1)];
 }
 
--(FLStream *)streamForIndex:(NSUInteger)index
+-(id<FLStreamProtocol>)streamForIndex:(NSUInteger)index
 {
     if(index >= _streams.count) return nil;
     return [_streams objectAtIndex:index];
