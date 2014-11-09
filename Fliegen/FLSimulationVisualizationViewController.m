@@ -18,7 +18,9 @@
 #import "FLSimulationVisualizationView.h"
 
 @interface FLSimulationVisualizationViewController ()
-
+{
+    FLSimulationVisualizationView *_simVisView;
+}
 @end
 
 @implementation FLSimulationVisualizationViewController
@@ -27,10 +29,11 @@
 {
     self = [super initWithCoder:aDecoder];
     
-    FLSimulationVisualizationView *simVisView = [[FLSimulationVisualizationView alloc] initWithFrame:NSZeroRect];
-    simVisView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _simVisView = [[FLSimulationVisualizationView alloc] initWithFrame:NSZeroRect];
+    _simVisView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     
-    self.view = simVisView;
+    self.view = _simVisView;
+    _simVisView.controller = self;
     return self;
 }
 
@@ -40,6 +43,8 @@
                                                object:_appFrameController.utilityPanelController.simVisPropertiesController.cameraPositionsComboBox];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraLookAtChanged:) name:NSComboBoxSelectionDidChangeNotification
                                                object:_appFrameController.utilityPanelController.simVisPropertiesController.cameraLookAtComboBox];
+    [_simVisView updateSimulationLine];
+    [_simVisView updateVisualizationLine];
 }
 
 -(void)selectedCameraStreamChanged:(NSNotification*)notification
@@ -51,6 +56,7 @@
         NSNumber *streamNumber = [combobox.dataSource comboBox:combobox objectValueForItemAtIndex:combobox.indexOfSelectedItem];
         NSUInteger selectedStream = [streamNumber unsignedIntegerValue];
         _selectedCameraStream = [_appFrameController.model.streams streamForId:selectedStream];
+        [_simVisView updateVisualizationLine];
     }
 }
 
@@ -63,6 +69,7 @@
         NSNumber *streamNumber = [combobox.dataSource comboBox:combobox objectValueForItemAtIndex:combobox.indexOfSelectedItem];
         NSUInteger selectedStream = [streamNumber unsignedIntegerValue];
         _selectedCameraLookAt = [_appFrameController.model.streams streamForId:selectedStream];
+        [_simVisView updateSimulationLine];
     }
 }
 
