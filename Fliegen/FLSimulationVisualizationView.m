@@ -81,11 +81,7 @@
         [circlePath stroke];
         [_visualizationPoints addObject:circlePath];
     }
-    
-    
-    
-    
-    
+    [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + 100), NSHeight(self.frame))];
     [self setNeedsDisplay:YES];
 }
 
@@ -130,6 +126,7 @@
         [circlePath stroke];
         [_simulationPoints addObject:circlePath];
     }
+    [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + 100), NSHeight(self.frame))];
     [self setNeedsDisplay:YES];
 }
 

@@ -29,10 +29,17 @@
 {
     self = [super initWithCoder:aDecoder];
     
+    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
+    scrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    scrollView.autoresizesSubviews = YES;
+    scrollView.hasHorizontalScroller = YES;
+    
     _simVisView = [[FLSimulationVisualizationView alloc] initWithFrame:NSZeroRect];
     _simVisView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    
-    self.view = _simVisView;
+  
+    scrollView.documentView = _simVisView;
+    self.view = scrollView;
+//    self.view = _simVisView;
     _simVisView.controller = self;
     return self;
 }
@@ -72,5 +79,7 @@
         [_simVisView updateSimulationLine];
     }
 }
+
+
 
 @end

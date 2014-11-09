@@ -61,6 +61,7 @@
     }
     else if([_simulationEditorToolbarItem.toolbar.selectedItemIdentifier isEqualToString:_simulationEditorToolbarItem.itemIdentifier])
     {
+        _simVisTimeViewController.view.frame = _editorPlaceholderView.frame;
         [_editorPlaceholderView setSubviews:@[_simVisTimeViewController.view]];
         if(_utilityPanelController.utilityPaneSegmentedControl.selectedSegment != 3)
         {
