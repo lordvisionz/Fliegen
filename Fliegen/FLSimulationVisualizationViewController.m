@@ -29,7 +29,7 @@
 {
     self = [super initWithCoder:aDecoder];
     
-    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
+    NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSZeroRect];
     scrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     scrollView.autoresizesSubviews = YES;
     scrollView.hasHorizontalScroller = YES;
@@ -39,7 +39,7 @@
   
     scrollView.documentView = _simVisView;
     self.view = scrollView;
-//    self.view = _simVisView;
+
     _simVisView.controller = self;
     return self;
 }
@@ -47,9 +47,9 @@
 -(void)awakeFromNib
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraStreamChanged:) name:NSComboBoxSelectionDidChangeNotification
-                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.cameraPositionsComboBox];
+                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.visualizationStreamComboBox];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraLookAtChanged:) name:NSComboBoxSelectionDidChangeNotification
-                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.cameraLookAtComboBox];
+                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.simulationStreamComboBox];
     [_simVisView updateSimulationLine];
     [_simVisView updateVisualizationLine];
 }

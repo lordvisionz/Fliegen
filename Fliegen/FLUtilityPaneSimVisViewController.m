@@ -10,37 +10,53 @@
 #import "FLUtilityPaneController.h"
 #import "FLAppFrameController.h"
 #import "FLModel.h"
+#import "FLConstants.h"
+
 #import "FLStreamsCollectionProtocol.h"
 
 @interface FLUtilityPaneSimVisViewController ()
-
+{
+    FLVisualizationSimulationScaleFactor _visualizationScaleFactor;
+    FLVisualizationSimulationScaleFactor _simulationScaleFactor;
+}
 @end
 
 @implementation FLUtilityPaneSimVisViewController
 
+-(void)awakeFromNib
+{
+    _visualizationStartTimeTextField.doubleValue = FL_VISUALIZATION_START_TIME_DEFAULT;
+    _visualizationEndTimeTextField.doubleValue = FL_VISUALIZATION_START_TIME_DEFAULT + FL_MIN_VISUALIZATION_TIME_DURATION;
+    [_visualizationScaleFactorButton selectItemAtIndex:FLVisualizationSimulationScaleFactor100Pixels];
+    
+    _simulationStartTimeTextField.doubleValue = FL_SIMULATION_START_TIME_DEFAULT;
+    _simulationEndTimeTextField.doubleValue = FL_SIMULATION_START_TIME_DEFAULT + FL_MIN_SIMULATION_TIME_DURATION;
+    [_simulationScaleFactorButton selectItemAtIndex:FLVisualizationSimulationScaleFactor100Pixels];
+}
+
 -(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
     id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
-    return [streams streamsWithStreamType:(aComboBox == _cameraPositionsComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt].count;
+    return [streams streamsWithStreamType:(aComboBox == _visualizationStreamComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt].count;
 }
 
 -(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
     id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
-    id<FLStreamProtocol> stream = [[streams streamsWithStreamType:(aComboBox == _cameraPositionsComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt] objectAtIndex:index];
+    id<FLStreamProtocol> stream = [[streams streamsWithStreamType:(aComboBox == _visualizationStreamComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt] objectAtIndex:index];
     return [NSNumber numberWithInteger:[stream streamId]];
 }
 
 -(void)viewDidAppear
 {
-    [_cameraLookAtComboBox reloadData];
-    [_cameraPositionsComboBox reloadData];
+    [_simulationStreamComboBox reloadData];
+    [_visualizationStreamComboBox reloadData];
     
-    if(_cameraLookAtComboBox.numberOfItems > 0)
-       [_cameraLookAtComboBox selectItemAtIndex:0];
+    if(_simulationStreamComboBox.numberOfItems > 0)
+       [_simulationStreamComboBox selectItemAtIndex:0];
     
-    if(_cameraPositionsComboBox.numberOfItems > 0)
-        [_cameraPositionsComboBox selectItemAtIndex:0];
+    if(_visualizationStreamComboBox.numberOfItems > 0)
+        [_visualizationStreamComboBox selectItemAtIndex:0];
 }
 
 @end

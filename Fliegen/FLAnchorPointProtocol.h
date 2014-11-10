@@ -19,4 +19,6 @@
 
 @property(readwrite) SCNVector3 position;
 
+@property(readwrite) double sampleTime;
+
 @end

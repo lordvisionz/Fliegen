@@ -21,8 +21,8 @@
 @property (weak) IBOutlet NSColorWell *streamColorPicker;
 @property (weak) IBOutlet NSButton *streamsVisibilityCheckBox;
 @property (weak) IBOutlet NSButton *streamsSelectabilityCheckBox;
-@property (weak) IBOutlet NSButton *visualizationButton;
-@property (weak) IBOutlet NSTextField *visualizationTime;
+//@property (weak) IBOutlet NSButton *visualizationButton;
+//@property (weak) IBOutlet NSTextField *visualizationTime;
 
 - (IBAction)appendStream:(id)sender;
 

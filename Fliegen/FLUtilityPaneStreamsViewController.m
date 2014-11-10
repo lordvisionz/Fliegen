@@ -41,7 +41,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(anchorPointWasDeleted:)
                                                 name:FLAnchorPointDeletedNotification object:nil];
     
-    [_visualizationTime setDoubleValue:10];
+//    [_visualizationTime setDoubleValue:10];
 }
 
 -(void)dealloc
