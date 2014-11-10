@@ -14,6 +14,7 @@
 #import "FLModel.h"
 #import "FLStreamProtocol.h"
 #import "FLStreamsCollectionProtocol.h"
+#import "FLCurrentSimulatorProtocol.h"
 
 #import "FLSimulationVisualizationView.h"
 
@@ -46,12 +47,40 @@
 
 -(void)awakeFromNib
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraStreamChanged:) name:NSComboBoxSelectionDidChangeNotification
-                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.visualizationStreamComboBox];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraLookAtChanged:) name:NSComboBoxSelectionDidChangeNotification
-                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.simulationStreamComboBox];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraStreamChanged:) name:NSComboBoxSelectionDidChangeNotification
+//                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.visualizationStreamComboBox];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraLookAtChanged:) name:NSComboBoxSelectionDidChangeNotification
+//                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.simulationStreamComboBox];
+    NSObject<FLCurrentSimulatorProtocol> *currentSimulator = _appFrameController.model.simulator;
+    [currentSimulator addObserver:self forKeyPath:NSStringFromSelector(@selector(visualizationStream))
+                          options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
+    [currentSimulator addObserver:self forKeyPath:NSStringFromSelector(@selector(simulationStream))
+                          options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     [_simVisView updateSimulationLine];
     [_simVisView updateVisualizationLine];
+}
+
+-(void)dealloc
+{
+    NSObject<FLCurrentSimulatorProtocol> *currentSimulator = _appFrameController.model.simulator;
+    [currentSimulator removeObserver:self forKeyPath:NSStringFromSelector(@selector(visualizationStream))];
+    [currentSimulator removeObserver:self forKeyPath:NSStringFromSelector(@selector(simulationStream))];
+}
+
+#pragma mark - KVO/Notifications
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:NSStringFromSelector(@selector(visualizationStream))] == YES)
+    {
+        _selectedCameraStream = _appFrameController.model.simulator.visualizationStream;
+        [_simVisView updateVisualizationLine];
+    }
+    else if([keyPath isEqualToString:NSStringFromSelector(@selector(simulationStream))] == YES)
+    {
+        _selectedCameraLookAt = _appFrameController.model.simulator.simulationStream;
+        [_simVisView updateSimulationLine];
+    }
 }
 
 -(void)selectedCameraStreamChanged:(NSNotification*)notification

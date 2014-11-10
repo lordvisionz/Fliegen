@@ -8,6 +8,7 @@
 
 #import "FLModel.h"
 #import "FLStreamsCollection.h"
+#import "FLCurrentSimulator.h"
 
 @implementation FLModel
 
@@ -15,6 +16,7 @@
 {
     self = [super init];
     _streams = [[FLStreamsCollection alloc] init];
+    _simulator = [[FLCurrentSimulator alloc] init];
     
     return self;
 }

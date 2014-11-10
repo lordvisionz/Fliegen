@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 #import "FLStreamsCollectionProtocol.h"
+#import "FLCurrentSimulatorProtocol.h"
 
 @interface FLModel : NSObject
 
 @property (readonly, retain) id<FLStreamsCollectionProtocol> streams;
+@property (readonly, retain) id<FLCurrentSimulatorProtocol> simulator;
 
 @end

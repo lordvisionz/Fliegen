@@ -30,6 +30,7 @@
 		71A5FFB819E1CA5C006A99BD /* FLAxisNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A5FFB719E1CA5C006A99BD /* FLAxisNode.m */; };
 		71A9B58418C3E3CC00788605 /* FLSceneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58318C3E3CC00788605 /* FLSceneView.m */; };
 		71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A9B58618C3EACB00788605 /* FLSceneViewController.m */; };
+		71AADA011A10681F00CBED0F /* FLCurrentSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 71AADA001A10681F00CBED0F /* FLCurrentSimulator.m */; };
 		71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */; };
 		71CD915D19E433A9007913B3 /* FLGridlines.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CD915C19E433A9007913B3 /* FLGridlines.m */; };
 		71ED013219F067C70033C9E0 /* FLBSplinesCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 71ED013119F067C70033C9E0 /* FLBSplinesCurve.m */; };
@@ -107,6 +108,9 @@
 		71A9B58318C3E3CC00788605 /* FLSceneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSceneView.m; sourceTree = "<group>"; };
 		71A9B58518C3EACB00788605 /* FLSceneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLSceneViewController.h; sourceTree = "<group>"; };
 		71A9B58618C3EACB00788605 /* FLSceneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLSceneViewController.m; sourceTree = "<group>"; };
+		71AAD9FE1A1067CB00CBED0F /* FLCurrentSimulatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCurrentSimulatorProtocol.h; sourceTree = "<group>"; };
+		71AAD9FF1A10681F00CBED0F /* FLCurrentSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLCurrentSimulator.h; sourceTree = "<group>"; };
+		71AADA001A10681F00CBED0F /* FLCurrentSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLCurrentSimulator.m; sourceTree = "<group>"; };
 		71AB497D19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLUtilityPaneFliegenViewController.h; sourceTree = "<group>"; };
 		71AB497E19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLUtilityPaneFliegenViewController.m; sourceTree = "<group>"; };
 		71CD915B19E433A9007913B3 /* FLGridlines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLGridlines.h; sourceTree = "<group>"; };
@@ -182,6 +186,8 @@
 				715FFFA119EC5ACA006553DF /* FLFlatBezierCurve.m */,
 				71ED013019F067C70033C9E0 /* FLBSplinesCurve.h */,
 				71ED013119F067C70033C9E0 /* FLBSplinesCurve.m */,
+				71AAD9FF1A10681F00CBED0F /* FLCurrentSimulator.h */,
+				71AADA001A10681F00CBED0F /* FLCurrentSimulator.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -241,6 +247,7 @@
 				715EDFD319E7733E0014C185 /* FLStreamProtocol.h */,
 				715EDFD219E772EE0014C185 /* FLAnchorPointProtocol.h */,
 				715FFF9F19EC538C006553DF /* FLCurveInterpolationProtocol.h */,
+				71AAD9FE1A1067CB00CBED0F /* FLCurrentSimulatorProtocol.h */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -455,6 +462,7 @@
 				715EDFD619E774D60014C185 /* FLStreamView.m in Sources */,
 				717D9BC919E4C7F8006E3198 /* FLStreamsCollection.m in Sources */,
 				71AB497F19DC8D6600DC46B3 /* FLUtilityPaneFliegenViewController.m in Sources */,
+				71AADA011A10681F00CBED0F /* FLCurrentSimulator.m in Sources */,
 				715FFFA219EC5ACA006553DF /* FLFlatBezierCurve.m in Sources */,
 				71A9B58718C3EACB00788605 /* FLSceneViewController.m in Sources */,
 				71A1011E19EDABF300AC918E /* FLCurveNode.m in Sources */,

@@ -13,6 +13,7 @@
 #import "FLConstants.h"
 
 #import "FLStreamsCollectionProtocol.h"
+#import "FLCurrentSimulatorProtocol.h"
 
 @interface FLUtilityPaneSimVisViewController ()
 {
@@ -45,6 +46,23 @@
     id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
     id<FLStreamProtocol> stream = [[streams streamsWithStreamType:(aComboBox == _visualizationStreamComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt] objectAtIndex:index];
     return [NSNumber numberWithInteger:[stream streamId]];
+}
+
+-(void)comboBoxSelectionDidChange:(NSNotification *)notification
+{
+    id combobox = notification.object;
+    id<FLCurrentSimulatorProtocol> currentSimulator = _utilityPaneController.appFrameController.model.simulator;
+
+    if(combobox == _visualizationStreamComboBox)
+    {
+        NSNumber *streamNumber = [self comboBox:combobox objectValueForItemAtIndex:[combobox indexOfSelectedItem]];
+        currentSimulator.visualizationStream = [_utilityPaneController.appFrameController.model.streams streamForId:streamNumber.unsignedIntegerValue];
+    }
+    else if(combobox == _simulationStreamComboBox)
+    {
+        NSNumber *streamNumber = [self comboBox:combobox objectValueForItemAtIndex:[combobox indexOfSelectedItem]];
+        currentSimulator.simulationStream = [_utilityPaneController.appFrameController.model.streams streamForId:streamNumber.unsignedIntegerValue];
+    }
 }
 
 -(void)viewDidAppear
