@@ -10,14 +10,6 @@
 
 @class FLUtilityPaneController;
 
-typedef NS_ENUM(unsigned short, FLVisualizationSimulationScaleFactor)
-{
-    FLVisualizationSimulationScaleFactor25Pixels = 0,
-    FLVisualizationSimulationScaleFactor50Pixels = 1,
-    FLVisualizationSimulationScaleFactor100Pixels = 2,
-    FLVisualizationSimulationScaleFactor200Pixels = 3
-};
-
 @interface FLUtilityPaneSimVisViewController : NSViewController<NSComboBoxDataSource, NSComboBoxDelegate>
 
 @property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
