@@ -47,10 +47,6 @@
 
 -(void)awakeFromNib
 {
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraStreamChanged:) name:NSComboBoxSelectionDidChangeNotification
-//                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.visualizationStreamComboBox];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedCameraLookAtChanged:) name:NSComboBoxSelectionDidChangeNotification
-//                                               object:_appFrameController.utilityPanelController.simVisPropertiesController.simulationStreamComboBox];
     NSObject<FLCurrentSimulatorProtocol> *currentSimulator = _appFrameController.model.simulator;
     [currentSimulator addObserver:self forKeyPath:NSStringFromSelector(@selector(visualizationStream))
                           options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
@@ -73,42 +69,12 @@
 {
     if([keyPath isEqualToString:NSStringFromSelector(@selector(visualizationStream))] == YES)
     {
-        _selectedCameraStream = _appFrameController.model.simulator.visualizationStream;
         [_simVisView updateVisualizationLine];
     }
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(simulationStream))] == YES)
     {
-        _selectedCameraLookAt = _appFrameController.model.simulator.simulationStream;
         [_simVisView updateSimulationLine];
     }
 }
-
--(void)selectedCameraStreamChanged:(NSNotification*)notification
-{
-    NSComboBox *combobox = notification.object;
-
-    if([combobox.dataSource comboBox:combobox objectValueForItemAtIndex:combobox.indexOfSelectedItem] != nil)
-    {
-        NSNumber *streamNumber = [combobox.dataSource comboBox:combobox objectValueForItemAtIndex:combobox.indexOfSelectedItem];
-        NSUInteger selectedStream = [streamNumber unsignedIntegerValue];
-        _selectedCameraStream = [_appFrameController.model.streams streamForId:selectedStream];
-        [_simVisView updateVisualizationLine];
-    }
-}
-
--(void)selectedCameraLookAtChanged:(NSNotification*)notification
-{
-    NSComboBox *combobox = notification.object;
-    
-    if([combobox.dataSource comboBox:combobox objectValueForItemAtIndex:combobox.indexOfSelectedItem] != nil)
-    {
-        NSNumber *streamNumber = [combobox.dataSource comboBox:combobox objectValueForItemAtIndex:combobox.indexOfSelectedItem];
-        NSUInteger selectedStream = [streamNumber unsignedIntegerValue];
-        _selectedCameraLookAt = [_appFrameController.model.streams streamForId:selectedStream];
-        [_simVisView updateSimulationLine];
-    }
-}
-
-
 
 @end

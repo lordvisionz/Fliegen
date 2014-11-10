@@ -7,18 +7,21 @@
 //
 
 #import "FLAnchorPoint.h"
+#import "FLStreamProtocol.h"
 
 @implementation FLAnchorPoint
 
 @synthesize anchorPointID = _anchorPointID;
 @synthesize position = _position;
 @synthesize stream = _stream;
+@synthesize sampleTime = _sampleTime;
 
 -(id)initWithStream:(id<FLStreamProtocol>)stream
 {
     self = [super init];
     
     _stream = stream;
+    _sampleTime = [[_stream anchorPointsCollection] anchorPoints].count;
     return self;
 }
 

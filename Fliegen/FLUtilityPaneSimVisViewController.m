@@ -35,6 +35,8 @@
     [_simulationScaleFactorButton selectItemAtIndex:FLVisualizationSimulationScaleFactor100Pixels];
 }
 
+#pragma mark - Combobox delegate/datasource
+
 -(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
     id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
@@ -64,6 +66,8 @@
         currentSimulator.simulationStream = [_utilityPaneController.appFrameController.model.streams streamForId:streamNumber.unsignedIntegerValue];
     }
 }
+
+#pragma mark - public helpers
 
 -(void)viewDidAppear
 {

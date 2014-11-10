@@ -9,8 +9,12 @@
 #import "FLSimulationVisualizationView.h"
 
 #import "FLSimulationVisualizationViewController.h"
+#import "FLAppFrameController.h"
+
+#import "FLModel.h"
 #import "FLStreamProtocol.h"
 #import "FLAnchorPointsCollectionProtocol.h"
+#import "FLCurrentSimulatorProtocol.h"
 
 #import "FLConstants.h"
 
@@ -51,7 +55,8 @@
     _visualizationLine = [NSBezierPath bezierPath];
     _visualizationPoints = [NSMutableArray new];
 
-    NSUInteger numberOfVisualizationPoints = [_controller.selectedCameraStream.anchorPointsCollection anchorPoints].count;
+    id<FLCurrentSimulatorProtocol> simulator = _controller.appFrameController.model.simulator;
+    NSUInteger numberOfVisualizationPoints = [simulator.visualizationStream.anchorPointsCollection anchorPoints].count;
     if(numberOfVisualizationPoints == 0)
         return;
     
@@ -65,7 +70,7 @@
     
     _visualizationLine.lineWidth = 5;
     _visualizationLine.lineCapStyle = NSRoundLineCapStyle;
-    [_controller.selectedCameraStream.streamVisualColor set];
+    [simulator.visualizationStream.streamVisualColor set];
     [_visualizationLine stroke];
     
     for(NSUInteger i = 0; i < numberOfVisualizationPoints; i++)
@@ -74,7 +79,7 @@
         NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
         circlePath.lineWidth = 3;
 
-        [_controller.selectedCameraStream.streamVisualColor setFill];
+        [simulator.visualizationStream.streamVisualColor setFill];
         [circlePath fill];
 
         [[NSColor whiteColor]setStroke];
@@ -95,7 +100,8 @@
     _simulationLine = [NSBezierPath new];
     _simulationPoints = [NSMutableArray new];
     
-    NSUInteger numberOfSimulationPoints = _controller.selectedCameraLookAt.anchorPointsCollection.anchorPoints.count;
+    id<FLCurrentSimulatorProtocol> simulator = _controller.appFrameController.model.simulator;
+    NSUInteger numberOfSimulationPoints = simulator.simulationStream.anchorPointsCollection.anchorPoints.count;
     if(numberOfSimulationPoints == 0)
         return;
     
@@ -110,7 +116,7 @@
     _simulationLine.lineWidth = 5;
     _simulationLine.lineCapStyle = NSRoundLineCapStyle;
     
-    [_controller.selectedCameraLookAt.streamVisualColor set];
+    [simulator.simulationStream.streamVisualColor set];
     [_simulationLine stroke];
     
     for(NSUInteger i = 0; i < numberOfSimulationPoints; i++)
@@ -119,7 +125,7 @@
         NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
         circlePath.lineWidth = 3;
         
-        [_controller.selectedCameraLookAt.streamVisualColor setFill];
+        [simulator.simulationStream.streamVisualColor setFill];
         [[NSColor whiteColor] setStroke];
         
         [circlePath fill];
