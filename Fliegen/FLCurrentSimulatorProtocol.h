@@ -12,6 +12,11 @@
 @protocol FLCurrentSimulatorProtocol <NSObject>
 
 @property (readwrite, nonatomic) id<FLStreamProtocol> visualizationStream;
+@property (readwrite, nonatomic) double visualizationStartTime;
+@property (readwrite, nonatomic) double visualizationEndTime;
+
 @property (readwrite, nonatomic) id<FLStreamProtocol> simulationStream;
+@property (readwrite, nonatomic) double simulationStartTime;
+@property (readwrite, nonatomic) double simulationEndTime;
 
 @end

@@ -52,8 +52,8 @@
                           options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     [currentSimulator addObserver:self forKeyPath:NSStringFromSelector(@selector(simulationStream))
                           options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
-    [_simVisView updateSimulationLine];
-    [_simVisView updateVisualizationLine];
+    [_simVisView updateSimulationStreamView];
+    [_simVisView updateVisualizationStreamView];
 }
 
 -(void)dealloc
@@ -69,11 +69,11 @@
 {
     if([keyPath isEqualToString:NSStringFromSelector(@selector(visualizationStream))] == YES)
     {
-        [_simVisView updateVisualizationLine];
+        [_simVisView updateVisualizationStreamView];
     }
     else if([keyPath isEqualToString:NSStringFromSelector(@selector(simulationStream))] == YES)
     {
-        [_simVisView updateSimulationLine];
+        [_simVisView updateSimulationStreamView];
     }
 }
 

@@ -14,8 +14,8 @@
 
 @property (weak) FLSimulationVisualizationViewController *controller;
 
--(void)updateVisualizationLine;
+-(void)updateVisualizationStreamView;
 
--(void)updateSimulationLine;
+-(void)updateSimulationStreamView;
 
 @end

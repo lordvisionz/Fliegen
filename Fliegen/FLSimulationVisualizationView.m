@@ -42,11 +42,11 @@
 
 -(void)drawSimViz
 {
-    [self updateVisualizationLine];
-    [self updateSimulationLine];
+    [self updateVisualizationStreamView];
+    [self updateSimulationStreamView];
 }
 
--(void)updateVisualizationLine
+-(void)updateVisualizationStreamView
 {
     if(self.superview == nil)
     {
@@ -90,7 +90,7 @@
     [self setNeedsDisplay:YES];
 }
 
--(void)updateSimulationLine
+-(void)updateSimulationStreamView
 {
     if(self.superview == nil)
     {
