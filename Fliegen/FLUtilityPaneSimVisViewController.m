@@ -36,15 +36,49 @@
 
 -(NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
-    id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
-    return [streams streamsWithStreamType:(aComboBox == _visualizationStreamComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt].count;
+    if(aComboBox == _visualizationStreamComboBox || aComboBox == _simulationStreamComboBox)
+    {
+        id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
+        return [streams streamsWithStreamType:(aComboBox == _visualizationStreamComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt].count;
+    }
+    else if(aComboBox == _visualizationStreamSelectedAnchorPointComboBox)
+    {
+        id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
+        return simulator.visualizationStream.anchorPointsCollection.anchorPoints.count + 1;
+    }
+    else if(aComboBox == _simulationSelectedAnchorPointComboBox)
+    {
+        id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
+        return simulator.simulationStream.anchorPointsCollection.anchorPoints.count + 1;
+    }
+    return 0;
 }
 
 -(id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
-    id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
-    id<FLStreamProtocol> stream = [[streams streamsWithStreamType:(aComboBox == _visualizationStreamComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt] objectAtIndex:index];
-    return [NSNumber numberWithInteger:[stream streamId]];
+    if(aComboBox == _visualizationStreamComboBox || aComboBox == _simulationStreamComboBox)
+    {
+        id<FLStreamsCollectionProtocol> streams = _utilityPaneController.appFrameController.model.streams;
+        id<FLStreamProtocol> stream = [[streams streamsWithStreamType:(aComboBox == _visualizationStreamComboBox) ? FLStreamTypePosition : FLStreamTypeLookAt] objectAtIndex:index];
+        return [NSNumber numberWithInteger:[stream streamId]];
+    }
+    else if(aComboBox == _visualizationStreamSelectedAnchorPointComboBox)
+    {
+        id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
+        if(index == 0) return @"No Selection";
+        
+        id<FLAnchorPointProtocol> anchorPoint = [simulator.visualizationStream.anchorPointsCollection anchorPointForId:index];
+        return [NSNumber numberWithUnsignedInteger:anchorPoint.anchorPointID];
+    }
+    else if (aComboBox == _simulationSelectedAnchorPointComboBox)
+    {
+        id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
+        if(index == 0) return @"No Selection";
+        
+        id<FLAnchorPointProtocol> anchorPoint = [simulator.simulationStream.anchorPointsCollection anchorPointForId:index];
+        return [NSNumber numberWithUnsignedInteger:anchorPoint.anchorPointID];
+    }
+    return nil;
 }
 
 -(void)comboBoxSelectionDidChange:(NSNotification *)notification
@@ -58,6 +92,9 @@
         currentSimulator.visualizationStream = [_utilityPaneController.appFrameController.model.streams streamForId:streamNumber.unsignedIntegerValue];
         id<FLAnchorPointProtocol> anchorPoint = [currentSimulator.visualizationStream.anchorPointsCollection.anchorPoints lastObject];
         [self.visualizationEndTimeTextField setDoubleValue:MAX(anchorPoint.sampleTime, FL_MIN_VISUALIZATION_TIME_DURATION)];
+        
+        [_visualizationStreamSelectedAnchorPointComboBox reloadData];
+        [_visualizationStreamSelectedAnchorPointComboBox selectItemAtIndex:0];
     }
     else if(combobox == _simulationStreamComboBox)
     {
@@ -65,6 +102,9 @@
         currentSimulator.simulationStream = [_utilityPaneController.appFrameController.model.streams streamForId:streamNumber.unsignedIntegerValue];
         id<FLAnchorPointProtocol> anchorPoint = [currentSimulator.simulationStream.anchorPointsCollection.anchorPoints lastObject];
         [self.simulationEndTimeTextField setDoubleValue:MAX(anchorPoint.sampleTime, FL_MIN_SIMULATION_TIME_DURATION)];
+        
+        [_simulationSelectedAnchorPointComboBox reloadData];
+        [_simulationSelectedAnchorPointComboBox selectItemAtIndex:0];
     }
 }
 
