@@ -67,7 +67,11 @@
     [_visualizationPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSBezierPath *anchorPoint = obj;
         [simulator.visualizationStream.streamVisualColor setFill];
-        [[NSColor whiteColor]setStroke];
+        if(idx == (simulator.selectedVisualizationAnchorPoint.anchorPointID - 1))
+            [[NSColor darkGrayColor]setStroke];
+        else
+            [[NSColor whiteColor]setStroke];
+        
         [anchorPoint fill];
         [anchorPoint stroke];
     }];
@@ -90,7 +94,10 @@
     [_simulationPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSBezierPath *anchorPoint = obj;
         [simulator.simulationStream.streamVisualColor setFill];
-        [[NSColor whiteColor]setStroke];
+        if(idx == (simulator.selectedSimulationAnchorPoint.anchorPointID - 1))
+            [[NSColor darkGrayColor] setStroke];
+        else
+            [[NSColor whiteColor]setStroke];
         [anchorPoint fill];
         [anchorPoint stroke];
     }];

@@ -49,6 +49,7 @@ NSString *const FLSimulationStreamPropertyChangedNotification = @"FLSimulationSt
                                               options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
         
         _selectedVisualizationAnchorPoint = selectedVisualizationAnchorPoint;
+        [[NSNotificationCenter defaultCenter] postNotificationName:FLVisualizationStreamPropertyChangedNotification object:self];
     }
 }
 
@@ -62,6 +63,7 @@ NSString *const FLSimulationStreamPropertyChangedNotification = @"FLSimulationSt
                                            options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
         
         _selectedSimulationAnchorPoint = selectedSimulationAnchorPoint;
+        [[NSNotificationCenter defaultCenter] postNotificationName:FLSimulationStreamPropertyChangedNotification object:self];
     }
 }
 
