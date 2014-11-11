@@ -10,7 +10,7 @@
 
 @class FLUtilityPaneController;
 
-@interface FLUtilityPaneSimVisViewController : NSViewController<NSComboBoxDataSource, NSComboBoxDelegate>
+@interface FLUtilityPaneSimVisViewController : NSViewController<NSComboBoxDataSource, NSComboBoxDelegate, NSTextFieldDelegate>
 
 @property (weak) IBOutlet FLUtilityPaneController *utilityPaneController;
 

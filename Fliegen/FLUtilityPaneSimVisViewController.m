@@ -106,6 +106,45 @@
         [_simulationSelectedAnchorPointComboBox reloadData];
         [_simulationSelectedAnchorPointComboBox selectItemAtIndex:0];
     }
+    else if(combobox == _visualizationStreamSelectedAnchorPointComboBox)
+    {
+        NSUInteger index = [_visualizationStreamSelectedAnchorPointComboBox indexOfSelectedItem];
+        [currentSimulator setSelectedVisualizationAnchorPoint:(index == 0) ? nil : [currentSimulator.visualizationStream.anchorPointsCollection anchorPointForId:index]];
+        [_visualizationAnchorPointTimeTextField setEnabled:(index > 0)];
+        _visualizationAnchorPointTimeTextField.doubleValue = currentSimulator.selectedVisualizationAnchorPoint.sampleTime;
+        
+    }
+    else if(combobox == _simulationSelectedAnchorPointComboBox)
+    {
+        NSUInteger index = [_simulationSelectedAnchorPointComboBox indexOfSelectedItem];
+        [currentSimulator setSelectedSimulationAnchorPoint:(index == 0) ? nil : [currentSimulator.simulationStream.anchorPointsCollection anchorPointForId:index]];
+        [_simulationAnchorPointTimeTextField setEnabled:(index > 0)];
+        _simulationAnchorPointTimeTextField.doubleValue = currentSimulator.selectedSimulationAnchorPoint.sampleTime;
+    }
+}
+
+#pragma mark - NSTextField delegate
+
+-(BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector
+{
+    if(commandSelector == @selector(insertNewline:))
+    {
+        id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
+        
+        if(control == _visualizationAnchorPointTimeTextField)
+        {
+            [simulator.selectedVisualizationAnchorPoint setSampleTime:_visualizationAnchorPointTimeTextField.doubleValue];
+            _visualizationAnchorPointTimeTextField.doubleValue = simulator.selectedVisualizationAnchorPoint.sampleTime;
+            
+        }
+        else if(control == _simulationAnchorPointTimeTextField)
+        {
+            [simulator.selectedSimulationAnchorPoint setSampleTime:_simulationAnchorPointTimeTextField.doubleValue];
+            _simulationAnchorPointTimeTextField.doubleValue = simulator.selectedSimulationAnchorPoint.sampleTime;
+        }
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - public helpers

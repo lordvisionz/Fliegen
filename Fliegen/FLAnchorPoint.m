@@ -30,4 +30,20 @@
     
 }
 
+-(void)setSampleTime:(double)sampleTime
+{
+    double previousSampleTime = (_anchorPointID == 1) ? 0 : [_stream.anchorPointsCollection anchorPointForId:(_anchorPointID - 1)].sampleTime;
+    double nextSampleTime = (_anchorPointID == _stream.anchorPointsCollection.anchorPoints.count) ?
+    DBL_MAX : [_stream.anchorPointsCollection anchorPointForId:(_anchorPointID + 1)].sampleTime;
+    
+    if(sampleTime < _sampleTime)
+    {
+        _sampleTime = MAX(sampleTime, previousSampleTime);
+    }
+    else if(sampleTime > _sampleTime)
+    {
+        _sampleTime = MIN(sampleTime, nextSampleTime);
+    }
+}
+
 @end

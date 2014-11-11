@@ -15,8 +15,4 @@
 
 @property (weak) IBOutlet FLAppFrameController *appFrameController;
 
-//@property (readonly) id<FLStreamProtocol> selectedCameraStream;
-
-//@property (readonly) id<FLStreamProtocol> selectedCameraLookAt;
-
 @end

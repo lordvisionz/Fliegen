@@ -54,6 +54,11 @@
                           options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew) context:NULL];
     [_simVisView updateSimulationStreamView];
     [_simVisView updateVisualizationStreamView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(visualizationPropertyChanged:)
+                                                 name:FLVisualizationStreamPropertyChangedNotification object:currentSimulator];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(simulationPropertyChanged:)
+                                                 name:FLSimulationStreamPropertyChangedNotification object:currentSimulator];
 }
 
 -(void)dealloc
@@ -75,6 +80,16 @@
     {
         [_simVisView updateSimulationStreamView];
     }
+}
+
+-(void)visualizationPropertyChanged:(NSNotification*)notification
+{
+    [_simVisView updateVisualizationStreamView];
+}
+
+-(void)simulationPropertyChanged:(NSNotification*)notification
+{
+    [_simVisView updateSimulationStreamView];
 }
 
 @end

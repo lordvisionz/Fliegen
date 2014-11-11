@@ -1510,6 +1510,10 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="MQD-S1-4A0" id="d83-z0-fbs"/>
+                        <outlet property="formatter" destination="T85-2t-1Lf" id="9uL-Ft-EWa"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-G2-lvU">
                     <rect key="frame" x="60" y="580" width="116" height="17"/>
@@ -1546,6 +1550,10 @@
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="MQD-S1-4A0" id="Ech-Wc-GFx"/>
+                        <outlet property="formatter" destination="T85-2t-1Lf" id="YSh-ca-ohY"/>
+                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2bU-Wy-NGy">
                     <rect key="frame" x="60" y="373" width="116" height="17"/>
