@@ -64,6 +64,13 @@
         tickLabelPosition.x -= tickLabel.size.width / 2;
         [tickLabel drawAtPoint:tickLabelPosition];
     }];
+    [_visualizationPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSBezierPath *anchorPoint = obj;
+        [simulator.visualizationStream.streamVisualColor setFill];
+        [[NSColor whiteColor]setStroke];
+        [anchorPoint fill];
+        [anchorPoint stroke];
+    }];
     
     [simulator.simulationStream.streamVisualColor set];
     [_simulationLine stroke];
@@ -79,6 +86,13 @@
         NSPoint tickLabelPosition = [obj pointValue];
         tickLabelPosition.x -= tickLabel.size.width / 2;
         [tickLabel drawAtPoint:tickLabelPosition];
+    }];
+    [_simulationPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSBezierPath *anchorPoint = obj;
+        [simulator.simulationStream.streamVisualColor setFill];
+        [[NSColor whiteColor]setStroke];
+        [anchorPoint fill];
+        [anchorPoint stroke];
     }];
 }
 
@@ -129,19 +143,16 @@
         [_visualizationTicks addObject:tickAtHalfSecondMark];
     }
     
-//    for(NSUInteger i = 0; i < numberOfVisualizationPoints; i++)
-//    {
-//        NSRect anchorPointRect = NSMakeRect(100 + i * FL_SIMULATION_VISUALIZATION_WIDTH_BETWEEN_POINTS - 10, yOrigin - 10, 20, 20);
-//        NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
-//        circlePath.lineWidth = 3;
-//
-//        [simulator.visualizationStream.streamVisualColor setFill];
-//        [circlePath fill];
-//
-//        [[NSColor whiteColor]setStroke];
-//        [circlePath stroke];
-//        [_visualizationPoints addObject:circlePath];
-//    }
+    for(NSUInteger i = 0; i < numberOfVisualizationPoints; i++)
+    {
+        id<FLAnchorPointProtocol> anchorPoint = [simulator.visualizationStream.anchorPointsCollection anchorPointForIndex:i];
+        double visualizationTime = anchorPoint.sampleTime;
+        NSRect anchorPointRect = NSMakeRect(100 + visualizationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
+        NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
+        circlePath.lineWidth = 3;
+        [_visualizationPoints addObject:circlePath];
+    }
+    
     [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + 100), NSHeight(self.frame))];
     [self setNeedsDisplay:YES];
 }
@@ -193,19 +204,15 @@
         [_simulationTicks addObject:tickAtHalfSecondMark];
     }
     
-//    for(NSUInteger i = 0; i < numberOfSimulationPoints; i++)
-//    {
-//        NSRect anchorPointRect = NSMakeRect(100 + i * FL_SIMULATION_VISUALIZATION_WIDTH_BETWEEN_POINTS - 10, yOrigin - 10, 20, 20);
-//        NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
-//        circlePath.lineWidth = 3;
-//        
-//        [simulator.simulationStream.streamVisualColor setFill];
-//        [[NSColor whiteColor] setStroke];
-//        
-//        [circlePath fill];
-//        [circlePath stroke];
-//        [_simulationPoints addObject:circlePath];
-//    }
+    for(NSUInteger i = 0; i < numberOfSimulationPoints; i++)
+    {
+        id<FLAnchorPointProtocol> anchorPoint = [simulator.simulationStream.anchorPointsCollection anchorPointForIndex:i];
+        double simulationTime = anchorPoint.sampleTime;
+        NSRect anchorPointRect = NSMakeRect(100 + simulationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
+        NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
+        circlePath.lineWidth = 3;
+        [_simulationPoints addObject:circlePath];
+    }
     [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + 100), NSHeight(self.frame))];
     [self setNeedsDisplay:YES];
 }
