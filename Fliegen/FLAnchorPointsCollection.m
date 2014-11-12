@@ -37,7 +37,7 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
 
 -(FLAnchorPoint *)anchorPointForId:(NSUInteger)anchorPointId
 {
-    if(anchorPointId > _anchorPoints.count) return nil;
+    if(anchorPointId > _anchorPoints.count || anchorPointId == 0) return nil;
     
     return [_anchorPoints objectAtIndex:(anchorPointId - 1)];
 }

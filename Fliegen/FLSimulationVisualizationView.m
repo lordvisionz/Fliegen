@@ -19,6 +19,13 @@
 #import "FLConstants.h"
 #import "FLUtilities.m"
 
+typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
+{
+    FLSimVizViewSelectionTypeNone = 0,
+    FLVisualizationAnchorPoint = 1,
+    FLSimulationAnchorPoint = 2
+};
+
 @interface FLSimulationVisualizationView()
 {
     NSBezierPath *_visualizationLine;
@@ -30,11 +37,26 @@
     NSMutableArray *_simulationPoints;
     NSMutableArray *_simulationTicks;
     NSMutableDictionary *_simulationTickLabels;
+    
+    BOOL _isInThreeMethodApproach;
+    FLSimVizViewSelectionType _selectionType;
 }
 
 @end
 
 @implementation FLSimulationVisualizationView
+
+-(id)initWithFrame:(NSRect)frameRect
+{
+    self = [super initWithFrame:frameRect];
+    
+    _isInThreeMethodApproach = NO;
+    _selectionType = FLSimVizViewSelectionTypeNone;
+    
+    return self;
+}
+
+#pragma mark - NSView overrides
 
 - (void)drawRect:(NSRect)dirtyRect
 {
@@ -44,6 +66,94 @@
     
     [self drawSimViz];
 }
+
+-(void)viewDidMoveToSuperview
+{
+    self.frame = self.superview.frame;
+}
+
+-(BOOL)isFlipped
+{
+    return YES;
+}
+
+#pragma mark - NSResponder overrides
+
+-(void)mouseDown:(NSEvent *)theEvent
+{
+    id<FLCurrentSimulatorProtocol> simulator = _controller.appFrameController.model.simulator;
+    NSPoint pointInRect = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    
+    NSUInteger index = [_visualizationPoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        NSBezierPath *anchorPoint = obj;
+        if([anchorPoint containsPoint:pointInRect] == YES)
+        {
+            _isInThreeMethodApproach = YES;
+            _selectionType = FLVisualizationAnchorPoint;
+            return YES;
+        }
+        return NO;
+    }];
+    
+    if(index != NSNotFound)
+        [simulator setSelectedVisualizationAnchorPoint:[simulator.visualizationStream.anchorPointsCollection anchorPointForIndex:index]];
+    
+    index = [_simulationPoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        NSBezierPath *anchorPoint = obj;
+        if([anchorPoint containsPoint:pointInRect] == YES)
+        {
+            _isInThreeMethodApproach = YES;
+            _selectionType = FLSimulationAnchorPoint;
+            return YES;
+        }
+        return NO;
+    }];
+    if(index != NSNotFound)
+        simulator.selectedSimulationAnchorPoint = [simulator.simulationStream.anchorPointsCollection anchorPointForIndex:index];
+}
+
+-(void)mouseDragged:(NSEvent *)theEvent
+{
+    if(_isInThreeMethodApproach == NO) return;
+    
+    id<FLCurrentSimulatorProtocol> simulator = _controller.appFrameController.model.simulator;
+
+    NSPoint pointInRect = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    double xPos = pointInRect.x - FL_SIMULATION_VISUALIZATION_BORDER;
+    double pixelsPerSecond = FLEditorScaleFactorToPixels(FLVisualizationSimulationScaleFactor100Pixels);
+    
+    double sampleTime = xPos / pixelsPerSecond;
+    
+    id<FLAnchorPointProtocol> selectedAnchorPoint = (_selectionType == FLVisualizationAnchorPoint) ?
+    simulator.selectedVisualizationAnchorPoint : simulator.selectedSimulationAnchorPoint;
+    
+    id<FLStreamProtocol> stream = selectedAnchorPoint.stream;
+    
+    double previousSampleTime = 0, nextSampleTime = DBL_MAX;
+    
+    if(selectedAnchorPoint.anchorPointID > 1)
+        previousSampleTime = [[stream.anchorPointsCollection anchorPointForId:selectedAnchorPoint.anchorPointID - 1] sampleTime];
+    
+    if(selectedAnchorPoint.anchorPointID < [[stream.anchorPointsCollection.anchorPoints lastObject] anchorPointID])
+        nextSampleTime = [[stream.anchorPointsCollection anchorPointForId:selectedAnchorPoint.anchorPointID + 1] sampleTime];
+    
+    sampleTime = MAX(sampleTime, previousSampleTime);
+    sampleTime = MIN(sampleTime, nextSampleTime);
+    
+    selectedAnchorPoint.sampleTime = sampleTime;
+    
+    if(_selectionType == FLVisualizationAnchorPoint)
+        [self updateVisualizationStreamView];
+    else if(_selectionType == FLSimulationAnchorPoint)
+        [self updateSimulationStreamView];
+}
+
+-(void)mouseUp:(NSEvent *)theEvent
+{
+    _isInThreeMethodApproach = NO;
+}
+
+#pragma mark - Rendering helpers
 
 -(void)drawSimViz
 {
@@ -103,6 +213,8 @@
     }];
 }
 
+#pragma mark - Public
+
 -(void)updateVisualizationStreamView
 {
     _visualizationLine = [NSBezierPath bezierPath];
@@ -121,8 +233,8 @@
     NSUInteger endTime = ceil(simulator.visualizationEndTime);
     double pixelsPerSecond = FLEditorScaleFactorToPixels(FLVisualizationSimulationScaleFactor100Pixels);
     
-    NSPoint startPoint = NSMakePoint(100 , yOrigin);
-    NSPoint endPoint = NSMakePoint(100 + (endTime - startTime) * pixelsPerSecond, yOrigin);
+    NSPoint startPoint = NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER , yOrigin);
+    NSPoint endPoint = NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER + (endTime - startTime) * pixelsPerSecond, yOrigin);
     
     [_visualizationLine moveToPoint:startPoint];
     [_visualizationLine lineToPoint:endPoint];
@@ -132,13 +244,14 @@
 
     for(NSUInteger i = startTime; i <= endTime; i++)
     {
-        double xPos = 100 + pixelsPerSecond * i;
+        double xPos = FL_SIMULATION_VISUALIZATION_BORDER + pixelsPerSecond * i;
         NSBezierPath *tickAtSecondMark = [NSBezierPath bezierPath];
         [tickAtSecondMark moveToPoint:NSMakePoint(xPos, yOrigin)];
         [tickAtSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + 12)];
         [_visualizationTicks addObject:tickAtSecondMark];
         
-        NSAttributedString *tickLabel = [[NSAttributedString alloc] initWithString:[[NSNumberFormatter new] stringFromNumber:[NSNumber numberWithUnsignedInteger:i]]];
+        NSAttributedString *tickLabel = [[NSAttributedString alloc] initWithString:[[NSNumberFormatter new]
+                                                                  stringFromNumber:[NSNumber numberWithUnsignedInteger:i]]];
         [_visualizationTickLabels setObject:[NSValue valueWithPoint:NSMakePoint(xPos, yOrigin + 12)] forKey:tickLabel];
         
         if(i == startTime) continue;
@@ -154,13 +267,13 @@
     {
         id<FLAnchorPointProtocol> anchorPoint = [simulator.visualizationStream.anchorPointsCollection anchorPointForIndex:i];
         double visualizationTime = anchorPoint.sampleTime;
-        NSRect anchorPointRect = NSMakeRect(100 + visualizationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
+        NSRect anchorPointRect = NSMakeRect(FL_SIMULATION_VISUALIZATION_BORDER + visualizationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
         NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
         circlePath.lineWidth = 3;
         [_visualizationPoints addObject:circlePath];
     }
     
-    [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + 100), NSHeight(self.frame))];
+    [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + FL_SIMULATION_VISUALIZATION_BORDER), NSHeight(self.frame))];
     [self setNeedsDisplay:YES];
 }
 
@@ -182,8 +295,8 @@
     NSUInteger endTime = ceil(simulator.simulationEndTime);
     double pixelsPerSecond = FLEditorScaleFactorToPixels(FLVisualizationSimulationScaleFactor100Pixels);
     
-    NSPoint startPoint = NSMakePoint(100, yOrigin);
-    NSPoint endPoint = NSMakePoint(100 + (endTime - startTime) * pixelsPerSecond, yOrigin);
+    NSPoint startPoint = NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER, yOrigin);
+    NSPoint endPoint = NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER + (endTime - startTime) * pixelsPerSecond, yOrigin);
 
     [_simulationLine moveToPoint:startPoint];
     [_simulationLine lineToPoint:endPoint];
@@ -193,7 +306,7 @@
     
     for(NSUInteger i = startTime; i <= endTime; i++)
     {
-        double xPos = 100 + pixelsPerSecond * i;
+        double xPos = FL_SIMULATION_VISUALIZATION_BORDER + pixelsPerSecond * i;
         NSBezierPath *tickAtSecondMark = [NSBezierPath bezierPath];
         [tickAtSecondMark moveToPoint:NSMakePoint(xPos, yOrigin)];
         [tickAtSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + 12)];
@@ -215,23 +328,15 @@
     {
         id<FLAnchorPointProtocol> anchorPoint = [simulator.simulationStream.anchorPointsCollection anchorPointForIndex:i];
         double simulationTime = anchorPoint.sampleTime;
-        NSRect anchorPointRect = NSMakeRect(100 + simulationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
+        NSRect anchorPointRect = NSMakeRect(FL_SIMULATION_VISUALIZATION_BORDER + simulationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
         NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
         circlePath.lineWidth = 3;
         [_simulationPoints addObject:circlePath];
     }
-    [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + 100), NSHeight(self.frame))];
+    [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + FL_SIMULATION_VISUALIZATION_BORDER), NSHeight(self.frame))];
     [self setNeedsDisplay:YES];
 }
 
--(void)viewDidMoveToSuperview
-{
-    self.frame = self.superview.frame;
-}
 
--(BOOL)isFlipped
-{
-    return YES;
-}
 
 @end
