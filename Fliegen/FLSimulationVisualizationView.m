@@ -108,6 +108,7 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
         }
         return NO;
     }];
+    
     if(index != NSNotFound)
         simulator.selectedSimulationAnchorPoint = [simulator.simulationStream.anchorPointsCollection anchorPointForIndex:index];
 }
@@ -141,11 +142,6 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     sampleTime = MIN(sampleTime, nextSampleTime);
     
     selectedAnchorPoint.sampleTime = sampleTime;
-    
-    if(_selectionType == FLVisualizationAnchorPoint)
-        [self updateVisualizationStreamView];
-    else if(_selectionType == FLSimulationAnchorPoint)
-        [self updateSimulationStreamView];
 }
 
 -(void)mouseUp:(NSEvent *)theEvent

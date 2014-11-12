@@ -26,10 +26,58 @@
 
 -(void)awakeFromNib
 {
-//    id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
-    [_visualizationScaleFactorButton selectItemAtIndex:FLVisualizationSimulationScaleFactor100Pixels];
+    NSObject<FLCurrentSimulatorProtocol> *simulator = _utilityPaneController.appFrameController.model.simulator;
+    [simulator addObserver:self forKeyPath:NSStringFromSelector(@selector(selectedSimulationAnchorPoint))
+                   options:NSKeyValueObservingOptionNew context:NULL];
+    [simulator addObserver:self forKeyPath:NSStringFromSelector(@selector(selectedVisualizationAnchorPoint))
+                   options:NSKeyValueObservingOptionNew context:NULL];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(visualizationPropertiesChanged:)
+                                                 name:FLVisualizationStreamPropertyChangedNotification object:simulator];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(simulationpropertiesChanged:)
+                                                 name:FLSimulationStreamPropertyChangedNotification object:simulator];
+    
+    [_visualizationScaleFactorButton selectItemAtIndex:FLVisualizationSimulationScaleFactor100Pixels];
     [_simulationScaleFactorButton selectItemAtIndex:FLVisualizationSimulationScaleFactor100Pixels];
+}
+
+-(void)dealloc
+{
+    NSObject<FLCurrentSimulatorProtocol> *simulator = _utilityPaneController.appFrameController.model.simulator;
+    [simulator removeObserver:self forKeyPath:NSStringFromSelector(@selector(selectedSimulationAnchorPoint))];
+    [simulator removeObserver:self forKeyPath:NSStringFromSelector(@selector(selectedVisualizationAnchorPoint))];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - KVO/Notifications
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualTo:NSStringFromSelector(@selector(selectedSimulationAnchorPoint))] == YES)
+    {
+        id<FLCurrentSimulatorProtocol> simulator = object;
+        NSUInteger anchorPointID = [simulator.selectedSimulationAnchorPoint anchorPointID];
+        [_simulationSelectedAnchorPointComboBox selectItemAtIndex:anchorPointID];
+    }
+    else if([keyPath isEqualTo:NSStringFromSelector(@selector(selectedVisualizationAnchorPoint))] == YES)
+    {
+        id<FLCurrentSimulatorProtocol> simulator = object;
+        NSUInteger anchorPointID = [simulator.selectedVisualizationAnchorPoint anchorPointID];
+        [_visualizationStreamSelectedAnchorPointComboBox selectItemAtIndex:anchorPointID];
+    }
+}
+
+-(void)visualizationPropertiesChanged:(NSNotification*)notification
+{
+    id<FLCurrentSimulatorProtocol> currentSimulator = _utilityPaneController.appFrameController.model.simulator;
+    _visualizationAnchorPointTimeTextField.doubleValue = currentSimulator.selectedVisualizationAnchorPoint.sampleTime;
+}
+
+-(void)simulationpropertiesChanged:(NSNotification*)notification
+{
+    id<FLCurrentSimulatorProtocol> currentSimulator = _utilityPaneController.appFrameController.model.simulator;
+    _simulationAnchorPointTimeTextField.doubleValue = currentSimulator.selectedSimulationAnchorPoint.sampleTime;
 }
 
 #pragma mark - Combobox delegate/datasource
