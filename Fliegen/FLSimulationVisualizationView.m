@@ -30,13 +30,17 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
 {
     NSBezierPath *_visualizationLine;
     NSMutableArray *_visualizationPoints;
+    NSMutableArray *_visualizationPointPaths;
     NSMutableArray *_visualizationTicks;
     NSMutableDictionary *_visualizationTickLabels;
     
     NSBezierPath *_simulationLine;
     NSMutableArray *_simulationPoints;
+    NSMutableArray *_simulationPointPaths;
     NSMutableArray *_simulationTicks;
     NSMutableDictionary *_simulationTickLabels;
+    
+    
     
     BOOL _isInThreeMethodApproach;
     FLSimVizViewSelectionType _selectionType;
@@ -84,7 +88,7 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     id<FLCurrentSimulatorProtocol> simulator = _controller.appFrameController.model.simulator;
     NSPoint pointInRect = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     
-    NSUInteger index = [_visualizationPoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+    NSUInteger index = [_visualizationPointPaths indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         NSBezierPath *anchorPoint = obj;
         if([anchorPoint containsPoint:pointInRect] == YES)
         {
@@ -96,9 +100,12 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     }];
     
     if(index != NSNotFound)
+    {
         [simulator setSelectedVisualizationAnchorPoint:[simulator.visualizationStream.anchorPointsCollection anchorPointForIndex:index]];
+        return;
+    }
     
-    index = [_simulationPoints indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+    index = [_simulationPointPaths indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         NSBezierPath *anchorPoint = obj;
         if([anchorPoint containsPoint:pointInRect] == YES)
         {
@@ -154,6 +161,32 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
 -(void)drawSimViz
 {
     id<FLCurrentSimulatorProtocol> simulator = _controller.appFrameController.model.simulator;
+    NSUInteger connections = MIN(_simulationPoints.count, _visualizationPoints.count);
+    for(NSUInteger i = 0; i < connections; i++)
+    {
+        NSColor *startColor = [simulator.visualizationStream streamVisualColor];
+        NSColor *endColor = [[simulator simulationStream] streamVisualColor];
+        
+        NSPoint startPoint = [[_visualizationPoints objectAtIndex:i] pointValue];
+        startPoint.x += FL_VIS_SIM_ANCHORPOINT_SIZE / 2;
+        startPoint.y += FL_VIS_SIM_ANCHORPOINT_SIZE / 2;
+        NSPoint endPoint = [[_simulationPoints objectAtIndex:i] pointValue];
+        endPoint.x += FL_VIS_SIM_ANCHORPOINT_SIZE / 2;
+        endPoint.y += FL_VIS_SIM_ANCHORPOINT_SIZE / 2;
+        
+        if(i % 2 == 0)
+            [startColor setStroke];
+        else
+            [endColor setStroke];
+        
+        NSBezierPath *path = [NSBezierPath bezierPath];
+        [path moveToPoint:startPoint];
+        [path lineToPoint:endPoint];
+        path.lineWidth = 3;
+        
+        [path stroke];
+    }
+    
     [simulator.visualizationStream.streamVisualColor set];
     [_visualizationLine stroke];
 
@@ -170,7 +203,7 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
         tickLabelPosition.x -= tickLabel.size.width / 2;
         [tickLabel drawAtPoint:tickLabelPosition];
     }];
-    [_visualizationPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [_visualizationPointPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSBezierPath *anchorPoint = obj;
         [simulator.visualizationStream.streamVisualColor setFill];
         if(idx == (simulator.selectedVisualizationAnchorPoint.anchorPointID - 1))
@@ -197,7 +230,7 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
         tickLabelPosition.x -= tickLabel.size.width / 2;
         [tickLabel drawAtPoint:tickLabelPosition];
     }];
-    [_simulationPoints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    [_simulationPointPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSBezierPath *anchorPoint = obj;
         [simulator.simulationStream.streamVisualColor setFill];
         if(idx == (simulator.selectedSimulationAnchorPoint.anchorPointID - 1))
@@ -215,6 +248,7 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
 {
     _visualizationLine = [NSBezierPath bezierPath];
     _visualizationPoints = [NSMutableArray new];
+    _visualizationPointPaths = [NSMutableArray new];
     _visualizationTicks = [NSMutableArray new];
     _visualizationTickLabels = [NSMutableDictionary new];
     
@@ -261,12 +295,15 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     
     for(NSUInteger i = 0; i < numberOfVisualizationPoints; i++)
     {
+        double sizeOfAnchorPoint = FL_VIS_SIM_ANCHORPOINT_SIZE;
         id<FLAnchorPointProtocol> anchorPoint = [simulator.visualizationStream.anchorPointsCollection anchorPointForIndex:i];
         double visualizationTime = anchorPoint.sampleTime;
-        NSRect anchorPointRect = NSMakeRect(FL_SIMULATION_VISUALIZATION_BORDER + visualizationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
+        NSRect anchorPointRect = NSMakeRect(FL_SIMULATION_VISUALIZATION_BORDER + visualizationTime * pixelsPerSecond - sizeOfAnchorPoint /2,
+                                            yOrigin - sizeOfAnchorPoint / 2, sizeOfAnchorPoint, sizeOfAnchorPoint);
         NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
         circlePath.lineWidth = 3;
-        [_visualizationPoints addObject:circlePath];
+        [_visualizationPoints addObject:[NSValue valueWithPoint:anchorPointRect.origin]];
+        [_visualizationPointPaths addObject:circlePath];
     }
     
     [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + FL_SIMULATION_VISUALIZATION_BORDER), NSHeight(self.frame))];
@@ -277,6 +314,7 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
 {
     _simulationLine = [NSBezierPath new];
     _simulationPoints = [NSMutableArray new];
+    _simulationPointPaths = [NSMutableArray new];
     _simulationTicks = [NSMutableArray new];
     _simulationTickLabels = [NSMutableDictionary new];
     
@@ -327,12 +365,11 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
         NSRect anchorPointRect = NSMakeRect(FL_SIMULATION_VISUALIZATION_BORDER + simulationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
         NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
         circlePath.lineWidth = 3;
-        [_simulationPoints addObject:circlePath];
+        [_simulationPoints addObject:[NSValue valueWithPoint:anchorPointRect.origin]];
+        [_simulationPointPaths addObject:circlePath];
     }
     [self setFrameSize:NSMakeSize(MAX(NSWidth(self.frame), endPoint.x + FL_SIMULATION_VISUALIZATION_BORDER), NSHeight(self.frame))];
     [self setNeedsDisplay:YES];
 }
-
-
 
 @end

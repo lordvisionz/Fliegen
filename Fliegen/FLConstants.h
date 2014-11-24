@@ -25,6 +25,8 @@
 #define FL_SIMULATION_START_TIME_DEFAULT 0
 #define FL_MIN_SIMULATION_TIME_DURATION 30
 
+#define FL_VIS_SIM_ANCHORPOINT_SIZE 20
+
 typedef NS_ENUM(unsigned short, FLVisualizationSimulationScaleFactor)
 {
     FLVisualizationSimulationScaleFactor25Pixels = 0,
