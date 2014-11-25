@@ -26,6 +26,9 @@
 #define FL_MIN_SIMULATION_TIME_DURATION 30
 
 #define FL_VIS_SIM_ANCHORPOINT_SIZE 20
+#define FL_VIS_SIM_LINE_SIZE 5
+#define FL_VIS_SIM_FULL_TICK_HEIGHT 12
+#define FL_VIS_SIM_HALF_TICK_HEIGHT 8
 
 typedef NS_ENUM(unsigned short, FLVisualizationSimulationScaleFactor)
 {

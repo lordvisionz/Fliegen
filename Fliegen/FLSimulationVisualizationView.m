@@ -201,6 +201,7 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
         NSAttributedString *tickLabel = key;
         NSPoint tickLabelPosition = [obj pointValue];
         tickLabelPosition.x -= tickLabel.size.width / 2;
+        tickLabelPosition.y -= tickLabel.size.height;
         [tickLabel drawAtPoint:tickLabelPosition];
     }];
     [_visualizationPointPaths enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -269,27 +270,30 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     [_visualizationLine moveToPoint:startPoint];
     [_visualizationLine lineToPoint:endPoint];
     
-    _visualizationLine.lineWidth = 5;
+    _visualizationLine.lineWidth = FL_VIS_SIM_LINE_SIZE;
     _visualizationLine.lineCapStyle = NSRoundLineCapStyle;
-
+    
+    double fullTickHeight = FL_VIS_SIM_FULL_TICK_HEIGHT;
+    double halfTickHeight = FL_VIS_SIM_HALF_TICK_HEIGHT;
+    
     for(NSUInteger i = startTime; i <= endTime; i++)
     {
         double xPos = FL_SIMULATION_VISUALIZATION_BORDER + pixelsPerSecond * i;
         NSBezierPath *tickAtSecondMark = [NSBezierPath bezierPath];
         [tickAtSecondMark moveToPoint:NSMakePoint(xPos, yOrigin)];
-        [tickAtSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + 12)];
+        [tickAtSecondMark lineToPoint:NSMakePoint(xPos, yOrigin - fullTickHeight)];
         [_visualizationTicks addObject:tickAtSecondMark];
         
         NSAttributedString *tickLabel = [[NSAttributedString alloc] initWithString:[[NSNumberFormatter new]
                                                                   stringFromNumber:[NSNumber numberWithUnsignedInteger:i]]];
-        [_visualizationTickLabels setObject:[NSValue valueWithPoint:NSMakePoint(xPos, yOrigin + 12)] forKey:tickLabel];
+        [_visualizationTickLabels setObject:[NSValue valueWithPoint:NSMakePoint(xPos, yOrigin - fullTickHeight)] forKey:tickLabel];
         
         if(i == startTime) continue;
         
         xPos -= pixelsPerSecond / 2;
         NSBezierPath *tickAtHalfSecondMark = [NSBezierPath bezierPath];
         [tickAtHalfSecondMark moveToPoint:NSMakePoint(xPos, yOrigin)];
-        [tickAtHalfSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + 8)];
+        [tickAtHalfSecondMark lineToPoint:NSMakePoint(xPos, yOrigin - halfTickHeight)];
         [_visualizationTicks addObject:tickAtHalfSecondMark];
     }
     
@@ -338,23 +342,26 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     _simulationLine.lineWidth = 5;
     _simulationLine.lineCapStyle = NSRoundLineCapStyle;
     
+    double fullTickHeight = FL_VIS_SIM_FULL_TICK_HEIGHT;
+    double halfTickHeight = FL_VIS_SIM_HALF_TICK_HEIGHT;
+    
     for(NSUInteger i = startTime; i <= endTime; i++)
     {
         double xPos = FL_SIMULATION_VISUALIZATION_BORDER + pixelsPerSecond * i;
         NSBezierPath *tickAtSecondMark = [NSBezierPath bezierPath];
         [tickAtSecondMark moveToPoint:NSMakePoint(xPos, yOrigin)];
-        [tickAtSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + 12)];
+        [tickAtSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + fullTickHeight)];
         [_simulationTicks addObject:tickAtSecondMark];
 
         NSAttributedString *tickLabel = [[NSAttributedString alloc] initWithString:[[NSNumberFormatter new] stringFromNumber:[NSNumber numberWithUnsignedInteger:i]]];
-        [_simulationTickLabels setObject:[NSValue valueWithPoint:NSMakePoint(xPos, yOrigin + 12)] forKey:tickLabel];
+        [_simulationTickLabels setObject:[NSValue valueWithPoint:NSMakePoint(xPos, yOrigin + fullTickHeight)] forKey:tickLabel];
         
         if(i == startTime) continue;
         
         xPos -= pixelsPerSecond / 2;
         NSBezierPath *tickAtHalfSecondMark = [NSBezierPath bezierPath];
         [tickAtHalfSecondMark moveToPoint:NSMakePoint(xPos, yOrigin)];
-        [tickAtHalfSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + 8)];
+        [tickAtHalfSecondMark lineToPoint:NSMakePoint(xPos, yOrigin + halfTickHeight)];
         [_simulationTicks addObject:tickAtHalfSecondMark];
     }
     
@@ -362,7 +369,10 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     {
         id<FLAnchorPointProtocol> anchorPoint = [simulator.simulationStream.anchorPointsCollection anchorPointForIndex:i];
         double simulationTime = anchorPoint.sampleTime;
-        NSRect anchorPointRect = NSMakeRect(FL_SIMULATION_VISUALIZATION_BORDER + simulationTime * pixelsPerSecond - 10, yOrigin - 10, 20, 20);
+        double sizeOfAnchorPoint = FL_VIS_SIM_ANCHORPOINT_SIZE;
+        
+        NSRect anchorPointRect = NSMakeRect(FL_SIMULATION_VISUALIZATION_BORDER + simulationTime * pixelsPerSecond - sizeOfAnchorPoint / 2,
+                                            yOrigin - sizeOfAnchorPoint / 2, sizeOfAnchorPoint, sizeOfAnchorPoint);
         NSBezierPath *circlePath = [NSBezierPath bezierPathWithOvalInRect:anchorPointRect];
         circlePath.lineWidth = 3;
         [_simulationPoints addObject:[NSValue valueWithPoint:anchorPointRect.origin]];
