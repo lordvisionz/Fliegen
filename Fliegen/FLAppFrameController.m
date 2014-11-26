@@ -49,7 +49,6 @@
 
 - (IBAction)toggleEditor:(id)sender
 {
-    
     if([_sceneEditorToolbarItem.toolbar.selectedItemIdentifier isEqualToString:_sceneEditorToolbarItem.itemIdentifier])
     {
         [_editorPlaceholderView setSubviews:@[_sceneViewController.view]];
@@ -68,6 +67,19 @@
             _utilityPanelController.utilityPaneSegmentedControl.selectedSegment = 3;
             [_utilityPanelController switchUtilityPaneTab:nil];
         }
+    }
+}
+
+-(void)toggleEditorWithoutSwitchingUtilityTab
+{
+    if([_sceneEditorToolbarItem.toolbar.selectedItemIdentifier isEqualToString:_sceneEditorToolbarItem.itemIdentifier])
+    {
+        [_editorPlaceholderView setSubviews:@[_sceneViewController.view]];
+    }
+    else if([_simulationEditorToolbarItem.toolbar.selectedItemIdentifier isEqualToString:_simulationEditorToolbarItem.itemIdentifier])
+    {
+        _simVisTimeViewController.view.frame = _editorPlaceholderView.frame;
+        [_editorPlaceholderView setSubviews:@[_simVisTimeViewController.view]];
     }
 }
 

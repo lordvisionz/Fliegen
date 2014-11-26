@@ -1410,6 +1410,12 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
                 </box>
+                <box autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="7hN-gG-wgb">
+                    <rect key="frame" x="12" y="359" width="276" height="5"/>
+                    <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <font key="titleFont" metaFont="system"/>
+                </box>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mYo-3m-ujk">
                     <rect key="frame" x="184" y="491" width="96" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jmc-7t-obv">
@@ -1588,6 +1594,24 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="snh-Pn-4kt">
+                    <rect key="frame" x="18" y="336" width="122" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preview" id="rAc-oF-1iD">
+                        <font key="font" metaFont="smallSystemBold"/>
+                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kJ7-4w-0u7">
+                    <rect key="frame" x="94" y="248" width="95" height="82"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSQuickLookTemplate" imagePosition="only" alignment="center" alternateImage="NSStopProgressTemplate" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="GQg-pC-vqR">
+                        <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="togglePreview:" target="MQD-S1-4A0" id="maE-zV-cEi"/>
+                    </connections>
+                </button>
             </subviews>
         </customView>
     </objects>
@@ -1599,5 +1623,7 @@
         <image name="NSIconViewTemplate" width="11" height="10"/>
         <image name="NSListViewTemplate" width="11" height="10"/>
         <image name="NSMenuMixedStateTemplate" width="10" height="3"/>
+        <image name="NSQuickLookTemplate" width="21" height="16"/>
+        <image name="NSStopProgressTemplate" width="11" height="11"/>
     </resources>
 </document>

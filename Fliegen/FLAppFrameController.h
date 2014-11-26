@@ -29,5 +29,6 @@
 
 - (IBAction)toggleUtilitiesPanel:(id)sender;
 - (IBAction)toggleEditor:(id)sender;
+- (void)toggleEditorWithoutSwitchingUtilityTab;
 
 @end

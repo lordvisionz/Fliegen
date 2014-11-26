@@ -28,6 +28,8 @@
 @property (weak) IBOutlet NSComboBox *simulationSelectedAnchorPointComboBox;
 @property (weak) IBOutlet NSTextField *simulationAnchorPointTimeTextField;
 
+- (IBAction)togglePreview:(id)sender;
+
 -(void)viewDidAppear;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "FLUtilityPaneSimVisViewController.h"
 #import "FLUtilityPaneController.h"
+#import "FLSceneViewController.h"
 #import "FLAppFrameController.h"
 #import "FLModel.h"
 #import "FLConstants.h"
@@ -196,6 +197,27 @@
 }
 
 #pragma mark - public helpers
+
+- (IBAction)togglePreview:(id)sender
+{
+    NSButton *previewButton = sender;
+    if(previewButton.state == NSOnState)
+    {
+        _utilityPaneController.appFrameController.sceneEditorToolbarItem.toolbar.selectedItemIdentifier =
+        _utilityPaneController.appFrameController.sceneEditorToolbarItem.itemIdentifier;
+        
+        [_utilityPaneController.appFrameController toggleEditorWithoutSwitchingUtilityTab];
+        [_utilityPaneController.appFrameController.sceneViewController startCameraPOVSimulation];
+    }
+    else
+    {
+        _utilityPaneController.appFrameController.sceneEditorToolbarItem.toolbar.selectedItemIdentifier =
+        _utilityPaneController.appFrameController.simulationEditorToolbarItem.itemIdentifier;
+        [_utilityPaneController.appFrameController toggleEditorWithoutSwitchingUtilityTab];
+        
+        [_utilityPaneController.appFrameController.sceneViewController stopCameraPOVSimulation];
+    }
+}
 
 -(void)viewDidAppear
 {
