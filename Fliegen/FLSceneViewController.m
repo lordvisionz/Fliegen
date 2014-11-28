@@ -296,11 +296,8 @@
     [self.sceneView.scene.rootNode addChildNode:streamCamera];
     self.sceneView.pointOfView = streamCamera;
     
-    NSUInteger totalFrames;
-    if(simulator.visualizationStream.anchorPointsCollection.anchorPoints.count < simulator.simulationStream.anchorPointsCollection.anchorPoints.count)
-        totalFrames = [[simulator.visualizationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime] * 24;
-    else
-        totalFrames = [[simulator.simulationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime] * 24;
+    double maxTime = MAX([[simulator.visualizationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime],
+                             [[simulator.simulationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime]);
     
     CAKeyframeAnimation *visualizationAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     CAKeyframeAnimation *simulationAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
@@ -309,7 +306,7 @@
     FLStreamView *visualizationView = [self viewForStream:simulator.visualizationStream];
     FLStreamView *simulationView = [self viewForStream:simulator.simulationStream];
     
-    for(NSUInteger i = 0; i < totalFrames; i++)
+    for(NSUInteger i = 0; i < ceil(maxTime * 24); i++)
     {
         double sampleTime = (double) i / 24;
         double visualizationSampleTime = [self lerpVisualizationSampleTime:sampleTime];
@@ -320,16 +317,14 @@
         double simulationSampleTime = [self lerpSimulationSampleTime:sampleTime];
         interpolatedPosition = [simulationView.curveInterpolator interpolatePoints:simulationPoints atTime:simulationSampleTime];
         [simulationAnimationPoints addObject:[NSValue valueWithSCNVector3:interpolatedPosition]];
-        
-        NSLog(@"sample time = %f, vis = %f, sim = %f",sampleTime, visualizationSampleTime, simulationSampleTime);
     }
     
     visualizationAnimation.values = visualizationAnimationPoints;
-    visualizationAnimation.duration = [[simulator.visualizationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime];
+    visualizationAnimation.duration = maxTime;
     visualizationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
 
     simulationAnimation.values = simulationAnimationPoints;
-    simulationAnimation.duration = [[simulator.simulationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime];
+    simulationAnimation.duration = maxTime;
     simulationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     
     SCNNode *lookAtObject = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:0 height:0 length:0 chamferRadius:0]];
@@ -664,6 +659,8 @@
                                           }
                                           return NO;
                                       }];
+    if(visAnchorPointAhead == NSNotFound) return 1 - DBL_EPSILON;
+    
     NSUInteger visAnchorPointBehind = MAX(0, (NSInteger)visAnchorPointAhead - 1);
     double visAnchorPointAheadSampleTime = [[simulator.visualizationStream.anchorPointsCollection
                                              anchorPointForIndex:visAnchorPointAhead] sampleTime];
@@ -690,6 +687,8 @@
                                           }
                                           return NO;
                                       }];
+    if(simAnchorPointAhead == NSNotFound) return 1 - DBL_EPSILON;
+    
     NSUInteger simAnchorPointBehind = MAX(0, (NSInteger)simAnchorPointAhead - 1);
     double simAnchorPointAheadSampleTime = [[simulator.simulationStream.anchorPointsCollection
                                              anchorPointForIndex:simAnchorPointAhead] sampleTime];
