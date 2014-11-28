@@ -289,35 +289,47 @@
     SCNNode *streamCamera = [SCNNode node];
     streamCamera.camera = [SCNCamera camera];
     streamCamera.camera.usesOrthographicProjection = NO;
+    streamCamera.camera.xFov = 90;
+    streamCamera.camera.yFov = 90;
     streamCamera.camera.zFar = 1000;
     streamCamera.position = [[simulator.visualizationStream.anchorPointsCollection anchorPointForId:1] position];
     [self.sceneView.scene.rootNode addChildNode:streamCamera];
     self.sceneView.pointOfView = streamCamera;
     
-    NSUInteger totalFrames = simulator.visualizationEndTime * 24;
+    NSUInteger totalFrames;
+    if(simulator.visualizationStream.anchorPointsCollection.anchorPoints.count < simulator.simulationStream.anchorPointsCollection.anchorPoints.count)
+        totalFrames = [[simulator.visualizationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime] * 24;
+    else
+        totalFrames = [[simulator.simulationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime] * 24;
     
     CAKeyframeAnimation *visualizationAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     CAKeyframeAnimation *simulationAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     NSMutableArray *visualizationAnimationPoints = [NSMutableArray new];
     NSMutableArray *simulationAnimationPoints = [NSMutableArray new];
+    FLStreamView *visualizationView = [self viewForStream:simulator.visualizationStream];
+    FLStreamView *simulationView = [self viewForStream:simulator.simulationStream];
     
     for(NSUInteger i = 0; i < totalFrames; i++)
     {
-        FLStreamView *visualizationView = [self viewForStream:simulator.visualizationStream];
-        SCNVector3 interpolatedPosition = [visualizationView.curveInterpolator interpolatePoints:visualizationPoints atTime:(double) i / totalFrames];
+        double sampleTime = (double) i / 24;
+        double visualizationSampleTime = [self lerpVisualizationSampleTime:sampleTime];
+        SCNVector3 interpolatedPosition = [visualizationView.curveInterpolator interpolatePoints:visualizationPoints
+                                                                                          atTime:visualizationSampleTime];
         [visualizationAnimationPoints addObject:[NSValue valueWithSCNVector3:interpolatedPosition]];
         
-        FLStreamView *simulationView = [self viewForStream:simulator.simulationStream];
-        interpolatedPosition = [simulationView.curveInterpolator interpolatePoints:simulationPoints atTime:(double) i / totalFrames];
+        double simulationSampleTime = [self lerpSimulationSampleTime:sampleTime];
+        interpolatedPosition = [simulationView.curveInterpolator interpolatePoints:simulationPoints atTime:simulationSampleTime];
         [simulationAnimationPoints addObject:[NSValue valueWithSCNVector3:interpolatedPosition]];
+        
+        NSLog(@"sample time = %f, vis = %f, sim = %f",sampleTime, visualizationSampleTime, simulationSampleTime);
     }
     
     visualizationAnimation.values = visualizationAnimationPoints;
-    visualizationAnimation.duration = simulator.visualizationEndTime;
+    visualizationAnimation.duration = [[simulator.visualizationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime];
     visualizationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
 
     simulationAnimation.values = simulationAnimationPoints;
-    simulationAnimation.duration = simulator.simulationEndTime;
+    simulationAnimation.duration = [[simulator.simulationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime];
     simulationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     
     SCNNode *lookAtObject = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:0 height:0 length:0 chamferRadius:0]];
@@ -632,6 +644,60 @@
     }];
     SCNNode *cameraNode = [cameras objectAtIndex:0];
     return cameraNode;
+}
+
+#pragma mark - Private Helpers
+
+-(double)lerpVisualizationSampleTime:(double)sampleTime
+{
+    id<FLCurrentSimulatorProtocol> simulator = _appFrameController.model.simulator;
+    NSUInteger visAnchorPointsCount = simulator.visualizationStream.anchorPointsCollection.anchorPoints.count;
+    
+    NSUInteger visAnchorPointAhead = [simulator.visualizationStream.anchorPointsCollection.anchorPoints indexOfObjectPassingTest:
+                                      ^BOOL(id obj, NSUInteger idx, BOOL *stop)
+                                      {
+                                          id<FLAnchorPointProtocol> anchorPoint = obj;
+                                          if (anchorPoint.sampleTime > sampleTime)
+                                          {
+                                              *stop = YES;
+                                              return YES;
+                                          }
+                                          return NO;
+                                      }];
+    NSUInteger visAnchorPointBehind = MAX(0, (NSInteger)visAnchorPointAhead - 1);
+    double visAnchorPointAheadSampleTime = [[simulator.visualizationStream.anchorPointsCollection
+                                             anchorPointForIndex:visAnchorPointAhead] sampleTime];
+    double visAnchorPointBehindSampleTime = (visAnchorPointAhead == 0) ? 0 : [[simulator.visualizationStream.anchorPointsCollection
+                                                                               anchorPointForIndex:visAnchorPointBehind] sampleTime];
+    
+    double lerpedPercent = (sampleTime - visAnchorPointBehindSampleTime) / (visAnchorPointAheadSampleTime - visAnchorPointBehindSampleTime);
+    return (double)visAnchorPointBehind / (visAnchorPointsCount - 1) + lerpedPercent / (visAnchorPointsCount - 1);
+}
+
+-(double)lerpSimulationSampleTime:(double)sampleTime
+{
+    id<FLCurrentSimulatorProtocol> simulator = _appFrameController.model.simulator;
+    NSUInteger simAnchorPointsCount = simulator.simulationStream.anchorPointsCollection.anchorPoints.count;
+    
+    NSUInteger simAnchorPointAhead = [simulator.simulationStream.anchorPointsCollection.anchorPoints indexOfObjectPassingTest:
+                                      ^BOOL(id obj, NSUInteger idx, BOOL *stop)
+                                      {
+                                          id<FLAnchorPointProtocol> anchorPoint = obj;
+                                          if (anchorPoint.sampleTime > sampleTime)
+                                          {
+                                              *stop = YES;
+                                              return YES;
+                                          }
+                                          return NO;
+                                      }];
+    NSUInteger simAnchorPointBehind = MAX(0, (NSInteger)simAnchorPointAhead - 1);
+    double simAnchorPointAheadSampleTime = [[simulator.simulationStream.anchorPointsCollection
+                                             anchorPointForIndex:simAnchorPointAhead] sampleTime];
+    double simAnchorPointBehindSampleTime = (simAnchorPointAhead == 0) ? 0 : [[simulator.simulationStream.anchorPointsCollection
+                                                                               anchorPointForIndex:simAnchorPointBehind] sampleTime];
+    
+    double lerpedPercent = (sampleTime - simAnchorPointBehindSampleTime) / (simAnchorPointAheadSampleTime - simAnchorPointBehindSampleTime);
+    return (double)simAnchorPointBehind / (simAnchorPointsCount - 1) + lerpedPercent / (simAnchorPointsCount - 1);
 }
 
 @end
