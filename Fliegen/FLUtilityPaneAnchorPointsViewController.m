@@ -85,8 +85,12 @@
         [self.anchorIdComboBox selectItemAtIndex:0];
         return;
     }
+    
     [self.anchorIdComboBox reloadData];
     [self.anchorIdComboBox selectItemAtIndex:anchorPoint.anchorPointID];
+    _xPositionTextField.doubleValue = anchorPoint.position.x;
+    _yPositionTextField.doubleValue = anchorPoint.position.y;
+    _zPositionTextField.doubleValue = anchorPoint.position.z;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
