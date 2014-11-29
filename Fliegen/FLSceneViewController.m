@@ -37,8 +37,8 @@
     
     NSPoint lastClickedPoint;
     
+    BOOL _deSelectClickedItem;
     BOOL _isDraggingSelectionHandles;
-    
     SCNNode *_selectionHandleInDrag;
     
     FLAxisNode *_viewPortAxes;
@@ -390,12 +390,7 @@
     
     if(firstHitItem == nil)
     {
-        self.selectionMode = FLSelectionModeNone;
-        FLStreamsCollection *streams = self.appFrameController.model.streams;
-        FLAnchorPointsCollection *anchorPoints = streams.selectedStream.anchorPointsCollection;
-        
-        anchorPoints.selectedAnchorPoint = nil;
-        streams.selectedStream = nil;
+        _deSelectClickedItem = YES;
         return;
     }
     SCNNode *selectionNode = [self selectionHandles];
@@ -422,6 +417,7 @@
 
 -(BOOL)mouseDragged:(NSEvent *)theEvent
 {
+    _deSelectClickedItem = NO;
     NSPoint newMousePoint = [self.view convertPoint:[theEvent locationInWindow] fromView:nil];
     if(_isDraggingSelectionHandles)
     {
@@ -471,6 +467,16 @@
 {
     _selectionHandleInDrag = nil;
     _isDraggingSelectionHandles = NO;
+    if(_deSelectClickedItem == YES)
+    {
+        self.selectionMode = FLSelectionModeNone;
+        FLStreamsCollection *streams = self.appFrameController.model.streams;
+        FLAnchorPointsCollection *anchorPoints = streams.selectedStream.anchorPointsCollection;
+
+        anchorPoints.selectedAnchorPoint = nil;
+        streams.selectedStream = nil;
+    }
+    _deSelectClickedItem = NO;
 }
 
 -(void)rightMouseDown:(NSEvent *)theEvent
