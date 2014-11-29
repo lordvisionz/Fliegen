@@ -51,11 +51,6 @@
     }
     else if(selectedSegment == 2)
     {
-        [_utilityViewPane addSubview:_anchorPointsPropertiesPaneController.view];
-        _appFrameController.sceneEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.sceneEditorToolbarItem.itemIdentifier;
-    }
-    else if(selectedSegment == 3)
-    {
         [_utilityViewPane addSubview:_simVisPropertiesController.view];
         _appFrameController.simulationEditorToolbarItem.toolbar.selectedItemIdentifier = _appFrameController.simulationEditorToolbarItem.itemIdentifier;
         [_simVisPropertiesController viewDidAppear];

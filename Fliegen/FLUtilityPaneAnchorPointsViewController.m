@@ -53,7 +53,7 @@
 -(void)anchorPointWasAdded:(NSNotification*)notification
 {
     self.utilityPaneController.appFrameController.sceneViewController.selectionMode = FLSelectionModeAnchorPoint;
-    self.utilityPaneController.utilityPaneSegmentedControl.selectedSegment = 2;
+    self.utilityPaneController.utilityPaneSegmentedControl.selectedSegment = 1;
     [self.utilityPaneController switchUtilityPaneTab:nil];
     
     FLStream *currentStream = self.utilityPaneController.appFrameController.model.streams.selectedStream;

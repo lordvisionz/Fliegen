@@ -52,7 +52,7 @@
     if([_sceneEditorToolbarItem.toolbar.selectedItemIdentifier isEqualToString:_sceneEditorToolbarItem.itemIdentifier])
     {
         [_editorPlaceholderView setSubviews:@[_sceneViewController.view]];
-        if(_utilityPanelController.utilityPaneSegmentedControl.selectedSegment == 3)
+        if(_utilityPanelController.utilityPaneSegmentedControl.selectedSegment == 2)
         {
             _utilityPanelController.utilityPaneSegmentedControl.selectedSegment = 1;
             [_utilityPanelController switchUtilityPaneTab:nil];
@@ -62,9 +62,9 @@
     {
         _simVisTimeViewController.view.frame = _editorPlaceholderView.frame;
         [_editorPlaceholderView setSubviews:@[_simVisTimeViewController.view]];
-        if(_utilityPanelController.utilityPaneSegmentedControl.selectedSegment != 3)
+        if(_utilityPanelController.utilityPaneSegmentedControl.selectedSegment != 2)
         {
-            _utilityPanelController.utilityPaneSegmentedControl.selectedSegment = 3;
+            _utilityPanelController.utilityPaneSegmentedControl.selectedSegment = 2;
             [_utilityPanelController switchUtilityPaneTab:nil];
         }
     }
