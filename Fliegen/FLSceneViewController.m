@@ -310,8 +310,7 @@
     {
         double sampleTime = (double) i / 24;
         double visualizationSampleTime = [self lerpVisualizationSampleTime:sampleTime];
-        SCNVector3 interpolatedPosition = [visualizationView.curveInterpolator interpolatePoints:visualizationPoints
-                                                                                          atTime:visualizationSampleTime];
+        SCNVector3 interpolatedPosition = [visualizationView.curveInterpolator interpolatePoints:visualizationPoints atTime:visualizationSampleTime];
         [visualizationAnimationPoints addObject:[NSValue valueWithSCNVector3:interpolatedPosition]];
         
         double simulationSampleTime = [self lerpSimulationSampleTime:sampleTime];
@@ -660,6 +659,7 @@
                                           return NO;
                                       }];
     if(visAnchorPointAhead == NSNotFound) return 1 - DBL_EPSILON;
+    if(visAnchorPointAhead == 0) return 0;
     
     NSUInteger visAnchorPointBehind = MAX(0, (NSInteger)visAnchorPointAhead - 1);
     double visAnchorPointAheadSampleTime = [[simulator.visualizationStream.anchorPointsCollection
@@ -688,6 +688,7 @@
                                           return NO;
                                       }];
     if(simAnchorPointAhead == NSNotFound) return 1 - DBL_EPSILON;
+    if(simAnchorPointAhead == 0) return 0;
     
     NSUInteger simAnchorPointBehind = MAX(0, (NSInteger)simAnchorPointAhead - 1);
     double simAnchorPointAheadSampleTime = [[simulator.simulationStream.anchorPointsCollection
