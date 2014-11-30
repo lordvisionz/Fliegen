@@ -11,6 +11,8 @@
 
 @class FLAppFrameController, FLSceneView;
 
+typedef void(^FLCameraSimulationCompletionHandler)();
+
 typedef NS_ENUM(unsigned short, FLSelectionMode)
 {
     FLSelectionModeNone = 0,
@@ -30,7 +32,7 @@ typedef NS_ENUM(unsigned short, FLSelectionMode)
 
 -(void)showGridlines:(BOOL)visible;
 
--(void)startCameraPOVSimulation;
+-(void)startCameraPOVSimulationWithCompletionHandler:(FLCameraSimulationCompletionHandler)completionHandler;
 
 -(void)stopCameraPOVSimulation;
 

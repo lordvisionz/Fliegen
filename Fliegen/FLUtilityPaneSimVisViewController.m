@@ -235,7 +235,9 @@
         _utilityPaneController.appFrameController.sceneEditorToolbarItem.itemIdentifier;
         
         [_utilityPaneController.appFrameController toggleEditorWithoutSwitchingUtilityTab];
-        [_utilityPaneController.appFrameController.sceneViewController startCameraPOVSimulation];
+        [_utilityPaneController.appFrameController.sceneViewController startCameraPOVSimulationWithCompletionHandler:^{
+            _cameraPOVButton.state = NSOffState;
+        }];
     }
     else
     {

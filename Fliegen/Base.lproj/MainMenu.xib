@@ -837,6 +837,7 @@
         </viewController>
         <viewController id="MQD-S1-4A0" customClass="FLUtilityPaneSimVisViewController">
             <connections>
+                <outlet property="cameraPOVButton" destination="kJ7-4w-0u7" id="yCP-4j-SAs"/>
                 <outlet property="simulationAnchorPointTimeTextField" destination="dD1-8d-f1U" id="nxY-It-xg2"/>
                 <outlet property="simulationEndTimeTextField" destination="kdh-eB-WOi" id="fng-Bk-zpy"/>
                 <outlet property="simulationScaleFactorButton" destination="eMj-ph-zEo" id="ege-9c-XyT"/>

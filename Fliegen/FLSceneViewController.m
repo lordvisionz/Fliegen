@@ -45,6 +45,9 @@
     FLGridlines *_gridlines;
     
     SCNNode *_defaultCamera;
+    
+    SCNNode *_streamPOVCamera;
+    SCNNode *_streamPOVLookAt;
 }
 
 @end
@@ -271,7 +274,7 @@
         [_gridlines removeFromParentNode];
 }
 
--(void)startCameraPOVSimulation
+-(void)startCameraPOVSimulationWithCompletionHandler:(FLCameraSimulationCompletionHandler)completionHandler
 {
     id<FLCurrentSimulatorProtocol> simulator = _appFrameController.model.simulator;
     NSMutableArray *visualizationPoints = [NSMutableArray new];
@@ -286,15 +289,15 @@
         [simulationPoints addObject:[NSValue valueWithSCNVector3:anchorPoint.position]];
     }];
     
-    SCNNode *streamCamera = [SCNNode node];
-    streamCamera.camera = [SCNCamera camera];
-    streamCamera.camera.usesOrthographicProjection = NO;
-    streamCamera.camera.xFov = 90;
-    streamCamera.camera.yFov = 90;
-    streamCamera.camera.zFar = 1000;
-    streamCamera.position = [[simulator.visualizationStream.anchorPointsCollection anchorPointForId:1] position];
-    [self.sceneView.scene.rootNode addChildNode:streamCamera];
-    self.sceneView.pointOfView = streamCamera;
+    _streamPOVCamera = [SCNNode node];
+    _streamPOVCamera.camera = [SCNCamera camera];
+    _streamPOVCamera.camera.usesOrthographicProjection = NO;
+    _streamPOVCamera.camera.xFov = 90;
+    _streamPOVCamera.camera.yFov = 90;
+    _streamPOVCamera.camera.zFar = 1000;
+    _streamPOVCamera.position = [[simulator.visualizationStream.anchorPointsCollection anchorPointForId:1] position];
+    [self.sceneView.scene.rootNode addChildNode:_streamPOVCamera];
+    self.sceneView.pointOfView = _streamPOVCamera;
     
     double maxTime = MAX([[simulator.visualizationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime],
                              [[simulator.simulationStream.anchorPointsCollection.anchorPoints lastObject] sampleTime]);
@@ -326,30 +329,36 @@
     simulationAnimation.duration = maxTime;
     simulationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
     
-    SCNNode *lookAtObject = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:0 height:0 length:0 chamferRadius:0]];
-    lookAtObject.position = [[simulator.simulationStream.anchorPointsCollection anchorPointForId:1] position];
-    lookAtObject.name = @"lookAtObject";
-    [self.sceneView.scene.rootNode addChildNode:lookAtObject];
+    _streamPOVLookAt = [SCNNode nodeWithGeometry:[SCNBox boxWithWidth:0 height:0 length:0 chamferRadius:0]];
+    _streamPOVLookAt.position = [[simulator.simulationStream.anchorPointsCollection anchorPointForId:1] position];
+    _streamPOVLookAt.name = @"lookAtObject";
+    [self.sceneView.scene.rootNode addChildNode:_streamPOVLookAt];
     
-    SCNConstraint *constraint = [SCNLookAtConstraint lookAtConstraintWithTarget:lookAtObject];
-    streamCamera.constraints = @[constraint];
+    SCNConstraint *constraint = [SCNLookAtConstraint lookAtConstraintWithTarget:_streamPOVLookAt];
+    _streamPOVCamera.constraints = @[constraint];
     
     [SCNTransaction begin];
     self.sceneView.allowsCameraControl = NO;
     [SCNTransaction setCompletionBlock:^{
         self.sceneView.pointOfView = _defaultCamera;
-        [streamCamera removeFromParentNode];
-        [lookAtObject removeFromParentNode];
+        [_streamPOVCamera removeFromParentNode];
+        [_streamPOVLookAt removeFromParentNode];
         self.sceneView.allowsCameraControl = YES;
+        
+        if(completionHandler != NULL)
+            completionHandler();
     }];
-    [streamCamera addAnimation:visualizationAnimation forKey:@"position"];
-    [lookAtObject addAnimation:simulationAnimation forKey:@"lookAt"];
+    [_streamPOVCamera addAnimation:visualizationAnimation forKey:@"position"];
+    [_streamPOVLookAt addAnimation:simulationAnimation forKey:@"lookAt"];
     [SCNTransaction commit];
 }
 
 -(void)stopCameraPOVSimulation
 {
-    
+    self.sceneView.pointOfView = _defaultCamera;
+    [_streamPOVCamera removeFromParentNode];
+    [_streamPOVLookAt removeFromParentNode];
+    self.sceneView.allowsCameraControl = YES;
 }
 
 #pragma mark - Anchor Points add/delete
