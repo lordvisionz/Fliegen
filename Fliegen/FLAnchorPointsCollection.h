@@ -12,10 +12,6 @@
 
 @class FLAnchorPoint;
 
-extern NSString *const FLAnchorPointAddedNotification;
-extern NSString *const FLAnchorPointDeletedNotification;
-extern NSString *const FLAnchorPointSelectionChangedNotification;
-
 @interface FLAnchorPointsCollection : NSObject<FLAnchorPointsCollectionProtocol>
 
 -(id)initWithStream:(id<FLStreamProtocol>)stream;

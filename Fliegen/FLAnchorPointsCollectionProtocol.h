@@ -10,6 +10,10 @@
 
 #import "FLAnchorPointProtocol.h"
 
+extern NSString *const FLAnchorPointAddedNotification;
+extern NSString *const FLAnchorPointDeletedNotification;
+extern NSString *const FLAnchorPointSelectionChangedNotification;
+
 @protocol FLAnchorPointsCollectionProtocol <NSObject>
 
 @property (readonly) id<FLStreamProtocol> stream;
