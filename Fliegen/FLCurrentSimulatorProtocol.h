@@ -24,4 +24,6 @@ extern NSString *const FLSimulationStreamPropertyChangedNotification;
 @property (readwrite, nonatomic) double simulationEndTime;
 @property (readwrite, nonatomic) id<FLAnchorPointProtocol> selectedSimulationAnchorPoint;
 
+-(NSString*)parseCurrentSimulation;
+
 @end

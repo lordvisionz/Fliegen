@@ -249,6 +249,30 @@
     }
 }
 
+- (IBAction)saveSimulation:(id)sender
+{
+    NSSavePanel *savePanel = [NSSavePanel savePanel];
+    savePanel.showsTagField = NO;
+    [savePanel setExtensionHidden:YES];
+    [savePanel setNameFieldStringValue:@"simulation1.txt"];
+    
+    [savePanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger result) {
+        if(result == NSFileHandlingPanelOKButton)
+        {
+            NSURL *url = [savePanel URL];
+            
+            id<FLCurrentSimulatorProtocol> currentSimulator = _utilityPaneController.appFrameController.model.simulator;
+            
+            NSString *parsedSimulation = [currentSimulator parseCurrentSimulation];
+            
+            NSError *error;
+            [parsedSimulation writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:&error];
+            if(error != nil)
+                NSLog(@"ERROR");
+        }
+    }];
+}
+
 -(void)viewDidAppear
 {
     [_simulationStreamComboBox reloadData];

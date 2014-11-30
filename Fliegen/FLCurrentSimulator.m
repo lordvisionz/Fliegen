@@ -142,4 +142,11 @@ NSString *const FLSimulationStreamPropertyChangedNotification = @"FLSimulationSt
     [[NSNotificationCenter defaultCenter] postNotificationName:FLSimulationStreamPropertyChangedNotification object:self];
 }
 
+#pragma mark - Public methods
+
+-(NSString *)parseCurrentSimulation
+{
+    return @"TEMP FILE\n\n HELLO";
+}
+
 @end

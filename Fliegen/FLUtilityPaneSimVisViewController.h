@@ -29,8 +29,10 @@
 @property (weak) IBOutlet NSTextField *simulationAnchorPointTimeTextField;
 
 @property (weak) IBOutlet NSButton *cameraPOVButton;
+@property (weak) IBOutlet NSButton *saveButton;
 
 - (IBAction)togglePreview:(id)sender;
+- (IBAction)saveSimulation:(id)sender;
 
 -(void)viewDidAppear;
 

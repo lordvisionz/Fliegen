@@ -838,6 +838,7 @@
         <viewController id="MQD-S1-4A0" customClass="FLUtilityPaneSimVisViewController">
             <connections>
                 <outlet property="cameraPOVButton" destination="kJ7-4w-0u7" id="yCP-4j-SAs"/>
+                <outlet property="saveButton" destination="7ZZ-LO-r06" id="mDm-DZ-gWg"/>
                 <outlet property="simulationAnchorPointTimeTextField" destination="dD1-8d-f1U" id="nxY-It-xg2"/>
                 <outlet property="simulationEndTimeTextField" destination="kdh-eB-WOi" id="fng-Bk-zpy"/>
                 <outlet property="simulationScaleFactorButton" destination="eMj-ph-zEo" id="ege-9c-XyT"/>
@@ -1306,7 +1307,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFT-qc-pgX">
-                    <rect key="frame" x="112" y="730" width="66" height="17"/>
+                    <rect key="frame" x="103" y="729" width="66" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Stream ID" id="pXQ-TT-G07">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1314,7 +1315,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mvu-N1-6wi">
-                    <rect key="frame" x="184" y="726" width="99" height="26"/>
+                    <rect key="frame" x="175" y="726" width="108" height="26"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" placeholderString="" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="Idp-eI-MZy">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1326,7 +1327,7 @@
                     </connections>
                 </comboBox>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fda-kJ-r6q">
-                    <rect key="frame" x="114" y="524" width="62" height="17"/>
+                    <rect key="frame" x="103" y="524" width="66" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Stream ID" id="2jL-2D-IeD">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1334,7 +1335,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oqK-ex-dfs">
-                    <rect key="frame" x="184" y="520" width="99" height="26"/>
+                    <rect key="frame" x="175" y="520" width="108" height="26"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="right" placeholderString="" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="dsx-jB-bOA">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1354,7 +1355,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PAC-TA-HSd">
-                    <rect key="frame" x="184" y="697" width="96" height="22"/>
+                    <rect key="frame" x="175" y="697" width="105" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="vYi-6B-bOy">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="8rc-Dr-aEH">
                             <real key="minimum" value="0.0"/>
@@ -1368,7 +1369,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-dp-a9X">
-                    <rect key="frame" x="107" y="700" width="69" height="17"/>
+                    <rect key="frame" x="100" y="699" width="69" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start Time" id="bCA-og-U0G">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1376,7 +1377,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ne-5m-cHb">
-                    <rect key="frame" x="184" y="667" width="96" height="22"/>
+                    <rect key="frame" x="175" y="667" width="105" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8Ce-a5-tQL">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1388,7 +1389,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mgc-XN-0XJ">
-                    <rect key="frame" x="107" y="670" width="69" height="17"/>
+                    <rect key="frame" x="100" y="669" width="69" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="End Time" id="7s1-KS-xzo">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1408,7 +1409,7 @@
                     <font key="titleFont" metaFont="system"/>
                 </box>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mYo-3m-ujk">
-                    <rect key="frame" x="184" y="491" width="96" height="22"/>
+                    <rect key="frame" x="175" y="491" width="105" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jmc-7t-obv">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1420,7 +1421,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jol-4X-hE7">
-                    <rect key="frame" x="107" y="494" width="69" height="17"/>
+                    <rect key="frame" x="100" y="494" width="69" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start Time" id="OJB-Mf-jV3">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1428,7 +1429,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kdh-eB-WOi">
-                    <rect key="frame" x="184" y="461" width="96" height="22"/>
+                    <rect key="frame" x="175" y="461" width="105" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="WgX-nf-9Um">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1440,7 +1441,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYj-dx-PzW">
-                    <rect key="frame" x="107" y="464" width="69" height="17"/>
+                    <rect key="frame" x="100" y="464" width="69" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="End Time" id="qcA-jP-Vdj">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1448,7 +1449,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hY6-qD-FoW">
-                    <rect key="frame" x="183" y="635" width="100" height="26"/>
+                    <rect key="frame" x="173" y="635" width="110" height="26"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="gju-Ed-Msk">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -1465,7 +1466,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CM1-aV-4R6">
-                    <rect key="frame" x="60" y="640" width="114" height="17"/>
+                    <rect key="frame" x="55" y="639" width="114" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Time Scale Factor" id="WvM-ic-Zkh">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1473,7 +1474,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JTb-9J-uc3">
-                    <rect key="frame" x="60" y="434" width="114" height="17"/>
+                    <rect key="frame" x="53" y="434" width="114" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Time Scale Factor" id="B8X-mW-8CK">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1481,7 +1482,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bjl-gv-Eua">
-                    <rect key="frame" x="184" y="604" width="99" height="26"/>
+                    <rect key="frame" x="175" y="604" width="108" height="26"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="OdE-fn-8oQ">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1493,7 +1494,7 @@
                     </connections>
                 </comboBox>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jyr-Kf-nFF">
-                    <rect key="frame" x="72" y="610" width="101" height="17"/>
+                    <rect key="frame" x="68" y="609" width="101" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Anchor Point ID" id="cQQ-7N-yD8">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1501,7 +1502,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vqU-de-agG">
-                    <rect key="frame" x="184" y="577" width="96" height="22"/>
+                    <rect key="frame" x="175" y="577" width="105" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="3gb-Hn-rJ1">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1513,7 +1514,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-G2-lvU">
-                    <rect key="frame" x="60" y="580" width="116" height="17"/>
+                    <rect key="frame" x="53" y="579" width="116" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Visualization Time" id="oBW-Lp-w97">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1521,7 +1522,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RhD-Oe-zwe">
-                    <rect key="frame" x="184" y="397" width="99" height="26"/>
+                    <rect key="frame" x="175" y="397" width="108" height="26"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" usesDataSource="YES" numberOfVisibleItems="5" id="EdO-xZ-6St">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1533,7 +1534,7 @@
                     </connections>
                 </comboBox>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pxg-AO-bsy">
-                    <rect key="frame" x="72" y="403" width="101" height="17"/>
+                    <rect key="frame" x="65" y="403" width="101" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Anchor Point ID" id="5Tt-oW-yHi">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1541,7 +1542,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dD1-8d-f1U">
-                    <rect key="frame" x="184" y="370" width="96" height="22"/>
+                    <rect key="frame" x="175" y="370" width="105" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="CQH-Gf-Nu2">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1553,7 +1554,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2bU-Wy-NGy">
-                    <rect key="frame" x="60" y="373" width="116" height="17"/>
+                    <rect key="frame" x="53" y="373" width="116" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Simulation Time" id="6j2-dg-5lT">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1569,7 +1570,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eMj-ph-zEo">
-                    <rect key="frame" x="183" y="427" width="100" height="26"/>
+                    <rect key="frame" x="173" y="427" width="110" height="26"/>
                     <popUpButtonCell key="cell" type="push" title="200 pixels" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ZdP-l4-Wfu" id="P9h-qH-nvj">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -1587,14 +1588,24 @@
                 </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="snh-Pn-4kt">
                     <rect key="frame" x="18" y="336" width="122" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preview" id="rAc-oF-1iD">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Output" id="rAc-oF-1iD">
                         <font key="font" metaFont="smallSystemBold"/>
                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ZZ-LO-r06">
+                    <rect key="frame" x="187" y="248" width="95" height="82"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSShareTemplate" imagePosition="only" alignment="center" alternateImage="NSStopProgressTemplate" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="O8D-yQ-9We">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="saveSimulation:" target="MQD-S1-4A0" id="jbu-ME-mfq"/>
+                    </connections>
+                </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kJ7-4w-0u7">
-                    <rect key="frame" x="94" y="248" width="95" height="82"/>
+                    <rect key="frame" x="74" y="248" width="95" height="82"/>
                     <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSQuickLookTemplate" imagePosition="only" alignment="center" alternateImage="NSStopProgressTemplate" borderStyle="border" imageScaling="proportionallyUpOrDown" inset="2" id="GQg-pC-vqR">
                         <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -1614,6 +1625,7 @@
         <image name="NSIconViewTemplate" width="11" height="10"/>
         <image name="NSMenuMixedStateTemplate" width="10" height="3"/>
         <image name="NSQuickLookTemplate" width="21" height="16"/>
+        <image name="NSShareTemplate" width="18" height="16"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
     </resources>
 </document>
