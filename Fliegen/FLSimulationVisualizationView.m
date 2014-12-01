@@ -40,7 +40,8 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     NSMutableArray *_simulationTicks;
     NSMutableDictionary *_simulationTickLabels;
     
-    
+    NSAttributedString *_visualizationHeader;
+    NSAttributedString *_simulationHeader;
     
     BOOL _isInThreeMethodApproach;
     FLSimVizViewSelectionType _selectionType;
@@ -56,6 +57,12 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     
     _isInThreeMethodApproach = NO;
     _selectionType = FLSimVizViewSelectionTypeNone;
+    
+    NSFont *font = [NSFont systemFontOfSize:20];
+    _visualizationHeader = [[NSAttributedString alloc] initWithString:@"Visualization Stream"
+                                                           attributes:[NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName]];
+    _simulationHeader = [[NSAttributedString alloc] initWithString:@"Simulation Stream"
+                                                        attributes:[NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName]];
     
     return self;
 }
@@ -216,6 +223,11 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
         [anchorPoint stroke];
     }];
     
+    if(simulator.visualizationStream != nil)
+    {
+        double yPos = (NSHeight(self.frame) - FL_SIMULATION_VISUALIZATION_HEIGHT - 200 - _visualizationHeader.size.height) / 2;
+        [_visualizationHeader drawAtPoint:NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER, yPos)];
+    }
     [simulator.simulationStream.streamVisualColor set];
     [_simulationLine stroke];
     
@@ -241,6 +253,12 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
         [anchorPoint fill];
         [anchorPoint stroke];
     }];
+    
+    if(simulator.simulationStream != nil)
+    {
+        double headerHeight = (NSHeight(self.frame) + FL_SIMULATION_VISUALIZATION_HEIGHT + 200) / 2;
+        [_simulationHeader drawAtPoint:NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER, headerHeight)];
+    }
 }
 
 #pragma mark - Public
