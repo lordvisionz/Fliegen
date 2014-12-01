@@ -146,7 +146,47 @@ NSString *const FLSimulationStreamPropertyChangedNotification = @"FLSimulationSt
 
 -(NSString *)parseCurrentSimulation
 {
-    return @"TEMP FILE\n\n HELLO";
+    if(_visualizationStream == nil || _simulationStream == nil) return @"";
+    
+    NSMutableString *output = [NSMutableString new];
+    NSUInteger visualizationPoints = _visualizationStream.anchorPointsCollection.anchorPoints.count;
+    NSUInteger simulationPoints = _simulationStream.anchorPointsCollection.anchorPoints.count;
+    NSUInteger totalPoints = MIN(visualizationPoints, simulationPoints);
+    
+    double totalVisualizationTime = [[_visualizationStream.anchorPointsCollection anchorPointForId:totalPoints] sampleTime] * 1000;
+    double fps = 24.0;
+    NSString *visualizationStreamInterpolator = (_visualizationStream.streamInterpolationType == FLStreamInterpolationTypeBSplines)
+    ? @"B-Splines" : @"Linear";
+    NSString *simulationStreamInterpolator = (_simulationStream.streamInterpolationType == FLStreamInterpolationTypeBSplines)
+    ? @"B-Splines" : @"Linear";
+    
+    [output appendFormat:@"length %f",totalVisualizationTime];
+    [output appendString:@"\n\n"];
+    [output appendFormat:@"fps %f", fps];
+    [output appendString:@"\n\n"];
+    [output appendString:@"stream simulationTime {\n\tname \"simulationTime\"\n\ttype double\n\tinterpolator Linear\n}"];
+    [output appendString:@"\n\n"];
+    [output appendFormat:@"stream cameraPosition {\n\tname \"cameraPosition\"\n\ttype vector\n\tinterpolator %@\n}",visualizationStreamInterpolator];
+    [output appendString:@"\n\n"];
+    [output appendFormat:@"stream lookAt {\n\tname \"lookAt\"\n\ttype vector\n\tinterpolator %@\n}",simulationStreamInterpolator];
+    [output appendString:@"\n\n"];
+    
+    for(NSUInteger i = 0; i < totalPoints; i++)
+    {
+        id<FLAnchorPointProtocol> visualizationAnchorPoint = [_visualizationStream.anchorPointsCollection anchorPointForIndex:i];
+        id<FLAnchorPointProtocol> simulationAnchorPoint = [_simulationStream.anchorPointsCollection anchorPointForIndex:i];
+        
+        double visualizationTime = [visualizationAnchorPoint sampleTime] * 1000;
+        double simulationTime = [simulationAnchorPoint sampleTime] * 1000;
+        SCNVector3 cameraPosition = visualizationAnchorPoint.position;
+        SCNVector3 lookAt = simulationAnchorPoint.position;
+        
+        [output appendFormat:@"time %f {\n\tcameraPosition(%f, %f, %f)\n\tlookAt(%f, %f, %f)\n\tsimulationTime %f\n}", visualizationTime,
+         cameraPosition.x, cameraPosition.y, cameraPosition.z, lookAt.x, lookAt.y, lookAt.z, simulationTime];
+        [output appendString:@"\n\n"];
+    }
+    
+    return output;
 }
 
 @end
