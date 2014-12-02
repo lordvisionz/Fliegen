@@ -21,7 +21,7 @@
 {
     self = [super init];
     _model = [[FLModel alloc] init];
-    
+    NSLog(@"temp");
     return self;
 }
 
