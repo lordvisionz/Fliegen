@@ -21,7 +21,9 @@
     self = [super init];
     
     _stream = stream;
-    _sampleTime = [[_stream anchorPointsCollection] anchorPoints].count;
+    id<FLAnchorPointProtocol> lastAnchorPoint = [stream.anchorPointsCollection.anchorPoints lastObject];
+    _sampleTime = (lastAnchorPoint == nil) ? 0 : lastAnchorPoint.sampleTime + 1;
+    
     return self;
 }
 
