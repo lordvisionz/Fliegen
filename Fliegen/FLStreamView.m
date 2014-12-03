@@ -73,6 +73,9 @@
 
 -(void)anchorPointWasAdded:(NSNotification*)notification
 {
+    id<FLStreamProtocol> anchorPointStream = notification.object;
+    if(anchorPointStream != _stream) return;
+    
     [self recomputeInterpolationCurve];
     NSObject<FLAnchorPointProtocol> *anchorPoint = [_stream.anchorPointsCollection selectedAnchorPoint];
     
@@ -81,6 +84,9 @@
 
 -(void)anchorPointWasDeleted:(NSNotification*)notification
 {
+    id<FLStreamProtocol> anchorPointStream = notification.object;
+    if(anchorPointStream != _stream) return;
+    
     [self recomputeInterpolationCurve];
     NSDictionary *userInfo = notification.userInfo;
     FLAnchorPoint *deletedAnchorPoint = [userInfo objectForKey:NSStringFromClass([FLAnchorPoint class])];

@@ -55,7 +55,7 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
     anchorPoint.anchorPointID = _anchorPoints.count;
     self.selectedAnchorPoint = anchorPoint;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointAddedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointAddedNotification object:self.stream];
 }
 
 -(BOOL)deleteSelectedAnchorPoint
@@ -76,7 +76,7 @@ NSString *const FLAnchorPointSelectionChangedNotification = @"FLAnchorPointSelec
         }
     }];
     NSDictionary *userInfo = [[NSDictionary alloc]initWithObjectsAndKeys:oldAnchorPoint, NSStringFromClass([FLAnchorPoint class]), nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointDeletedNotification object:nil userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FLAnchorPointDeletedNotification object:self.stream userInfo:userInfo];
     return YES;
 }
 

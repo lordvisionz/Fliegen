@@ -1602,6 +1602,20 @@
                     </buttonCell>
                     <connections>
                         <action selector="saveSimulation:" target="MQD-S1-4A0" id="jbu-ME-mfq"/>
+                        <binding destination="i3n-kY-zXf" name="enabled2" keyPath="self.model.simulator.simulationStream" previousBinding="YRk-6X-EAi" id="kIR-w3-Pzo">
+                            <dictionary key="options">
+                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                <integer key="NSNullPlaceholder" value="-1"/>
+                                <string key="NSValueTransformerName">NSIsNotNil</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="i3n-kY-zXf" name="enabled" keyPath="self.model.simulator.visualizationStream" id="YRk-6X-EAi">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSIsNotNil</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kJ7-4w-0u7">
@@ -1612,6 +1626,20 @@
                     </buttonCell>
                     <connections>
                         <action selector="togglePreview:" target="MQD-S1-4A0" id="maE-zV-cEi"/>
+                        <binding destination="i3n-kY-zXf" name="enabled2" keyPath="self.model.simulator.simulationStream" previousBinding="FMD-eI-UtQ" id="3Ol-63-Dk8">
+                            <dictionary key="options">
+                                <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                <integer key="NSNullPlaceholder" value="-1"/>
+                                <string key="NSValueTransformerName">NSIsNotNil</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="i3n-kY-zXf" name="enabled" keyPath="self.model.simulator.visualizationStream" id="FMD-eI-UtQ">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSIsNotNil</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </button>
             </subviews>
