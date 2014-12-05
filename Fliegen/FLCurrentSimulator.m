@@ -18,24 +18,16 @@ NSString *const FLSimulationStreamPropertyChangedNotification = @"FLSimulationSt
 @implementation FLCurrentSimulator
 
 @synthesize visualizationStream = _visualizationStream;
-@synthesize visualizationStartTime = _visualizationStartTime;
-@synthesize visualizationEndTime = _visualizationEndTime;
 @synthesize selectedVisualizationAnchorPoint = _selectedVisualizationAnchorPoint;
 
 @synthesize simulationStream = _simulationStream;
-@synthesize simulationStartTime = _simulationStartTime;
-@synthesize simulationEndTime = _simulationEndTime;
 @synthesize selectedSimulationAnchorPoint = _selectedSimulationAnchorPoint;
 
 -(id)init
 {
     self = [super init];
-    _visualizationStartTime = FL_VISUALIZATION_START_TIME_DEFAULT;
-    _visualizationEndTime = _visualizationStartTime + FL_MIN_VISUALIZATION_TIME_DURATION;
+
     _selectedVisualizationAnchorPoint = nil;
-    
-    _simulationStartTime = FL_SIMULATION_START_TIME_DEFAULT;
-    _simulationEndTime = _simulationStartTime + FL_MIN_SIMULATION_TIME_DURATION;
     _selectedSimulationAnchorPoint = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(simulatorPropertiesChanged:)

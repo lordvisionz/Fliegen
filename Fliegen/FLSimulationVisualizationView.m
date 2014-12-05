@@ -278,8 +278,8 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     
     double yOrigin = NSHeight(self.frame) / 2 - FL_SIMULATION_VISUALIZATION_HEIGHT / 2;
     
-    NSUInteger startTime = simulator.visualizationStartTime;
-    NSUInteger endTime = ceil(simulator.visualizationEndTime);
+    NSUInteger startTime = 0;
+    NSUInteger endTime = 360;
     double pixelsPerSecond = FLEditorScaleFactorToPixels(FLVisualizationSimulationScaleFactor100Pixels);
     
     NSPoint startPoint = NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER , yOrigin);
@@ -347,8 +347,8 @@ typedef NS_ENUM(unsigned short, FLSimVizViewSelectionType)
     
     double yOrigin = NSHeight(self.frame)/2 + FL_SIMULATION_VISUALIZATION_HEIGHT/2;
     
-    NSUInteger startTime = simulator.simulationStartTime;
-    NSUInteger endTime = ceil(simulator.simulationEndTime);
+    NSUInteger startTime = 0;
+    NSUInteger endTime = 360;
     double pixelsPerSecond = FLEditorScaleFactorToPixels(FLVisualizationSimulationScaleFactor100Pixels);
     
     NSPoint startPoint = NSMakePoint(FL_SIMULATION_VISUALIZATION_BORDER, yOrigin);

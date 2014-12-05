@@ -840,17 +840,17 @@
                 <outlet property="cameraPOVButton" destination="kJ7-4w-0u7" id="yCP-4j-SAs"/>
                 <outlet property="saveButton" destination="7ZZ-LO-r06" id="mDm-DZ-gWg"/>
                 <outlet property="simulationAnchorPointTimeTextField" destination="dD1-8d-f1U" id="nxY-It-xg2"/>
-                <outlet property="simulationEndTimeTextField" destination="kdh-eB-WOi" id="fng-Bk-zpy"/>
+                <outlet property="simulationEndTimeTextField" destination="10Q-c3-Bzy" id="jGA-6U-EX7"/>
                 <outlet property="simulationScaleFactorButton" destination="eMj-ph-zEo" id="ege-9c-XyT"/>
                 <outlet property="simulationSelectedAnchorPointComboBox" destination="RhD-Oe-zwe" id="L5c-Va-gld"/>
-                <outlet property="simulationStartTimeTextField" destination="mYo-3m-ujk" id="Cdj-wz-fjH"/>
+                <outlet property="simulationStartTimeTextField" destination="eQB-M6-6Ey" id="ABG-p8-qSB"/>
                 <outlet property="simulationStreamComboBox" destination="oqK-ex-dfs" id="gBL-a7-rQ7"/>
                 <outlet property="utilityPaneController" destination="Ld4-kg-GYh" id="XsA-8C-kRG"/>
                 <outlet property="view" destination="1rR-fg-eS9" id="NXj-aI-G3g"/>
                 <outlet property="visualizationAnchorPointTimeTextField" destination="vqU-de-agG" id="erE-ih-7mw"/>
-                <outlet property="visualizationEndTimeTextField" destination="5Ne-5m-cHb" id="lp3-gK-0P3"/>
+                <outlet property="visualizationEndTimeTextField" destination="Exb-OX-YTR" id="t49-sq-ThF"/>
                 <outlet property="visualizationScaleFactorButton" destination="hY6-qD-FoW" id="Tjl-cZ-etH"/>
-                <outlet property="visualizationStartTimeTextField" destination="PAC-TA-HSd" id="ada-rK-4zd"/>
+                <outlet property="visualizationStartTimeTextField" destination="Usn-xa-X5L" id="AUt-le-JAJ"/>
                 <outlet property="visualizationStreamComboBox" destination="Mvu-N1-6wi" id="cbp-5W-YrI"/>
                 <outlet property="visualizationStreamSelectedAnchorPointComboBox" destination="bjl-gv-Eua" id="daN-aT-IU8"/>
             </connections>
@@ -867,7 +867,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1bq-cx-ZNJ">
-                    <rect key="frame" x="164" y="729" width="118" height="18"/>
+                    <rect key="frame" x="164" y="744" width="118" height="18"/>
                     <buttonCell key="cell" type="check" title="Viewport Axes" bezelStyle="regularSquare" imagePosition="left" alignment="right" inset="2" id="zQ4-fK-wBP">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -877,7 +877,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IDL-lf-gRx">
-                    <rect key="frame" x="164" y="703" width="118" height="18"/>
+                    <rect key="frame" x="164" y="718" width="118" height="18"/>
                     <buttonCell key="cell" type="check" title="Gridlines" bezelStyle="regularSquare" imagePosition="left" alignment="right" state="on" inset="2" id="ugL-e0-d7V">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -887,7 +887,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cjB-58-77g">
-                    <rect key="frame" x="18" y="728" width="38" height="17"/>
+                    <rect key="frame" x="18" y="743" width="38" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Show" id="TMF-ch-t4t">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1354,20 +1354,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PAC-TA-HSd">
-                    <rect key="frame" x="175" y="697" width="105" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="vYi-6B-bOy">
-                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="309" maximumFractionDigits="3" id="8rc-Dr-aEH">
-                            <real key="minimum" value="0.0"/>
-                        </numberFormatter>
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="i3n-kY-zXf" name="value" keyPath="self.model.simulator.visualizationStartTime" id="Ld1-YF-bZi"/>
-                    </connections>
-                </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Leg-dp-a9X">
                     <rect key="frame" x="100" y="699" width="69" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start Time" id="bCA-og-U0G">
@@ -1375,18 +1361,6 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ne-5m-cHb">
-                    <rect key="frame" x="175" y="667" width="105" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="8Ce-a5-tQL">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="i3n-kY-zXf" name="value" keyPath="self.model.simulator.visualizationEndTime" id="8kV-m9-KrA"/>
-                        <outlet property="formatter" destination="T85-2t-1Lf" id="LGW-Wk-7sf"/>
-                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mgc-XN-0XJ">
                     <rect key="frame" x="100" y="669" width="69" height="17"/>
@@ -1408,18 +1382,6 @@
                     <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <font key="titleFont" metaFont="system"/>
                 </box>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mYo-3m-ujk">
-                    <rect key="frame" x="175" y="491" width="105" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="jmc-7t-obv">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="i3n-kY-zXf" name="value" keyPath="self.model.simulator.simulationStartTime" id="6oY-Ll-CV1"/>
-                        <outlet property="formatter" destination="T85-2t-1Lf" id="KuO-1F-LTS"/>
-                    </connections>
-                </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jol-4X-hE7">
                     <rect key="frame" x="100" y="494" width="69" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start Time" id="OJB-Mf-jV3">
@@ -1427,18 +1389,6 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kdh-eB-WOi">
-                    <rect key="frame" x="175" y="461" width="105" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="WgX-nf-9Um">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="i3n-kY-zXf" name="value" keyPath="self.model.simulator.simulationEndTime" id="Tcg-pn-7VP"/>
-                        <outlet property="formatter" destination="T85-2t-1Lf" id="FUx-qk-akO"/>
-                    </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYj-dx-PzW">
                     <rect key="frame" x="100" y="464" width="69" height="17"/>
@@ -1642,6 +1592,50 @@
                         </binding>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Usn-xa-X5L">
+                    <rect key="frame" x="173" y="699" width="107" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="n0e-Zd-GyL">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="formatter" destination="T85-2t-1Lf" id="pcr-Co-Rry"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Exb-OX-YTR">
+                    <rect key="frame" x="173" y="674" width="107" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="ekL-uu-jdX">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="formatter" destination="T85-2t-1Lf" id="JXZ-Y2-9A5"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eQB-M6-6Ey">
+                    <rect key="frame" x="175" y="489" width="107" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="Lnz-ii-IWJ">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="formatter" destination="T85-2t-1Lf" id="O97-et-PYh"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10Q-c3-Bzy">
+                    <rect key="frame" x="175" y="464" width="107" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0" id="bg2-Rn-Gyw">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="formatter" destination="T85-2t-1Lf" id="9os-35-sDx"/>
+                    </connections>
+                </textField>
             </subviews>
         </customView>
     </objects>

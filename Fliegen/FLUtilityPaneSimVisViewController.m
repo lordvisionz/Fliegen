@@ -82,6 +82,8 @@
         currentSimulator.visualizationStream = nil;
     }
     _visualizationAnchorPointTimeTextField.doubleValue = currentSimulator.selectedVisualizationAnchorPoint.sampleTime;
+    [self recomputeVisStartAndEndTimes];
+    
 }
 
 -(void)simulationpropertiesChanged:(NSNotification*)notification
@@ -97,6 +99,7 @@
         currentSimulator.simulationStream = nil;
     }
     _simulationAnchorPointTimeTextField.doubleValue = currentSimulator.selectedSimulationAnchorPoint.sampleTime;
+    [self recomputeSimStartAndEndTime];
 }
 
 #pragma mark - Combobox delegate/datasource
@@ -280,6 +283,35 @@
     
     [_simulationStreamComboBox selectItemAtIndex:(_simulationStreamComboBox.numberOfItems > 1) ? 1 : 0];
     [_visualizationStreamComboBox selectItemAtIndex:(_visualizationStreamComboBox.numberOfItems > 1) ? 1 : 0];
+    
+    [self recomputeVisStartAndEndTimes];
+    [self recomputeSimStartAndEndTime];
+}
+
+#pragma mark - Private Helpers
+
+-(void)recomputeVisStartAndEndTimes
+{
+    id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
+    id<FLAnchorPointsCollectionProtocol> anchorPoints = simulator.visualizationStream.anchorPointsCollection;
+    
+    double minTime = [[anchorPoints anchorPointForId:1] sampleTime];
+    double maxTime = [[anchorPoints anchorPointForId:anchorPoints.anchorPoints.count] sampleTime];
+    
+    _visualizationStartTimeTextField.doubleValue = minTime;
+    _visualizationEndTimeTextField.doubleValue = maxTime;
+}
+
+-(void)recomputeSimStartAndEndTime
+{
+    id<FLCurrentSimulatorProtocol> simulator = _utilityPaneController.appFrameController.model.simulator;
+    id<FLAnchorPointsCollectionProtocol> anchorPoints = simulator.simulationStream.anchorPointsCollection;
+    
+    double minTime = [[anchorPoints anchorPointForId:1] sampleTime];
+    double maxTime = [[anchorPoints anchorPointForId:anchorPoints.anchorPoints.count] sampleTime];
+    
+    _simulationStartTimeTextField.doubleValue = minTime;
+    _simulationEndTimeTextField.doubleValue = maxTime;
 }
 
 @end
